@@ -14,25 +14,25 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en">
       <body
-        className={`${inter.variable} antialiased min-h-screen`}
-        suppressHydrationWarning
+          className={`${inter.variable} antialiased min-h-screen`}
+          suppressHydrationWarning
       >
-        <ThemeProvider
+      <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem
           disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+      >
+        {children}
+      </ThemeProvider>
       </body>
-    </html>
+      </html>
   );
 }

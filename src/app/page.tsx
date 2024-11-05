@@ -1,5 +1,9 @@
-import Image from "next/image";
+import ThemeToggle from "@/components/themeToggle";
 
 export default function Home() {
-  return <div>Hello world</div>;
+    return (
+        <div>
+            <ThemeToggle />
+        </div>
+    );
 }
