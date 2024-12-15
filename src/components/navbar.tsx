@@ -1,13 +1,11 @@
 "use client";
 
-import {MessageCircleQuestion, ShoppingBag, SquareMenu, Truck, User,} from "lucide-react";
+import {MessageCircleQuestion, ShoppingBag, SquareMenu, Truck, User} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import {motion} from "framer-motion";
 
-type Props = {};
-
-const Navbar = async (props: Props) => {
+const Navbar = (): JSX.Element => {
     return (
         <div className="inset-x-0 top-0 z-0 h-fit py-6">
             <div className="flex items-center justify-between h-full gap-2 container">

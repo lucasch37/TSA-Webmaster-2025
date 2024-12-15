@@ -5,13 +5,13 @@ import {Marquee} from "@/components/ui/marquee";
 import {MenuSquare} from "lucide-react";
 import {motion} from "framer-motion";
 
-export default function Home() {
+export default function Home(): JSX.Element {
     return (
         <div className="flex flex-col">
             <Navbar/>
             <div>
                 <div className="container grid grid-cols-5 mt-2">
-                    <div className="flex flex-col mt-32 col-span-3">
+                    <div className="flex flex-col justify-center col-span-3">
                         <motion.div
                             initial={{opacity: 0, scale: 0.9}}
                             animate={{opacity: 1, scale: 1}}
@@ -25,7 +25,7 @@ export default function Home() {
                                             <img
                                                 src="/small-dot.svg"
                                                 alt=""
-                                                className="rotate-45 rounded-full overflow-hidden w-[5rem] h-[5rem]"
+                                                className="rotate-45 rounded-full overflow-hidden w-[5rem] h-[5rem] pointer-events-none"
                                             />
                                         </div>
                                         {" "}
@@ -38,10 +38,9 @@ export default function Home() {
                                     animate={{opacity: 1, scale: 1}}
                                     transition={{type: "spring", stiffness: 80, delay: 0.15}}
                                     className="text-primary text-lg font-medium max-w-lg mt-4">
-                            Experience Asian cuisine with our beautifully
-                            crafted restaurant website. From mouth-watering
-                            menus to photo galleries, we show the essence of
-                            Asian flavors.
+                            Experience Asian cuisine with our beautifully crafted
+                            restaurant website. From mouth-watering menus to photo
+                            galleries, we show the essence of Asian flavors.
                         </motion.div>
                         <motion.div initial={{opacity: 0, scale: 0.9}}
                                     animate={{opacity: 1, scale: 1}}
@@ -50,7 +49,7 @@ export default function Home() {
                             <button
                                 className="bg-primary hover:bg-green-800 transition ease-in-out duraiton-300 text-white py-4 px-8 rounded-full flex gap-3 items-center">
                                 <MenuSquare/>
-                                View Our Menu
+                                Explore Our Menu
                             </button>
                         </motion.div>
                     </div>

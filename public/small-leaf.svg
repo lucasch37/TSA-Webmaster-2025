@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M50 10 
+           C30 40, 20 70, 50 90 
+           C80 70, 70 40, 50 10" 
+        fill="#2ecc71" 
+        stroke="#27ae60" 
+        stroke-width="3"/>
+  
+  <!-- Central vein -->
+  <path d="M50 10 Q50 50, 50 90" 
+        fill="none" 
+        stroke="#27ae60" 
+        stroke-width="2"/>
+  
+  <!-- Curved side veins (more constrained) -->
+  <path d="M50 25 Q47 35, 44 45" 
+        fill="none" 
+        stroke="#27ae60" 
+        stroke-width="1.5"/>
+  <path d="M50 25 Q53 35, 56 45" 
+        fill="none" 
+        stroke="#27ae60" 
+        stroke-width="1.5"/>
+  
+  <path d="M50 50 Q47 60, 44 70" 
+        fill="none" 
+        stroke="#27ae60" 
+        stroke-width="1.5"/>
+  <path d="M50 50 Q53 60, 56 70" 
+        fill="none" 
+        stroke="#27ae60" 
+        stroke-width="1.5"/>
+</svg>
