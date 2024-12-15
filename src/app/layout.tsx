@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Inter } from "next/font/google";
+import {ThemeProvider} from "@/components/theme-provider";
+import {Inter} from "next/font/google";
 import localFont from "next/font/local";
-import { CursorEffects } from "@/components/ui/cursor-effects";
+import {CursorEffects} from "@/components/ui/cursor-effects";
 
 const inter = Inter({
     subsets: ["latin"],

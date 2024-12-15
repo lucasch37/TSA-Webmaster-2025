@@ -1,10 +1,4 @@
-import {
-    MessageCircleQuestion,
-    ShoppingBag,
-    SquareMenu,
-    Truck,
-    User,
-} from "lucide-react";
+import {MessageCircleQuestion, ShoppingBag, SquareMenu, Truck, User} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 

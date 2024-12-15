@@ -1,0 +1,82 @@
+import typescript from "@typescript-eslint/eslint-plugin";
+import typescriptParser from "@typescript-eslint/parser"; // Import the parser
+import spellcheck from "eslint-plugin-spellcheck";
+import sonarjs from "eslint-plugin-sonarjs";
+import noSecrets from "eslint-plugin-no-secrets";
+import prettier from "eslint-plugin-prettier";
+
+export default [
+    {
+        files: ["**/*.ts", "**/*.tsx"],
+        plugins: {
+            "@typescript-eslint": typescript,
+            spellcheck: spellcheck,
+            sonarjs: sonarjs,
+            "no-secrets": noSecrets,
+            prettier: prettier
+        },
+        languageOptions: {
+            parser: typescriptParser, // Use the imported parser here
+            ecmaVersion: 2020,
+            sourceType: "module",
+        },
+        rules: {
+            "@typescript-eslint/no-explicit-any": "error",
+            "@typescript-eslint/explicit-function-return-type": "error",
+            "@typescript-eslint/no-unused-vars": ["warn", {argsIgnorePattern: "^_"}],
+            "no-unused-vars": ["warn", {argsIgnorePattern: "^_"}],
+            "@typescript-eslint/no-non-null-assertion": "error",
+            "eqeqeq": "error",
+            // "no-console": "warn",
+            "no-constant-condition": "error",
+            "curly": "error",
+            "no-eval": "error",
+            "no-implied-eval": "error",
+            "no-redeclare": "error",
+            "no-tabs": ["error", {allowIndentationTabs: true}],
+            "indent": ["error", 4, {SwitchCase: 1}],
+            "quotes": ["error", "double"],
+            "semi": ["error", "always"],
+            "callback-return": "warn",
+            "handle-callback-err": "error",
+            "no-path-concat": "error",
+            "no-secrets/no-secrets": "error",
+            "spellcheck/spell-checker":
+                [
+                    0,
+                    {
+                        comments: true,
+                        strings: true,
+                        identifiers: true,
+                        templates: true,
+                        lang: "en_US",
+                        skipWords: [
+                            "mongodb", "morgan", "cors", "dict", "middlewares", "namespace",
+                            "Signin", "enum", "Dija", "req", "res", "utils", "uid", "Firebase", "Autogen",
+                            "localhost", "schemas", "Jsdoc", "openapi", "apis", "uid", "undef", "contentid",
+                            "addstags", "graphql", "urql", "graphqlclient", "hygraph", "hygraphclient",
+                            "onboarded", "renderer", "persistor", "pollid", "answerid", "Onboarding",
+                            "Onboardings", "onboarded", "verifyWebhookSignature", "gcms-signature",
+                            "webhook", "Webhook", "gcms", "pubsub", "behaviourchange", "freeform",
+                            "unpublish", "localizations", "utf8", "userstats", "cond", "unix", "dotenv",
+                            "hmac", "supabase", "axios"
+                        ],
+                        skipIfMatch: ["http://[^s]*", "^[-\\\\w]+/[-\\\\w\\\\.]+$", "__*"],
+                        minLength: 4,
+                    }
+                ],
+            "prettier/prettier": [
+                "error",
+                {
+                    printWidth: 90,
+                    tabWidth: 4,
+                    useTabs: false,
+                    trailingComma: "all",
+                    semi: true,
+                    bracketSpacing: false,
+                }
+            ],
+        },
+        ignores: ["dist/", "node_modules/", "coverage/", "build/"],
+    }
+];

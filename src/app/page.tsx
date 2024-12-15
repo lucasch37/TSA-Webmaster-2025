@@ -1,9 +1,9 @@
 import Navbar from "@/components/navbar";
-import { Marquee } from "@/components/ui/marquee";
-import { MenuSquare } from "lucide-react";
-import Image from "next/image";
+import {Marquee} from "@/components/ui/marquee";
+import {MenuSquare} from "lucide-react";
+import {JSX} from "react";
 
-export default function Home() {
+export default function Home(): JSX.Element {
     return (
         <div className="flex flex-col">
             <Navbar />
@@ -22,10 +22,9 @@ export default function Home() {
                             FINEST FLAVORS
                         </div>
                         <div className="text-primary text-lg font-medium max-w-lg mt-4">
-                            Experience Asian cuisine with our beautifully
-                            crafted restaurant website. From mouth-watering
-                            menus to photo galleries, we show the essence of
-                            Asian flavors.
+                            Experience Asian cuisine with our beautifully crafted
+                            restaurant website. From mouth-watering menus to photo
+                            galleries, we show the essence of Asian flavors.
                         </div>
                         <div className="mt-8">
                             <button className="bg-primary text-white py-4 px-8 rounded-full flex gap-3 items-center">
