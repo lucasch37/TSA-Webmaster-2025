@@ -15,21 +15,21 @@ interface Particle extends Position {
     createdAt: number;
 }
 
-export function CursorEffects() {
-    const [position, setPosition] = useState<Position>({x: 0, y: 0});
+export function CursorEffects(): JSX.Element {
+    // const [position, setPosition] = useState<Position>({x: 0, y: 0});
     const [particles, setParticles] = useState<Particle[]>([]);
     const [counter, setCounter] = useState(0);
     const [lastSpawn, setLastSpawn] = useState(0);
     const [lastPosition, setLastPosition] = useState<Position>({x: 0, y: 0});
 
-    const getDistance = (pos1: Position, pos2: Position) => {
+    const getDistance = (pos1: Position, pos2: Position): number => {
         return Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2));
     };
 
     useEffect(() => {
-        const updatePosition = (e: MouseEvent) => {
+        const updatePosition = (e: MouseEvent): void => {
             const currentPosition = {x: e.pageX, y: e.pageY};
-            setPosition(currentPosition);
+            // setPosition(currentPosition);
 
             const now = Date.now();
             const minDistance = 40;
@@ -57,7 +57,7 @@ export function CursorEffects() {
 
         window.addEventListener("mousemove", updatePosition);
 
-        return () => window.removeEventListener("mousemove", updatePosition);
+        return (): void => window.removeEventListener("mousemove", updatePosition);
     }, [counter, lastSpawn, lastPosition]);
 
     useEffect(() => {
@@ -78,7 +78,7 @@ export function CursorEffects() {
             );
         }, 16);
 
-        return () => {
+        return (): void => {
             clearInterval(interval);
             setParticles([]);
         };

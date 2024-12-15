@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar";
 import {Marquee} from "@/components/ui/marquee";
 import {MenuSquare} from "lucide-react";
-import {JSX} from "react";
 
 export default function Home(): JSX.Element {
     return (
@@ -9,14 +8,14 @@ export default function Home(): JSX.Element {
             <Navbar />
             <div>
                 <div className="container grid grid-cols-5 mt-2">
-                    <div className="flex flex-col mt-32 col-span-3">
+                    <div className="flex flex-col justify-center col-span-3">
                         <div className="text-8xl 2xl:text-[5.5rem] lg:text-[4.5rem] font-bold leading-tight text-primary tracking-tighter">
                             <div className="flex gap-8 items-center">
                                 NATURE'S{" "}
                                 <img
                                     src="/small-dot.svg"
                                     alt=""
-                                    className="rotate-45 w-[5rem] h-[5rem]"
+                                    className="rotate-45 w-[5rem] h-[5rem] pointer-events-none"
                                 />
                             </div>{" "}
                             FINEST FLAVORS
@@ -29,7 +28,7 @@ export default function Home(): JSX.Element {
                         <div className="mt-8">
                             <button className="bg-primary text-white py-4 px-8 rounded-full flex gap-3 items-center">
                                 <MenuSquare />
-                                View Our Menu
+                                Explore Our Menu
                             </button>
                         </div>
                     </div>
