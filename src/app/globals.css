@@ -40,6 +40,7 @@ body {
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
     }
+
     .dark {
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
@@ -72,6 +73,7 @@ body {
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -79,4 +81,74 @@ body {
 
 .font-homemade-apple {
     font-family: var(--font-homemade-apple);
+}
+
+.nav-link {
+    position: relative;
+    @apply py-1;
+}
+
+.nav-link::after {
+    @apply bg-primary;
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    transform-origin: center;
+    transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.content {
+    position: relative;
+}
+
+.content h2 {
+    position: absolute;
+}
+
+.content h2:nth-child(1) {
+    @apply text-green-700;
+}
+
+.content h2:nth-child(2) {
+    animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+    0%,
+    100% {
+        clip-path: polygon(
+                0% 85%,
+                16% 25%,
+                33% 50%,
+                54% 60%,
+                70% 20%,
+                84% 30%,
+                100% 50%,
+                100% 30%,
+                0% 100%
+        );
+    }
+
+    50% {
+        clip-path: polygon(
+                0% 60%,
+                15% 65%,
+                34% 25%,
+                51% 60%,
+                67% 50%,
+                84% 45%,
+                100% 100%,
+                100% 100%,
+                0% 100%
+        );
+    }
 }

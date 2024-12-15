@@ -1,41 +1,64 @@
+"use client";
+
 import Navbar from "@/components/navbar";
-import { Marquee } from "@/components/ui/marquee";
-import { MenuSquare } from "lucide-react";
-import Image from "next/image";
+import {Marquee} from "@/components/ui/marquee";
+import {MenuSquare} from "lucide-react";
+import {motion} from "framer-motion";
 
 export default function Home() {
     return (
         <div className="flex flex-col">
-            <Navbar />
+            <Navbar/>
             <div>
                 <div className="container grid grid-cols-5 mt-2">
                     <div className="flex flex-col mt-32 col-span-3">
-                        <div className="text-8xl 2xl:text-[5.5rem] lg:text-[4.5rem] font-bold leading-tight text-primary tracking-tighter">
-                            <div className="flex gap-8 items-center">
-                                NATURE'S{" "}
-                                <img
-                                    src="/small-dot.svg"
-                                    alt=""
-                                    className="rotate-45 w-[5rem] h-[5rem]"
-                                />
-                            </div>{" "}
-                            FINEST FLAVORS
-                        </div>
-                        <div className="text-primary text-lg font-medium max-w-lg mt-4">
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.9}}
+                            animate={{opacity: 1, scale: 1}}
+                            transition={{type: "spring", stiffness: 80}}
+                            className="content pb-[10.5rem] text-8xl 2xl:text-[5.5rem] lg:text-[4.5rem] font-bold leading-tight text-green-600 tracking-tighter">
+                            {
+                                [...Array(2)].map(() =>
+                                    <h2>
+                                        <div className="flex gap-8 items-center">
+                                            NATURE'S{" "}
+                                            <img
+                                                src="/small-dot.svg"
+                                                alt=""
+                                                className="rotate-45 rounded-full overflow-hidden w-[5rem] h-[5rem]"
+                                            />
+                                        </div>
+                                        {" "}
+                                        FINEST FLAVORS
+                                    </h2>
+                                )
+                            }
+                        </motion.div>
+                        <motion.div initial={{opacity: 0, scale: 0.9}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    transition={{type: "spring", stiffness: 80, delay: 0.15}}
+                                    className="text-primary text-lg font-medium max-w-lg mt-4">
                             Experience Asian cuisine with our beautifully
                             crafted restaurant website. From mouth-watering
                             menus to photo galleries, we show the essence of
                             Asian flavors.
-                        </div>
-                        <div className="mt-8">
-                            <button className="bg-primary text-white py-4 px-8 rounded-full flex gap-3 items-center">
-                                <MenuSquare />
+                        </motion.div>
+                        <motion.div initial={{opacity: 0, scale: 0.9}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    transition={{type: "spring", stiffness: 80, delay: 0.25}}
+                                    className="mt-8">
+                            <button
+                                className="bg-primary hover:bg-green-800 transition ease-in-out duraiton-300 text-white py-4 px-8 rounded-full flex gap-3 items-center">
+                                <MenuSquare/>
                                 View Our Menu
                             </button>
-                        </div>
+                        </motion.div>
                     </div>
-                    <div className="relative h-fit -ml-32 col-span-2">
-                        <img src="/hero-img.png" alt="" className="w-full" />
+                    <motion.div initial={{opacity: 0, scale: 0.9}}
+                                animate={{opacity: 1, scale: 1}}
+                                transition={{type: "spring", stiffness: 80}}
+                                className="relative h-fit -ml-32 col-span-2">
+                        <img src="/hero-img.png" alt="" className="w-full"/>
                         <img
                             src="/leaf.png"
                             alt=""
@@ -51,16 +74,19 @@ export default function Home() {
                             alt=""
                             className="absolute top-4 left-12 h-20 w-20 rotate-[190deg]"
                         />
-                    </div>
+                    </motion.div>
                 </div>
-                <div className="w-full mt-8">
+                <motion.div initial={{opacity: 0, x: 40}}
+                            animate={{opacity: 1, x: 0}}
+                            transition={{ease: "linear", duration: 0.5, delay: 0.35}}
+                            className="w-full mt-8">
                     <div className="border-y border-primary text-primary text-lg py-2">
                         <Marquee className="[--duration:5s]">
                             <div>100% PLANT-BASED</div>
                             <div>🌿</div>
                         </Marquee>
                     </div>
-                </div>
+                </motion.div>
                 <div className="h-48"></div>
             </div>
         </div>
