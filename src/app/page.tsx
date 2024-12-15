@@ -16,10 +16,10 @@ export default function Home(): JSX.Element {
                             initial={{opacity: 0, scale: 0.9}}
                             animate={{opacity: 1, scale: 1}}
                             transition={{type: "spring", stiffness: 80}}
-                            className="content pb-[10.5rem] text-8xl 2xl:text-[5.5rem] lg:text-[4.5rem] font-bold leading-tight text-green-600 tracking-tighter">
+                            className="title pb-[10.5rem] text-8xl 2xl:text-[5.5rem] lg:text-[4.5rem] font-bold leading-tight text-green-600 tracking-tighter">
                             {
-                                [...Array(2)].map(() =>
-                                    <h2>
+                                [...Array(2)].map((_, i) =>
+                                    <div className="title-content" key={i}>
                                         <div className="flex gap-8 items-center">
                                             NATURE'S{" "}
                                             <img
@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
                                         </div>
                                         {" "}
                                         FINEST FLAVORS
-                                    </h2>
+                                    </div>
                                 )
                             }
                         </motion.div>

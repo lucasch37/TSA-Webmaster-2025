@@ -106,19 +106,19 @@ body {
     transform-origin: bottom left;
 }
 
-.content {
+.title {
     position: relative;
 }
 
-.content h2 {
+.title .title-content {
     position: absolute;
 }
 
-.content h2:nth-child(1) {
+.title .title-content:nth-child(1) {
     @apply text-green-700;
 }
 
-.content h2:nth-child(2) {
+.title .title-content:nth-child(2) {
     animation: animate 4s ease-in-out infinite;
 }
 

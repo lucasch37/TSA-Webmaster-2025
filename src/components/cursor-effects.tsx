@@ -32,7 +32,7 @@ export function CursorEffects(): JSX.Element {
             // setPosition(currentPosition);
 
             const now = Date.now();
-            const minDistance = 40;
+            const minDistance = 20;
 
             if (
                 now - lastSpawn > 100 &&
