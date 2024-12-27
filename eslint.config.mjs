@@ -77,6 +77,6 @@ export default [
                 }
             ],
         },
-        ignores: ["dist/", "node_modules/", "coverage/", "build/", "**/ui/*"],
+        ignores: ["dist/", "node_modules/", "coverage/", "build/", "**/ui/*", "src/lib/supabase/**", ".next/**"],
     }
 ];

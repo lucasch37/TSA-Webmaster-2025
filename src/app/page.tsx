@@ -18,7 +18,7 @@ export default function Home(): JSX.Element {
                             transition={{type: "spring", stiffness: 80}}
                             className={`title font-bold leading-tight text-green-600 tracking-tighter
                                 2xl:pb-[13rem] pb-[10.5rem] 
-                                text-8xl 2xl:text-[5.5rem] text-[4.5rem]
+                                text-8xl 2xl:text-[5.5rem] text-[4.5rem] select-text
                                 `}
                         >
                             {[...Array(2)].map((_, i) => (
@@ -94,7 +94,7 @@ export default function Home(): JSX.Element {
                         </Marquee>
                     </div>
                 </motion.div>
-                <div className="h-48"></div>
+                {/*<div className="h-48"></div>*/}
             </div>
         </div>
     );
