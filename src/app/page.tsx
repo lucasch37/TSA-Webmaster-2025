@@ -41,9 +41,9 @@ export default function Home(): JSX.Element {
                             transition={{type: "spring", stiffness: 80, delay: 0.15}}
                             className="text-primary text-lg font-medium max-w-lg mt-4"
                         >
-                            Experience Asian cuisine with our beautifully crafted
-                            restaurant website. From mouth-watering menus to photo
-                            galleries, we show the essence of Asian flavors.
+                            Indulge in a culinary journey that celebrates sustainability
+                            and health, without compromising on taste. Join us for an
+                            dining experience that nourishes both body and soul.
                         </motion.div>
                         <motion.div
                             initial={{opacity: 0, scale: 0.9}}
@@ -89,12 +89,11 @@ export default function Home(): JSX.Element {
                 >
                     <div className="border-y border-primary text-primary text-lg py-2">
                         <Marquee className="[--duration:5s]">
-                            <div>100% PLANT-BASED</div>
+                            <div className="font-medium">100% PLANT-BASED</div>
                             <div>🌿</div>
                         </Marquee>
                     </div>
                 </motion.div>
-                {/*<div className="h-48"></div>*/}
             </div>
         </div>
     );

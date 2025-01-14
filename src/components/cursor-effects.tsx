@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 interface Position {
     x: number;
@@ -18,7 +18,7 @@ interface Particle extends Position {
 export function CursorEffects(): JSX.Element {
     // const [position, setPosition] = useState<Position>({x: 0, y: 0});
     const [particles, setParticles] = useState<Particle[]>([]);
-    const [counter, setCounter] = useState(0);
+    const counter = useRef(0);
     const [lastSpawn, setLastSpawn] = useState(0);
     const [lastPosition, setLastPosition] = useState<Position>({x: 0, y: 0});
 
@@ -39,7 +39,7 @@ export function CursorEffects(): JSX.Element {
                 getDistance(lastPosition, currentPosition) > minDistance
             ) {
                 const newParticle: Particle = {
-                    id: counter,
+                    id: counter.current,
                     x: e.pageX,
                     y: e.pageY,
                     rotation: Math.random() * 360,
@@ -49,7 +49,7 @@ export function CursorEffects(): JSX.Element {
                 };
 
                 setParticles((prev) => [...prev, newParticle]);
-                setCounter((prev) => prev + 1);
+                counter.current++;
                 setLastSpawn(now);
                 setLastPosition(currentPosition);
             }

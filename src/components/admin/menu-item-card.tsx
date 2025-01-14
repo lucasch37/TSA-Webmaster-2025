@@ -52,21 +52,24 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                         className="object-cover rounded-md"
                     />
                 </div>
-                <p className="font-bold text-lg mb-2">Price: {item.price}</p>
-                {item.sale_percentage !== 0 && (
-                    <Badge variant="destructive" className="mb-2">
-                        Sale: {item.sale_percentage}% off
-                    </Badge>
-                )}
-                <p className="text-muted-foreground">{item.description}</p>
+                <div className="h-28">
+                    <div className="flex items-center gap-4">
+                        <p className="font-bold text-lg mb-2">Price: ${item.price}</p>
+                        {item.sale_percentage !== 0 && (
+                            <Badge variant="destructive" className="mb-2">
+                                Sale: {item.sale_percentage}% off
+                            </Badge>
+                        )}
+                    </div>
+                    <p className="text-muted-foreground line-clamp-3">
+                        {item.description}
+                    </p>
+                </div>
             </CardContent>
             <CardFooter>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button
-                            variant="outline"
-                            className="flex items-center justify-between w-full"
-                        >
+                        <Button className="flex items-center justify-between w-full">
                             <span>More Details</span>
                             <ChevronDown className="h-4 w-4" />
                         </Button>
