@@ -16,7 +16,6 @@ interface Particle extends Position {
 }
 
 export function CursorEffects(): JSX.Element {
-    // const [position, setPosition] = useState<Position>({x: 0, y: 0});
     const [particles, setParticles] = useState<Particle[]>([]);
     const counter = useRef(0);
     const [lastSpawn, setLastSpawn] = useState(0);
@@ -28,8 +27,10 @@ export function CursorEffects(): JSX.Element {
 
     useEffect(() => {
         const updatePosition = (e: MouseEvent): void => {
-            const currentPosition = {x: e.pageX, y: e.pageY};
-            // setPosition(currentPosition);
+            const currentPosition = {
+                x: e.clientX,
+                y: e.clientY
+            };
 
             const now = Date.now();
             const minDistance = 20;
@@ -40,8 +41,8 @@ export function CursorEffects(): JSX.Element {
             ) {
                 const newParticle: Particle = {
                     id: counter.current,
-                    x: e.pageX,
-                    y: e.pageY,
+                    x: e.clientX,
+                    y: e.clientY,
                     rotation: Math.random() * 360,
                     scale: 0.5 + Math.random() * 0.7,
                     opacity: 1,
