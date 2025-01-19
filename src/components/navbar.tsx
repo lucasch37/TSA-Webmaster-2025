@@ -1,6 +1,13 @@
 "use client";
 
-import {MessageCircleQuestion, ShoppingBag, SquareMenu, Truck, User} from "lucide-react";
+import {
+    Calendar,
+    MessageCircleQuestion,
+    ShoppingBag,
+    SquareMenu,
+    Truck,
+    User,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import {motion} from "framer-motion";
@@ -25,15 +32,15 @@ const Navbar = (): JSX.Element => {
                     <button className="flex gap-2 items-center nav-link">
                         <SquareMenu size={20} /> MENU
                     </button>
-                    <button className="flex gap-2 items-center nav-link">
+                    <Link href={"/about"} className="flex gap-2 items-center nav-link">
                         <MessageCircleQuestion size={20} /> ABOUT
-                    </button>
+                    </Link>
                     <button className="flex gap-2 items-center nav-link">
                         <Truck size={20} /> ORDER
                     </button>
-                    <button className="flex gap-2 items-center nav-link">
-                        <SquareMenu size={20} /> MENU
-                    </button>
+                    <Link href={"/reserve"} className="flex gap-2 items-center nav-link">
+                        <Calendar size={20} /> RESERVE
+                    </Link>
                 </motion.div>
                 <div className="flex items-center gap-4 w-32">
                     <motion.button
