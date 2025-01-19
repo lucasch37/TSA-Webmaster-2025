@@ -29,9 +29,9 @@ const Navbar = (): JSX.Element => {
                     transition={{type: "spring", stiffness: 80}}
                     className="border border-primary rounded-full py-2 px-6 flex gap-8 text-primary"
                 >
-                    <button className="flex gap-2 items-center nav-link">
+                    <Link href={"/menu"} className="flex gap-2 items-center nav-link">
                         <SquareMenu size={20} /> MENU
-                    </button>
+                    </Link>
                     <Link href={"/about"} className="flex gap-2 items-center nav-link">
                         <MessageCircleQuestion size={20} /> ABOUT
                     </Link>
