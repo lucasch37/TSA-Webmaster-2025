@@ -29,7 +29,7 @@ export function CursorEffects(): JSX.Element {
         const updatePosition = (e: MouseEvent): void => {
             const currentPosition = {
                 x: e.clientX,
-                y: e.clientY
+                y: e.clientY,
             };
 
             const now = Date.now();

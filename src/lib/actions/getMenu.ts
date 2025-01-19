@@ -1,15 +1,13 @@
 "use server";
 
-import {APP_CONFIG} from "@/config";
 import {MenuResponse} from "@/types";
+import {createClient} from "@/lib/supabase/server";
 
 export async function getMenu(): Promise<MenuResponse> {
     try {
-        const response = await fetch(`${APP_CONFIG.api.serverUrl}/api/getMenu`, {
-            method: "GET",
-        });
-
-        if (!response.ok) {
+        const supabase = createClient();
+        const menu = await supabase.from("menu_items").select().order("name");
+        if (menu.error) {
             return {
                 success: false,
                 message: "Failed to fetch menu",
@@ -19,7 +17,7 @@ export async function getMenu(): Promise<MenuResponse> {
         return {
             success: true,
             message: "Fetched Menu Successfully",
-            data: await response.json(),
+            data: menu.data,
         };
     } catch {
         return {success: false, message: "Failed to fetch menu"};
