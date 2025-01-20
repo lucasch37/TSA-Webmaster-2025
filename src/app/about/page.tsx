@@ -9,11 +9,17 @@ import Navbar from "@/components/navbar";
 
 const IMAGES = {
     dinnerParty:
+        // eslint-disable-next-line no-secrets/no-secrets
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=3870&auto=format&fit=crop",
     opening:
+        // eslint-disable-next-line no-secrets/no-secrets
         "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=3870&auto=format&fit=crop",
-    garden: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=3870&auto=format&fit=crop",
-    award: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=3870&auto=format&fit=crop",
+    garden:
+        // eslint-disable-next-line no-secrets/no-secrets
+        "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=3870&auto=format&fit=crop",
+    award:
+        // eslint-disable-next-line no-secrets/no-secrets
+        "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=3870&auto=format&fit=crop",
 };
 
 export default function AboutPage(): JSX.Element {
