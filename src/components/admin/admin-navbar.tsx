@@ -3,8 +3,9 @@
 import {motion} from "framer-motion";
 import {ArrowLeft, UserRoundCog} from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
-const AdminNavbar = (): JSX.Element => {
+const AdminNavbar = (): React.JSX.Element => {
     return (
         <div className="inset-x-0 top-0 z-0 h-fit py-6">
             <div className="flex items-center justify-between h-full gap-2 container">

@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 interface Position {
     x: number;
@@ -15,7 +15,7 @@ interface Particle extends Position {
     createdAt: number;
 }
 
-export function CursorEffects(): JSX.Element {
+export function CursorEffects(): React.JSX.Element {
     const [particles, setParticles] = useState<Particle[]>([]);
     const counter = useRef(0);
     const [lastSpawn, setLastSpawn] = useState(0);

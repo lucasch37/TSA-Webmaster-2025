@@ -5,6 +5,7 @@ import {Inter} from "next/font/google";
 import localFont from "next/font/local";
 import {CursorEffects} from "@/components/cursor-effects";
 import Footer from "@/components/footer";
+import React from "react";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
-}>): JSX.Element {
+}>): React.JSX.Element {
     return (
         <html lang="en">
             <body
@@ -39,9 +40,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <CursorEffects />
-                    <main className="flex-grow">
-                        {children}
-                    </main>
+                    <main className="flex-grow">{children}</main>
                     <Footer />
                 </ThemeProvider>
             </body>

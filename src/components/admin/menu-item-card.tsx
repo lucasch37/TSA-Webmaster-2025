@@ -54,7 +54,7 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                         onCheckedChange={(checked) => handleToggle(checked)}
                     />
                 </CardTitle>
-                <CardDescription>{item.category}</CardDescription>
+                <CardDescription>{item.type}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div className="h-48 relative mb-4">

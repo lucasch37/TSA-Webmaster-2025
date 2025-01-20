@@ -2,8 +2,7 @@
 
 import {motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
-import {useScroll, useTransform} from "framer-motion";
-import {useRef} from "react";
+import React, {useRef} from "react";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 
@@ -22,35 +21,24 @@ const IMAGES = {
         "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=3870&auto=format&fit=crop",
 };
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage(): React.JSX.Element {
     const containerRef = useRef(null);
-    const {scrollYProgress} = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"],
-    });
 
     return (
         <main ref={containerRef} className="relative min-h-screen bg-[hsl(55,92%,95%)]">
-            {/* Enhanced Breathing Background */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                {/* Larger breathing gradient background */}
                 <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-green-100/40 via-yellow-100/40 to-emerald-100/40 will-change-transform scale-110" />
 
-                {/* Larger floating blobs with more pronounced animation */}
                 <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow will-change-transform" />
                 <div className="absolute top-1/2 -right-40 w-[600px] h-[600px] bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow animation-delay-2000 will-change-transform" />
                 <div className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow animation-delay-4000 will-change-transform" />
 
-                {/* Enhanced pattern overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.05)_1px,transparent_0)] bg-[length:32px_32px] opacity-30 animate-subtle-drift" />
             </div>
 
-            {/* Navbar */}
             <Navbar />
 
-            {/* Main Content */}
             <div className="pt-16">
-                {/* Hero Section */}
                 <section className="relative py-8">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -70,7 +58,6 @@ export default function AboutPage(): JSX.Element {
                     </div>
                 </section>
 
-                {/* Mission Statement */}
                 <section className="relative py-12">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -94,7 +81,6 @@ export default function AboutPage(): JSX.Element {
                     </div>
                 </section>
 
-                {/* Timeline Journey */}
                 <section className="relative py-16">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="space-y-24">
@@ -130,7 +116,6 @@ export default function AboutPage(): JSX.Element {
                     </div>
                 </section>
 
-                {/* Impact Stats */}
                 <section className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -169,7 +154,6 @@ export default function AboutPage(): JSX.Element {
                     </div>
                 </section>
 
-                {/* Call to Action */}
                 <section className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4 text-center">
                         <motion.div
@@ -213,7 +197,7 @@ function TimelineItem({
     description: string;
     image: string;
     isImageLeft: boolean;
-}) {
+}): React.JSX.Element {
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.2,
@@ -281,7 +265,7 @@ function ImpactStat({
     number: string;
     label: string;
     description: string;
-}) {
+}): React.JSX.Element {
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.2,

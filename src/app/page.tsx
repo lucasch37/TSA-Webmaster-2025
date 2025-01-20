@@ -4,12 +4,13 @@ import MenuParallax from "@/components/landing/menu-parallax";
 import Navbar from "@/components/navbar";
 import {Button} from "@/components/ui/button";
 import {motion} from "framer-motion";
-import {Leaf, Lightbulb, MenuSquare} from "lucide-react";
+import {Lightbulb, MenuSquare} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
+import React from "react";
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
     return (
         <div className="flex flex-col">
             <div className="h-screen relative">
