@@ -40,7 +40,7 @@ const MenuItemPage = async ({params: {name}}: Props): Promise<React.JSX.Element>
                         <div className="w-full border-primary border-2 relative box-border">
                             <div className="flex justify-center items-center h-[35rem]">
                                 <Image
-                                    src={"/landing/jalapeno-poppers.png"}
+                                    src={menuItem.image_url}
                                     className="w-[25rem]"
                                     height={1000}
                                     width={1000}
