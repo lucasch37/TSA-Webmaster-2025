@@ -1,10 +1,13 @@
 "use client";
 
+import MenuParallax from "@/components/landing/menu-parallax";
 import Navbar from "@/components/navbar";
-import {Calendar, MenuSquare} from "lucide-react";
+import {Button} from "@/components/ui/button";
 import {motion} from "framer-motion";
-import Marquee from "react-fast-marquee";
+import {Leaf, Lightbulb, MenuSquare} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import Marquee from "react-fast-marquee";
 
 export default function Home(): JSX.Element {
     return (
@@ -54,10 +57,12 @@ export default function Home(): JSX.Element {
                                 transition={{type: "spring", stiffness: 80, delay: 0.25}}
                                 className="mt-8"
                             >
-                                <button className="bg-primary hover:bg-green-800 transition ease-in-out duraiton-300 text-white py-4 px-8 rounded-full flex gap-3 items-center">
-                                    <MenuSquare />
-                                    Explore Our Menu
-                                </button>
+                                <Link href={"/menu"}>
+                                    <Button size={"lg"}>
+                                        <MenuSquare />
+                                        Explore Our Menu
+                                    </Button>
+                                </Link>
                             </motion.div>
                         </div>
                         <motion.div
@@ -144,23 +149,18 @@ export default function Home(): JSX.Element {
                                     something for everyone.
                                 </div>
                             </div>
-                            <button className="bg-primary hover:bg-green-800 transition ease-in-out duraiton-300 text-white py-4 px-8 rounded-full flex gap-3 items-center w-fit mt-16">
-                                <Calendar />
-                                Reserve a Spot
-                            </button>
+                            <Link href={"/about"} className="mt-16">
+                                <Button size={"lg"}>
+                                    <Lightbulb />
+                                    Learn More
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
-                {/* <div className="h-screen relative flex justify-center items-center">
-                    <div className="sticky top-1/2">
-                        <div className="font-bold text-primary text-8xl">POPULAR</div>
-                    </div>
-                </div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div>
-                <div className="h-96"></div> */}
+            </div>
+            <div className="container">
+                <MenuParallax />
             </div>
         </div>
     );

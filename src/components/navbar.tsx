@@ -1,16 +1,15 @@
 "use client";
 
+import {motion} from "framer-motion";
 import {
     Calendar,
+    Home,
     MessageCircleQuestion,
     ShoppingBag,
     SquareMenu,
-    Truck,
     User,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import {motion} from "framer-motion";
 
 const Navbar = (): JSX.Element => {
     return (
@@ -29,15 +28,15 @@ const Navbar = (): JSX.Element => {
                     transition={{type: "spring", stiffness: 80}}
                     className="border border-primary rounded-full py-2 px-6 flex gap-8 text-primary"
                 >
+                    <Link href={"/"} className="flex gap-2 items-center nav-link">
+                        <Home size={20} /> HOME
+                    </Link>
                     <Link href={"/menu"} className="flex gap-2 items-center nav-link">
                         <SquareMenu size={20} /> MENU
                     </Link>
                     <Link href={"/about"} className="flex gap-2 items-center nav-link">
                         <MessageCircleQuestion size={20} /> ABOUT
                     </Link>
-                    <button className="flex gap-2 items-center nav-link">
-                        <Truck size={20} /> ORDER
-                    </button>
                     <Link href={"/reserve"} className="flex gap-2 items-center nav-link">
                         <Calendar size={20} /> RESERVE
                     </Link>

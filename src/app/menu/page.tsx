@@ -1,10 +1,16 @@
 import Navbar from "@/components/navbar";
 import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {Card, CardContent} from "@/components/ui/card";
 import {getMenu} from "@/lib/actions/getMenu";
 import {ShoppingBag} from "lucide-react";
+import {Metadata} from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Menu | Sprout & About",
+    description: "TSA Webmaster 2024-2025 Project",
+};
 
 export default async function Menu(): Promise<React.JSX.Element> {
     const menuRes = await getMenu();
@@ -18,7 +24,7 @@ export default async function Menu(): Promise<React.JSX.Element> {
                     {menu?.map((menuItem) => (
                         <Card key={menuItem.id}>
                             <CardContent>
-                                <div className="h-[15rem] flex items-center justify-center">
+                                <div className="h-[16rem] flex items-center justify-center">
                                     <Image
                                         src={"/landing/jalapeno-poppers.png"}
                                         width={500}
@@ -28,24 +34,26 @@ export default async function Menu(): Promise<React.JSX.Element> {
                                     />
                                 </div>
 
-                                <div className="h-[15rem]">
-                                    <div className="text-primary font-bold text-3xl mt-3 line-clamp-2 ">
+                                <div className="h-[10rem]">
+                                    <div className="text-primary font-semibold text-3xl text-[28px] mt-3 line-clamp-2 ">
                                         {menuItem.name.toUpperCase()}
                                     </div>
-                                    <div className="text-primary text-base mt-3 line-clamp-5">
+                                    <div className="text-primary text-sm mt-3 line-clamp-3">
                                         {menuItem.description}
                                     </div>
                                 </div>
 
-                                <Link
-                                    href={`menu/${encodeURIComponent(menuItem.name)}`}
-                                    className="bg-primary hover:bg-green-800 transition ease-in-out duraiton-300 text-white py-4 px-8 rounded-full flex gap-3 items-center w-full mt-3 justify-between"
-                                >
-                                    <div>${menuItem.price}</div>
-                                    <div className="flex gap-2 items-center">
-                                        ADD TO CART
-                                        <ShoppingBag />
-                                    </div>
+                                <Link href={`menu/${menuItem.name}`}>
+                                    <Button
+                                        size={"default"}
+                                        className="w-full justify-between flex mt-4"
+                                    >
+                                        <div>${menuItem.price}</div>
+                                        <div className="flex gap-2 items-center">
+                                            <div className="text-sm">ADD TO CART</div>
+                                            <ShoppingBag size={18} />
+                                        </div>
+                                    </Button>
                                 </Link>
                             </CardContent>
                         </Card>
