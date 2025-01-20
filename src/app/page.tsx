@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
                                                 alt=""
                                                 className="rotate-45 rounded-full overflow-hidden w-[5rem] h-[5rem] pointer-events-none"
                                             />
-                                        </div>{" "}
+                                        </div>
                                         FINEST FLAVORS
                                     </div>
                                 ))}

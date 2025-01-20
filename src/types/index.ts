@@ -11,6 +11,8 @@ export interface MenuItem {
     sale_percentage: number;
     health_stats: object;
     hidden: boolean;
+    type: string;
+    tags: string[];
 }
 
 export interface MenuResponse {

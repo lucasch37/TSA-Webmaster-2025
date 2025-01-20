@@ -22,6 +22,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import {ChevronDown} from "lucide-react";
+import {updateMenuItemHidden} from "@/lib/actions/updateMenuItemHidden";
 
 interface MenuItemCardProps {
     item: MenuItem;
@@ -31,6 +32,18 @@ interface MenuItemCardProps {
 export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
     const [isHidden, setIsHidden] = useState(item.hidden);
 
+    const handleToggle = async (checked: boolean): Promise<void> => {
+        try {
+            const response = await updateMenuItemHidden(item.id, !checked);
+            if (!response.success) {
+                throw new Error(response.message);
+            }
+            setIsHidden(!checked);
+        } catch (error) {
+            console.error("Error updating hidden status:", error);
+            setIsHidden(checked);
+        }
+    };
     return (
         <Card className={isHidden ? "opacity-60" : ""}>
             <CardHeader>
@@ -38,7 +51,7 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                     <span>{item.name}</span>
                     <Switch
                         checked={!isHidden}
-                        onCheckedChange={(checked) => setIsHidden(!checked)}
+                        onCheckedChange={(checked) => handleToggle(checked)}
                     />
                 </CardTitle>
                 <CardDescription>{item.category}</CardDescription>
