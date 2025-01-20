@@ -1,9 +1,10 @@
 export interface MenuItem {
     id: number;
+    type: string;
+    tags: string[];
     name: string;
     price: number;
     description: string;
-    category: string;
     ingredients: string[];
     items_to_remove: string[];
     items_to_add: string[];

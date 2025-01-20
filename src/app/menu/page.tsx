@@ -24,13 +24,13 @@ export default async function Menu(): Promise<React.JSX.Element> {
                     {menu?.map((menuItem) => (
                         <Card key={menuItem.id}>
                             <CardContent>
-                                <div className="h-[16rem] flex items-center justify-center">
+                                <div className="h-[16rem] flex items-center justify-center overflow-hidden">
                                     <Image
-                                        src={"/landing/jalapeno-poppers.png"}
+                                        src={menuItem.image_url}
                                         width={500}
                                         height={500}
                                         alt={menuItem.name}
-                                        className="mt-4 w-[15rem] mx-auto h-fit"
+                                        className="w-[13rem] h-[13rem] object-contain"
                                     />
                                 </div>
 
