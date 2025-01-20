@@ -98,7 +98,7 @@ export default function Home(): React.JSX.Element {
                     >
                         <div className="border-y border-primary text-primary text-lg py-2">
                             <Marquee autoFill>
-                                <div className="font-medium px-4">100% PLANT-BASED</div>
+                                <div className="font-medium px-4">100% VEGETARIAN</div>
                                 <div>🌿</div>
                             </Marquee>
                         </div>

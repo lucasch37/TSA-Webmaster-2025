@@ -22,7 +22,6 @@ const MenuParallax = (): React.JSX.Element => {
             opacity: 1,
             transition: {
                 staggerChildren: 0.05,
-                delayChildren: 0.3,
             },
         },
         exit: {
