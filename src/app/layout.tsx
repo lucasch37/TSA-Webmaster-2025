@@ -4,6 +4,7 @@ import {ThemeProvider} from "@/components/theme-provider";
 import {Inter} from "next/font/google";
 import localFont from "next/font/local";
 import {CursorEffects} from "@/components/cursor-effects";
+import Footer from "@/components/footer";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -28,7 +29,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${inter.variable} ${homemadeApple.variable} antialiased min-h-screen`}
+                className={`${inter.variable} ${homemadeApple.variable} antialiased min-h-screen flex flex-col`}
                 suppressHydrationWarning
             >
                 <ThemeProvider
@@ -38,7 +39,10 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <CursorEffects />
-                    {children}
+                    <main className="flex-grow">
+                        {children}
+                    </main>
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>
