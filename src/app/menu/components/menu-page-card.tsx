@@ -3,9 +3,9 @@
 import {MenuItem} from "@/types";
 import Image from "next/image";
 import React from "react";
-import {Button} from "../ui/button";
+import {Button} from "../../../components/ui/button";
 import {ShoppingBasket} from "lucide-react";
-import {Checkbox} from "../ui/checkbox";
+import {Checkbox} from "../../../components/ui/checkbox";
 import {addToCart} from "@/lib/cart";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
@@ -20,22 +20,30 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
     const [selectedAddItems, setSelectedAddItems] = React.useState<string[]>([]);
     const [selectedRemoveItems, setSelectedRemoveItems] = React.useState<string[]>([]);
     const [quantity, setQuantity] = React.useState(1);
+    const [loading, setLoading] = React.useState(false);
     const router = useRouter();
 
     // Add item to cart with selected options
-    const handleAddToCart = (): void => {
-        addToCart(menuItem, quantity, selectedAddItems, selectedRemoveItems);
-        toast.success("Added to cart!", {
-            description: `${quantity}x ${menuItem.name} added to your cart`,
-            action: {
-                label: "View Cart",
-                onClick: () => router.push("/cart"),
-            },
-            cancel: {
-                label: "Keep Browsing",
-                onClick: () => router.push("/menu"),
-            },
-        });
+    const handleAddToCart = async (): Promise<void> => {
+        try {
+            setLoading(true);
+            await addToCart(menuItem, quantity, selectedAddItems, selectedRemoveItems);
+            toast.success("Added to cart!", {
+                description: `${quantity}x ${menuItem.name} added to your cart`,
+                action: {
+                    label: "View Cart",
+                    onClick: () => router.push("/cart"),
+                },
+                cancel: {
+                    label: "Keep Browsing",
+                    onClick: () => router.push("/menu"),
+                },
+            });
+        } catch {
+            toast.error("Failed to add item to cart");
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Toggle add/remove items in customization
@@ -131,7 +139,11 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                                     +
                                 </Button>
                             </div>
-                            <Button size={"lg"} onClick={handleAddToCart}>
+                            <Button
+                                onClick={handleAddToCart}
+                                disabled={loading}
+                                className="w-full"
+                            >
                                 <div className="font-normal">ADD TO CART</div>
                                 <ShoppingBasket size={20} />
                             </Button>

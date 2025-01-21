@@ -1,6 +1,6 @@
 import React from "react";
 import {Metadata} from "next";
-import ReserveClient from "@/components/reserve/reserve-client";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
     title: "Reserve | Sprout & About",
@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function ReservePage(): React.JSX.Element {
-    return <ReserveClient />;
+    return (
+        <div>
+            <Navbar />
+        </div>
+    );
 }

@@ -1,41 +1,48 @@
+"use server";
+
+import {cookies} from "next/headers";
 import {Cart, MenuItem} from "@/types";
+import {revalidatePath} from "next/cache";
 
-// Local storage key for cart data
-const CART_KEY = "sprout_cart";
+const CART_COOKIE_NAME = "sprout_cart";
 
-// Trigger cart update event
-const dispatchCartUpdate = (): void => {
-    if (typeof window !== "undefined") {
-        window.dispatchEvent(new Event("cartUpdated"));
-    }
-};
-
-// Get cart from local storage
-export const getCart = (): Cart => {
-    if (typeof window === "undefined") {
+// Get cart from cookies
+export async function getCart(): Promise<Cart> {
+    const cartCookie = cookies().get(CART_COOKIE_NAME);
+    if (!cartCookie) {
         return {items: []};
     }
-    const cart = localStorage.getItem(CART_KEY);
-    return cart ? JSON.parse(cart) : {items: []};
-};
-
-// Save cart to local storage
-export const saveCart = (cart: Cart): void => {
-    if (typeof window === "undefined") {
-        return;
+    try {
+        return JSON.parse(cartCookie.value);
+    } catch {
+        return {items: []};
     }
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    dispatchCartUpdate();
-};
+}
+
+// Save cart to cookies
+async function saveCart(cart: Cart): Promise<void> {
+    cookies().set(CART_COOKIE_NAME, JSON.stringify(cart), {
+        // Cookie expires in 7 days
+        maxAge: 7 * 24 * 60 * 60,
+        // Only accessible via HTTP(S), not JavaScript
+        httpOnly: true,
+        // Only sent over HTTPS in production
+        secure: process.env.NODE_ENV === "production",
+        // Restrict to same-origin
+        sameSite: "lax",
+        // Path for the cookie
+        path: "/",
+    });
+}
 
 // Add or update item in cart
-export const addToCart = (
+export async function addToCart(
     menuItem: MenuItem,
     quantity: number,
     addedItems: string[],
     removedItems: string[],
-): Cart => {
-    const cart = getCart();
+): Promise<Cart> {
+    const cart = await getCart();
     const existingItemIndex = cart.items.findIndex(
         (item) =>
             item.menuItemId === menuItem.id &&
@@ -56,24 +63,38 @@ export const addToCart = (
         });
     }
 
-    saveCart(cart);
+    await saveCart(cart);
     return cart;
-};
+}
 
 // Remove item from cart
-export const removeFromCart = (index: number): Cart => {
-    const cart = getCart();
+export async function removeFromCart(index: number): Promise<Cart> {
+    const cart = await getCart();
     cart.items.splice(index, 1);
-    saveCart(cart);
+    await saveCart(cart);
     return cart;
-};
+}
 
 // Update item quantity in cart
-export const updateCartItemQuantity = (index: number, quantity: number): Cart => {
-    const cart = getCart();
+export async function updateCartItemQuantity(
+    index: number,
+    quantity: number,
+): Promise<Cart> {
+    const cart = await getCart();
     if (cart.items[index]) {
         cart.items[index].quantity = quantity;
-        saveCart(cart);
+        await saveCart(cart);
     }
     return cart;
-};
+}
+
+export async function clearCart(): Promise<void> {
+    const cookieStore = cookies();
+
+    // Set an expired cookie to clear it
+    cookieStore.delete(CART_COOKIE_NAME);
+
+    // Revalidate cart-related pages
+    revalidatePath("/cart");
+    revalidatePath("/checkout");
+}

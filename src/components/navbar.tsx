@@ -48,8 +48,8 @@ const Navbar = (): React.JSX.Element => {
 
     // Initialize cart count and auth state
     useEffect(() => {
-        const updateCartCount = (): void => {
-            const cart = getCart();
+        const updateCartCount = async (): Promise<void> => {
+            const cart = await getCart();
             setCartCount(cart.items.length);
         };
 
@@ -63,10 +63,6 @@ const Navbar = (): React.JSX.Element => {
         checkUser();
         updateCartCount();
 
-        // Set up event listeners for cart updates
-        window.addEventListener("cartUpdated", updateCartCount);
-        window.addEventListener("storage", updateCartCount);
-
         // Set up auth state listener
         const {
             data: {subscription},
@@ -75,8 +71,6 @@ const Navbar = (): React.JSX.Element => {
         });
 
         return (): void => {
-            window.removeEventListener("cartUpdated", updateCartCount);
-            window.removeEventListener("storage", updateCartCount);
             subscription.unsubscribe();
         };
     }, [supabase.auth]);
@@ -174,6 +168,14 @@ const Navbar = (): React.JSX.Element => {
                                             Account
                                         </Link>
                                     </DropdownMenuItem>
+                                    {user.user_metadata.is_admin && (
+                                        <DropdownMenuItem asChild>
+                                            <Link href="/admin">
+                                                <User className="mr-2 h-4 w-4" />
+                                                Admin Dashboard
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    )}
                                     <DropdownMenuItem onClick={handleSignOut}>
                                         <LogOut className="mr-2 h-4 w-4" />
                                         Sign out

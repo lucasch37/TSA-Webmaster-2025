@@ -5,6 +5,11 @@ import {APP_CONFIG} from "@/config";
 import {getMenu} from "./getMenu";
 import {createStripeSession} from "../stripe";
 import {createClient} from "@/lib/supabase/server";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "stripe_key", {
+    apiVersion: "2024-12-18.acacia",
+});
 
 // Placeholder for dynamic session ID in success URL
 const CHECKOUT_SESSION_ID_PLACEHOLDER = "{CHECKOUT_SESSION_ID}";
@@ -20,18 +25,47 @@ interface CheckoutResult {
 export async function createCheckoutSession(
     cart: {items: CartItem[]},
     customerDetails: CustomerDetails,
+    pointsToRedeem: number = 0,
 ): Promise<CheckoutResult> {
     try {
         const supabase = createClient();
-        // Get user phone from auth if available
+        // Get user and their points
         const {
             data: {user},
         } = await supabase.auth.getUser();
-        const userPhone = user?.user_metadata?.phone;
+
+        let availablePoints = 0;
+        if (user) {
+            const {data: userData} = await supabase
+                .from("user_stats")
+                .select("sustainability_score")
+                .eq("user_id", user.id)
+                .single();
+            availablePoints = userData?.sustainability_score || 0;
+        }
+
+        // Validate points redemption
+        if (pointsToRedeem > availablePoints) {
+            throw new Error("Not enough points available");
+        }
 
         // Get menu items for price lookup
         const menuData = await getMenu();
         const menuItems = menuData.data || [];
+
+        // Calculate points discount ($1 per 25 points)
+        const pointsDiscount = pointsToRedeem / 25;
+
+        // Create a one-time coupon if points are being redeemed
+        let couponId: string | undefined;
+        if (pointsToRedeem > 0) {
+            const coupon = await stripe.coupons.create({
+                amount_off: Math.round(pointsDiscount * 100), // Convert to cents
+                duration: "once",
+                currency: "usd",
+            });
+            couponId = coupon.id;
+        }
 
         const session = await createStripeSession({
             payment_method_types: ["card"],
@@ -43,51 +77,62 @@ export async function createCheckoutSession(
                     throw new Error(`Menu item not found for id: ${cartItem.menuItemId}`);
                 }
 
-                // Calculate price with sale discount
                 const price = menuItem.price * (1 - menuItem.sale_percentage / 100);
-                // Build customization text for item description
-                const customizationText = `${menuItem.description}${
-                    cartItem.addedItems.length
-                        ? `\nAdded: ${cartItem.addedItems.join(", ")}`
-                        : ""
-                }${
-                    cartItem.removedItems.length
-                        ? `\nRemoved: ${cartItem.removedItems.join(", ")}`
-                        : ""
-                }`;
-
                 return {
                     price_data: {
                         currency: "usd",
                         product_data: {
                             name: menuItem.name,
-                            description: customizationText,
-                            images: [menuItem.image_url],
+                            description: `${menuItem.description}${
+                                cartItem.addedItems.length
+                                    ? `\nAdded: ${cartItem.addedItems.join(", ")}`
+                                    : ""
+                            }${
+                                cartItem.removedItems.length
+                                    ? `\nRemoved: ${cartItem.removedItems.join(", ")}`
+                                    : ""
+                            }`,
+                            metadata: {
+                                original_price: menuItem.price,
+                                sale_percentage: menuItem.sale_percentage,
+                            },
                         },
-                        // Convert price to cents for Stripe
-                        unit_amount: Math.round(price * 100),
+                        unit_amount: Math.round(price * 100), // Convert to cents
                     },
                     quantity: cartItem.quantity,
                 };
             }),
+            discounts: couponId ? [{coupon: couponId}] : [],
+            metadata: {
+                pointsRedeemed: pointsToRedeem.toString(),
+                pointsEarned: cart.items
+                    .reduce((sum, item) => sum + item.quantity * 5, 0)
+                    .toString(), // 5 points per item, accounting for quantity
+                userId: user?.id || "",
+                orderType: "pickup",
+                customerName: customerDetails.name,
+                customerPhone: customerDetails.phone,
+                customerEmail: customerDetails.email,
+            },
             mode: "payment",
             success_url: `${APP_CONFIG.api.baseUrl}/checkout/success?session_id=${CHECKOUT_SESSION_ID_PLACEHOLDER}`,
             cancel_url: `${APP_CONFIG.api.baseUrl}/cart`,
-            customer_email: customerDetails.email,
-            // Store order metadata
-            metadata: {
-                orderType: "pickup",
-                customerName: customerDetails.name,
-                customerPhone: userPhone || customerDetails.phone,
-                customerEmail: customerDetails.email,
-            },
         });
 
-        if (!session.url) {
-            throw new Error("No checkout URL returned from Stripe");
+        // If successful, deduct the points from the user's account
+        if (user && pointsToRedeem > 0) {
+            await supabase
+                .from("user_stats")
+                .update({
+                    sustainability_score: availablePoints - pointsToRedeem,
+                })
+                .eq("user_id", user.id);
         }
 
-        return {success: true, url: session.url};
+        return {
+            success: true,
+            url: session.url || undefined,
+        };
     } catch {
         return {success: false, error: "Error creating checkout session"};
     }

@@ -30,7 +30,7 @@ interface MenuItemCardProps {
 }
 
 // Menu item card component for admin view
-export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
+export function AdminMenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
     const [isHidden, setIsHidden] = useState(item.hidden);
 
     // Toggle menu item visibility

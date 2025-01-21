@@ -1,6 +1,5 @@
 import type {Metadata} from "next";
 import "./globals.css";
-import {ThemeProvider} from "@/components/theme-provider";
 import {Inter} from "next/font/google";
 import localFont from "next/font/local";
 import {CursorEffects} from "@/components/cursor-effects";
@@ -34,17 +33,10 @@ export default function RootLayout({
                 className={`${inter.variable} ${homemadeApple.variable} antialiased min-h-screen flex flex-col`}
                 suppressHydrationWarning
             >
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="light"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <Toaster richColors position="top-center" />
-                    <CursorEffects />
-                    <main className="flex-grow">{children}</main>
-                    <Footer />
-                </ThemeProvider>
+                <Toaster richColors position="top-center" />
+                <CursorEffects />
+                <main className="flex-grow">{children}</main>
+                <Footer />
             </body>
         </html>
     );

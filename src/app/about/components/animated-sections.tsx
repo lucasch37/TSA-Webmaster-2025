@@ -9,7 +9,10 @@ interface AnimatedSectionProps {
     className?: string;
 }
 
-export function AnimatedSection({children, className}: AnimatedSectionProps): React.JSX.Element {
+export function AnimatedSection({
+    children,
+    className,
+}: AnimatedSectionProps): React.JSX.Element {
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.2,
@@ -26,4 +29,4 @@ export function AnimatedSection({children, className}: AnimatedSectionProps): Re
             {children}
         </motion.div>
     );
-} 
+}

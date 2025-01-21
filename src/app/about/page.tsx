@@ -2,6 +2,8 @@ import React from "react";
 import {Metadata} from "next";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
+import {AnimatedSection} from "@/app/about/components/animated-sections";
+import Link from "next/link";
 
 // Image URLs for timeline sections
 const IMAGES = {
@@ -23,10 +25,6 @@ export const metadata: Metadata = {
     title: "About | Sprout & About",
     description: "Learn about our journey, mission, and impact in sustainable dining",
 };
-
-// Import client components at the top level
-import {AnimatedSection} from "@/components/about/animated-sections";
-import Link from "next/link";
 
 export default function AboutPage(): React.JSX.Element {
     return (
@@ -86,33 +84,40 @@ export default function AboutPage(): React.JSX.Element {
                                 {
                                     year: "2020",
                                     title: "The Seed of an Idea",
-                                    description: "From intimate dinner parties to a full-fledged vision, our story began with a passion for sustainable dining.",
+                                    description:
+                                        "From intimate dinner parties to a full-fledged vision, our story began with a passion for sustainable dining.",
                                     image: IMAGES.dinnerParty,
-                                    isImageLeft: true
+                                    isImageLeft: true,
                                 },
                                 {
                                     year: "2021",
                                     title: "Opening Our Doors",
-                                    description: "We transformed a historic building into a warm, welcoming space that reflects our values.",
+                                    description:
+                                        "We transformed a historic building into a warm, welcoming space that reflects our values.",
                                     image: IMAGES.opening,
-                                    isImageLeft: false
+                                    isImageLeft: false,
                                 },
                                 {
                                     year: "2022",
                                     title: "Growing Together",
-                                    description: "Our community garden program brought sustainable farming practices to local residents.",
+                                    description:
+                                        "Our community garden program brought sustainable farming practices to local residents.",
                                     image: IMAGES.garden,
-                                    isImageLeft: true
+                                    isImageLeft: true,
                                 },
                                 {
                                     year: "2023",
                                     title: "Recognition & Impact",
-                                    description: "Earning the Environmental Excellence Award validated our mission of conscious dining.",
+                                    description:
+                                        "Earning the Environmental Excellence Award validated our mission of conscious dining.",
                                     image: IMAGES.award,
-                                    isImageLeft: false
-                                }
-                            ].map((item, index) => (
-                                <AnimatedSection key={item.year} className={`flex flex-col ${item.isImageLeft ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}>
+                                    isImageLeft: false,
+                                },
+                            ].map((item) => (
+                                <AnimatedSection
+                                    key={item.year}
+                                    className={`flex flex-col ${item.isImageLeft ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}
+                                >
                                     <div className="w-full md:w-1/2">
                                         <div className="relative h-[400px] rounded-2xl overflow-hidden group">
                                             <Image
@@ -123,7 +128,9 @@ export default function AboutPage(): React.JSX.Element {
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-br from-sage-950/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
                                             <div className="absolute bottom-6 left-6 bg-sage-800/90 backdrop-blur-sm text-white px-6 py-3 rounded-xl">
-                                                <span className="text-3xl font-bold">{item.year}</span>
+                                                <span className="text-3xl font-bold">
+                                                    {item.year}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -158,25 +165,33 @@ export default function AboutPage(): React.JSX.Element {
                                     {
                                         number: "15,000+",
                                         label: "Local Produce (lbs)",
-                                        description: "Sourced directly from local farmers"
+                                        description:
+                                            "Sourced directly from local farmers",
                                     },
                                     {
                                         number: "30%",
                                         label: "Carbon Footprint",
-                                        description: "Reduction in our first year"
+                                        description: "Reduction in our first year",
                                     },
                                     {
                                         number: "1,000+",
                                         label: "Community Members",
-                                        description: "Engaged in our programs"
-                                    }
-                                ].map((stat, index) => (
-                                    <div key={stat.label} className="text-center space-y-4">
+                                        description: "Engaged in our programs",
+                                    },
+                                ].map((stat) => (
+                                    <div
+                                        key={stat.label}
+                                        className="text-center space-y-4"
+                                    >
                                         <div className="text-5xl font-bold text-sage-950">
                                             {stat.number}
                                         </div>
-                                        <h3 className="text-2xl font-semibold text-sage-900">{stat.label}</h3>
-                                        <p className="text-sage-800">{stat.description}</p>
+                                        <h3 className="text-2xl font-semibold text-sage-900">
+                                            {stat.label}
+                                        </h3>
+                                        <p className="text-sage-800">
+                                            {stat.description}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
