@@ -5,7 +5,7 @@ import {Metadata} from "next";
 
 import React from "react";
 
-import Menu from "./menu";
+import Menu from "../../components/menu/menu";
 
 export const metadata: Metadata = {
     title: "Menu | Sprout & About",

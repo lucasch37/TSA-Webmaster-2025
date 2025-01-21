@@ -5,7 +5,7 @@ import {
     Calendar,
     Home,
     MessageCircleQuestion,
-    ShoppingBag,
+    ShoppingBasket,
     SquareMenu,
     User,
 } from "lucide-react";
@@ -27,7 +27,7 @@ const Navbar = (): React.JSX.Element => {
                     animate={{scale: 1}}
                     whileHover={{scale: 1.05}}
                     transition={{type: "spring", stiffness: 80}}
-                    className="border border-primary rounded-full py-2 px-6 flex gap-8 text-primary"
+                    className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary"
                 >
                     <Link href={"/"} className="flex gap-2 items-center nav-link">
                         <Home size={20} /> HOME
@@ -57,7 +57,7 @@ const Navbar = (): React.JSX.Element => {
                         transition={{type: "spring", stiffness: 80}}
                         className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
                     >
-                        <ShoppingBag />
+                        <ShoppingBasket />
                     </motion.button>
                 </div>
             </div>

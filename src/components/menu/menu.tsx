@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {MenuItem} from "@/types";
 import MenuCard from "./menu-card";
+import {useSearchParams} from "next/navigation";
 
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
@@ -14,7 +15,15 @@ const scrollToSection = (sectionId: string): void => {
 const sections = ["appetizer", "side", "entree", "dessert"];
 
 export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
+    const searchParams = useSearchParams();
     const [activeSection, setActiveSection] = useState<string>("MENU");
+
+    useEffect(() => {
+        const section = searchParams.get("section");
+        if (section) {
+            scrollToSection(section);
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         const handleScroll = (): void => {
@@ -48,7 +57,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
     return (
         <div className="mt-8 container mx-auto">
             <div className="sticky top-0 z-10 w-full bg-background">
-                <div className="flex items-center justify-between py-4 px-6 border-b-2 border-primary">
+                <div className="flex items-center justify-between py-4 border-b-2 border-primary">
                     <div className="text-primary font-bold text-6xl">{activeSection}</div>
                     <div className="flex gap-8 text-primary">
                         {sections.map((section) => (
@@ -65,16 +74,18 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
             </div>
 
             {/* Menu Sections */}
-            <div className="mt-8">
+            <div className="mt-16">
                 {sections.map((section) => (
-                    <div key={section} id={section} className="mb-8">
-                        <div className="text-primary font-bold text-6xl mb-4">
+                    <div key={section} id={section} className="mb-12">
+                        <div className="text-primary font-bold text-4xl">
                             {section.toUpperCase()}S
                         </div>
                         {/* Filter the menu items based on their type */}
                         <MenuCard
                             menu={menu.filter(
-                                (item) => item.type.toLowerCase() === section,
+                                (item) =>
+                                    item.type.toLowerCase() === section &&
+                                    item.hidden === false,
                             )}
                         />
                     </div>

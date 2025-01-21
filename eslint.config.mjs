@@ -34,7 +34,7 @@ export default [
             "no-implied-eval": "error",
             "no-redeclare": "error",
             "no-tabs": ["error", {allowIndentationTabs: true}],
-            "indent": ["error", 4, {SwitchCase: 1}],
+            // "indent": ["error", 4, {SwitchCase: 1}],
             "quotes": ["error", "double"],
             "semi": ["error", "always"],
             "callback-return": "warn",

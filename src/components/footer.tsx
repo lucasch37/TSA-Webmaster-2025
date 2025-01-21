@@ -3,7 +3,7 @@ import React from "react";
 
 export function Footer(): React.JSX.Element {
     return (
-        <footer className="mt-12 border-t border-primary/20">
+        <footer className="mt-24 border-t border-primary/20">
             <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="space-y-3">

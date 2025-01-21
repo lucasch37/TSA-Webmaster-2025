@@ -1,14 +1,14 @@
 import {Button} from "@/components/ui/button";
 import {Card, CardContent} from "@/components/ui/card";
-import {ShoppingBag} from "lucide-react";
+import {MenuItem} from "@/types";
+import {ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import {MenuItem} from "@/types";
 
 export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4">
             {menu?.map((menuItem) => (
                 <Card key={menuItem.id}>
                     <CardContent>
@@ -18,7 +18,7 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                                 width={500}
                                 height={500}
                                 alt={menuItem.name}
-                                className="w-[13rem] h-[13rem] object-contain"
+                                className="w-[15rem] object-contain"
                             />
                         </div>
 
@@ -39,7 +39,7 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                                 <div>${menuItem.price}</div>
                                 <div className="flex gap-2 items-center">
                                     <div className="text-sm">ADD TO CART</div>
-                                    <ShoppingBag size={18} />
+                                    <ShoppingBasket size={18} />
                                 </div>
                             </Button>
                         </Link>

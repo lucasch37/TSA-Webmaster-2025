@@ -74,7 +74,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-primary;
   }
 
   body {
@@ -294,6 +294,8 @@ body {
   animation: blob-slow 12s ease-in-out infinite;
 }
 
-.centered {
-  @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+@layer utilities {
+  .centered {
+    @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
 }
