@@ -7,12 +7,15 @@ import React from "react";
 
 import Menu from "../../components/menu/menu";
 
+// Page metadata
 export const metadata: Metadata = {
     title: "Menu | Sprout & About",
     description: "TSA Webmaster 2024-2025 Project",
 };
 
+// Menu page component
 export default async function MenuPage(): Promise<React.JSX.Element> {
+    // Fetch menu items from database
     const menuRes = await getMenu();
     const menu = menuRes.data;
     if (!menu) {

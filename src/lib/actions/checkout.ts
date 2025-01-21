@@ -6,25 +6,30 @@ import {getMenu} from "./getMenu";
 import {createStripeSession} from "../stripe";
 import {createClient} from "@/lib/supabase/server";
 
+// Placeholder for dynamic session ID in success URL
 const CHECKOUT_SESSION_ID_PLACEHOLDER = "{CHECKOUT_SESSION_ID}";
 
+// Checkout result type definition
 interface CheckoutResult {
     success: boolean;
     url?: string;
     error?: string;
 }
 
+// Create Stripe checkout session with cart items
 export async function createCheckoutSession(
     cart: {items: CartItem[]},
     customerDetails: CustomerDetails,
 ): Promise<CheckoutResult> {
     try {
         const supabase = createClient();
+        // Get user phone from auth if available
         const {
             data: {user},
         } = await supabase.auth.getUser();
         const userPhone = user?.user_metadata?.phone;
 
+        // Get menu items for price lookup
         const menuData = await getMenu();
         const menuItems = menuData.data || [];
 
@@ -38,7 +43,9 @@ export async function createCheckoutSession(
                     throw new Error(`Menu item not found for id: ${cartItem.menuItemId}`);
                 }
 
+                // Calculate price with sale discount
                 const price = menuItem.price * (1 - menuItem.sale_percentage / 100);
+                // Build customization text for item description
                 const customizationText = `${menuItem.description}${
                     cartItem.addedItems.length
                         ? `\nAdded: ${cartItem.addedItems.join(", ")}`
@@ -57,6 +64,7 @@ export async function createCheckoutSession(
                             description: customizationText,
                             images: [menuItem.image_url],
                         },
+                        // Convert price to cents for Stripe
                         unit_amount: Math.round(price * 100),
                     },
                     quantity: cartItem.quantity,
@@ -66,6 +74,7 @@ export async function createCheckoutSession(
             success_url: `${APP_CONFIG.api.baseUrl}/checkout/success?session_id=${CHECKOUT_SESSION_ID_PLACEHOLDER}`,
             cancel_url: `${APP_CONFIG.api.baseUrl}/cart`,
             customer_email: customerDetails.email,
+            // Store order metadata
             metadata: {
                 orderType: "pickup",
                 customerName: customerDetails.name,

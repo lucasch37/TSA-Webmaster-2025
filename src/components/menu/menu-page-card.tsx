@@ -14,6 +14,7 @@ type Props = {
     menuItem: MenuItem;
 };
 
+// Detailed menu item page component
 const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
     const [activeOptions, setActivOptions] = React.useState("Additives");
     const [selectedAddItems, setSelectedAddItems] = React.useState<string[]>([]);
@@ -21,6 +22,7 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
     const [quantity, setQuantity] = React.useState(1);
     const router = useRouter();
 
+    // Add item to cart with selected options
     const handleAddToCart = (): void => {
         addToCart(menuItem, quantity, selectedAddItems, selectedRemoveItems);
         toast.success("Added to cart!", {
@@ -36,6 +38,7 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
         });
     };
 
+    // Toggle add/remove items in customization
     const handleCheckboxChange = (item: string, type: "add" | "remove"): void => {
         if (type === "add") {
             setSelectedAddItems((prev) =>
@@ -51,8 +54,10 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
     return (
         <div className="flex flex-col container mx-auto mt-8">
             <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-8">
+                {/* Left side - Image and nutrition info */}
                 <div className="relative">
                     <div className="w-full border-primary border-2 relative box-border">
+                        {/* Item image */}
                         <div className="flex justify-center items-center h-[35rem]">
                             <Image
                                 src={menuItem.image_url}
@@ -62,6 +67,8 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                                 alt={menuItem?.name}
                             />
                         </div>
+
+                        {/* Nutrition facts grid */}
                         <div
                             className={`w-full grid ${Object.keys(menuItem.health_stats).length === 4 ? "grid-cols-4" : "grid-cols-5"} divide-x-2 divide-primary border-t-2 border-primary items-center`}
                         >
@@ -84,7 +91,9 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                     </div>
                 </div>
 
+                {/* Right side - Item details and customization */}
                 <div className="flex flex-col justify-between">
+                    {/* Item name and description */}
                     <div>
                         <div className="text-primary font-semibold text-4xl">
                             {menuItem.name.toUpperCase()}
@@ -98,6 +107,8 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                                 {menuItem.ingredients.join(", ").toLowerCase()}
                             </div>
                         </div>
+
+                        {/* Quantity selector and add to cart */}
                         <div className="mt-12 flex gap-6 items-center">
                             <div className="flex items-center gap-4">
                                 <Button
@@ -129,7 +140,10 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Customization options */}
                     <div className="border-2 mt-12">
+                        {/* Tab switcher */}
                         <div className="grid grid-cols-2 divide-x-2 divide-primary border-b-2">
                             <div
                                 className={`px-4 py-3 ${activeOptions === "Additives" ? "bg-primary text-white" : "text-primary"} font-medium cursor-pointer`}
@@ -144,6 +158,8 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                                 Removables
                             </div>
                         </div>
+
+                        {/* Options checkboxes */}
                         <div className="p-8 min-h-[10rem]">
                             <div className="grid grid-cols-3 gap-4 text-">
                                 {(activeOptions === "Additives"

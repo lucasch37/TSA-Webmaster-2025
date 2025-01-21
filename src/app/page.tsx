@@ -6,16 +6,22 @@ import {ArrowBigDown} from "lucide-react";
 import React from "react";
 import Marquee from "react-fast-marquee";
 
+// Landing page component
 export default function Home(): React.JSX.Element {
     return (
         <div className="flex flex-col">
+            {/* Hero section with navigation */}
             <div className="md:h-screen relative">
                 <Navbar />
                 <Hero />
             </div>
+
+            {/* Restaurant info section */}
             <div className="flex flex-col container md:h-screen relative">
                 <InfoSection />
             </div>
+
+            {/* Menu preview marquee */}
             <div className="mb-24">
                 <div className="border-y flex items-center justify-center py-2 text-primary">
                     <Marquee autoFill>
@@ -26,6 +32,8 @@ export default function Home(): React.JSX.Element {
                     </Marquee>
                 </div>
             </div>
+
+            {/* Menu parallax section */}
             <div className="container">
                 <MenuParallax />
             </div>

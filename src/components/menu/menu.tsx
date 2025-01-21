@@ -5,6 +5,7 @@ import {MenuItem} from "@/types";
 import MenuCard from "./menu-card";
 import {useSearchParams} from "next/navigation";
 
+// Smooth scroll to menu section
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -19,12 +20,15 @@ const scrollToSection = (sectionId: string): void => {
     }
 };
 
+// Menu section types
 const sections = ["appetizer", "side", "entree", "dessert"];
 
+// Main menu component
 export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
     const searchParams = useSearchParams();
     const [activeSection, setActiveSection] = useState<string>("MENU");
 
+    // Handle initial section scroll from URL params
     useEffect(() => {
         const section = searchParams.get("section");
         if (section) {
@@ -32,12 +36,13 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
         }
     }, [searchParams]);
 
+    // Update active section on scroll
     useEffect(() => {
         const handleScroll = (): void => {
-            const stickyHeaderHeight = 90; // Adjust if your sticky header height changes
+            const stickyHeaderHeight = 90;
             const scrollPosition = window.scrollY + stickyHeaderHeight;
 
-            let currentSection = "MENU"; // Default to "MENU"
+            let currentSection = "MENU";
 
             sections.forEach((section) => {
                 const element = document.getElementById(section);
@@ -63,6 +68,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
 
     return (
         <div className="mt-8 container mx-auto">
+            {/* Sticky navigation header */}
             <div className="sticky top-0 z-10 w-full bg-background">
                 <div className="flex items-center justify-between py-4 border-b-2 border-primary">
                     <div className="text-primary font-bold text-6xl">{activeSection}</div>
@@ -80,6 +86,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                 </div>
             </div>
 
+            {/* Menu sections */}
             <div className="mt-16">
                 {sections.map((section) => (
                     <div key={section} id={section} className="mb-12">

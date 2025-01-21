@@ -11,16 +11,19 @@ import Navbar from "@/components/navbar";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 
+// Cart page component
 export default function CartPage(): React.JSX.Element {
     const [cart, setCart] = useState<Cart>({items: []});
     const [menu, setMenu] = useState<MenuItem[]>([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
+    // Update cart data from local storage
     const updateCartData = (): void => {
         setCart(getCart());
     };
 
+    // Load menu data and set up cart event listeners
     useEffect(() => {
         const loadData = async (): Promise<void> => {
             const menuData = await getMenu();
@@ -39,11 +42,13 @@ export default function CartPage(): React.JSX.Element {
         };
     }, []);
 
+    // Remove item from cart
     const handleRemoveItem = (index: number): void => {
         removeFromCart(index);
         toast.success("Item removed from cart");
     };
 
+    // Update item quantity in cart
     const handleUpdateQuantity = (index: number, newQuantity: number): void => {
         if (newQuantity < 1) {
             return;
@@ -51,9 +56,11 @@ export default function CartPage(): React.JSX.Element {
         updateCartItemQuantity(index, newQuantity);
     };
 
+    // Helper to find menu item by id
     const getMenuItem = (id: number): MenuItem | undefined =>
         menu.find((item) => item.id === id);
 
+    // Loading spinner
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -68,11 +75,13 @@ export default function CartPage(): React.JSX.Element {
             <div className="container mx-auto py-8">
                 <h1 className="text-4xl font-bold text-primary mb-8">Your Cart</h1>
                 {cart.items.length === 0 ? (
+                    // Empty cart message
                     <div className="text-center py-8">
                         <p className="text-xl text-gray-600">Your cart is empty</p>
                     </div>
                 ) : (
                     <div className="grid gap-8">
+                        {/* Cart items list */}
                         {cart.items.map((item, index): React.ReactNode => {
                             const menuItem = getMenuItem(item.menuItemId);
                             if (!menuItem) {
@@ -84,6 +93,7 @@ export default function CartPage(): React.JSX.Element {
                                     key={index}
                                     className="border-2 border-primary p-6 rounded-lg"
                                 >
+                                    {/* Item image and details */}
                                     <div className="flex gap-6">
                                         <div className="w-32 h-32 relative">
                                             <Image
@@ -94,6 +104,7 @@ export default function CartPage(): React.JSX.Element {
                                             />
                                         </div>
                                         <div className="flex-1">
+                                            {/* Item name and remove button */}
                                             <div className="flex justify-between items-start">
                                                 <h3 className="text-xl font-semibold text-primary">
                                                     {menuItem.name}
@@ -127,6 +138,7 @@ export default function CartPage(): React.JSX.Element {
                                                     {item.removedItems.join(", ")}
                                                 </p>
                                             )}
+                                            {/* Quantity controls and price */}
                                             <div className="flex justify-between items-center mt-4">
                                                 <div className="flex items-center gap-4">
                                                     <Button
@@ -173,6 +185,8 @@ export default function CartPage(): React.JSX.Element {
                                 </div>
                             );
                         })}
+
+                        {/* Cart total and checkout button */}
                         <div className="flex justify-between items-center border-t-2 border-primary pt-6 mt-6">
                             <div className="text-2xl font-bold text-primary">
                                 Total: $

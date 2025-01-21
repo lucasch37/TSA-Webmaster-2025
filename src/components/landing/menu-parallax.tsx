@@ -6,7 +6,9 @@ import {Button} from "../ui/button";
 import {ArrowRight} from "lucide-react";
 import Link from "next/link";
 
+// Parallax scrolling menu preview component
 const MenuParallax = (): React.JSX.Element => {
+    // Helper function for parallax effect calculations
     function useParallax(
         value: MotionValue<number>,
         distance: number,
@@ -15,9 +17,11 @@ const MenuParallax = (): React.JSX.Element => {
     }
 
     const {scrollYProgress} = useScroll();
+    // Different parallax speeds for left and right columns
     const y = useParallax(scrollYProgress, 300);
     const y2 = useParallax(scrollYProgress, 800);
 
+    // Animation variants for text reveal
     const container = {
         initial: {opacity: 0},
         animate: {
@@ -57,6 +61,7 @@ const MenuParallax = (): React.JSX.Element => {
 
     return (
         <div className="flex flex-col relative">
+            {/* Animated section title */}
             <motion.div
                 className="sticky top-[50vh] text-center text-4xl md:text-7xl xl:text-8xl xl:text-[7rem] text-primary z-20 mt-32 font-semibold"
                 variants={container}
@@ -91,9 +96,12 @@ const MenuParallax = (): React.JSX.Element => {
                 </motion.div>
             </motion.div>
 
+            {/* Spacing for parallax effect */}
             <div className="h-[30rem]"></div>
 
+            {/* Parallax scrolling cards grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 mx-10">
+                {/* Left column */}
                 <div className="flex flex-col items-start gap-48">
                     <motion.div style={{y: y}} className="-z-10">
                         <ParallaxCard />
@@ -108,6 +116,7 @@ const MenuParallax = (): React.JSX.Element => {
                         <ParallaxCard />
                     </motion.div>
                 </div>
+                {/* Right column */}
                 <div className="flex flex-col items-end gap-48">
                     <motion.div style={{y: y2}} className="z-50">
                         <ParallaxCard />
@@ -124,14 +133,17 @@ const MenuParallax = (): React.JSX.Element => {
                 </div>
             </div>
 
+            {/* Bottom spacing for parallax effect */}
             <div className="h-[80rem]"></div>
         </div>
     );
 };
 
+// Menu item preview card with image and details
 const ParallaxCard = (): React.JSX.Element => {
     return (
         <>
+            {/* Card container with image */}
             <div className="h-[36rem] w-[15rem] lg:w-[20rem] xl:w-[32rem] overflow-hidden border-2 border-primary relative flex flex-col justify-center rounded-2xl">
                 <Image
                     src={"/landing/jalapeno-poppers.png"}
@@ -140,8 +152,11 @@ const ParallaxCard = (): React.JSX.Element => {
                     alt={"Jalapeno poppers"}
                     className="w-[26rem] mx-auto h-fit"
                 />
+                {/* Decorative background pattern */}
                 <div className="absolute inset-0 bg-[url('/lines.svg')] w-screen h-screen centered scale-[350%] -z-10 rotate-45"></div>
             </div>
+
+            {/* Card title and CTA */}
             <div className="mt-4 flex justify-between items-center relative">
                 <div className="text-2xl text-primary font-semibold">
                     Jalapeno Poppers

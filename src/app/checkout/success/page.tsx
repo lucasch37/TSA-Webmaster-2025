@@ -17,6 +17,7 @@ import {toast} from "sonner";
 import {createOrder} from "@/lib/actions/orders";
 import Stripe from "stripe";
 
+// Order details type definition
 interface OrderDetails {
     customerName: string;
     customerEmail: string;
@@ -33,6 +34,7 @@ interface OrderDetails {
     displayTotal: number;
 }
 
+// Checkout success page component
 export default function CheckoutSuccessPage(): React.JSX.Element {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -47,6 +49,7 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
     });
     const [loading, setLoading] = useState(true);
 
+    // Load and process order details from Stripe session
     useEffect(() => {
         if (!sessionId) {
             router.push("/");
@@ -55,12 +58,14 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
 
         const loadOrderDetails = async (): Promise<void> => {
             try {
+                // Get Stripe session data
                 const session = await getStripeSession(sessionId);
                 if (!session) {
                     toast.error("Could not find order details");
                     return;
                 }
 
+                // Parse order details from session
                 const details: OrderDetails = {
                     customerName:
                         session.customer_details?.name ||
@@ -112,6 +117,7 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
 
                 setOrderDetails(details);
 
+                // Create order in database and clear cart
                 await createOrder(
                     sessionId,
                     details.items.map((item) => ({
@@ -142,9 +148,11 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
         loadOrderDetails();
     }, [sessionId, router]);
 
+    // Calculate estimated pickup time (20 mins from now)
     const estimatedTime = new Date();
     estimatedTime.setMinutes(estimatedTime.getMinutes() + 20);
 
+    // Show loading spinner while fetching order details
     if (loading) {
         return (
             <div className="min-h-screen bg-background">

@@ -19,6 +19,7 @@ export default function AccountPage(): React.JSX.Element {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Load user stats and order history
     useEffect(() => {
         const loadUserData = async (): Promise<void> => {
             try {
@@ -39,6 +40,7 @@ export default function AccountPage(): React.JSX.Element {
         loadUserData();
     }, []);
 
+    // Loading skeleton
     if (loading) {
         return (
             <div>
@@ -58,6 +60,7 @@ export default function AccountPage(): React.JSX.Element {
             <Navbar />
             <div className="container mx-auto p-6">
                 <div className="grid gap-6">
+                    {/* Sustainability score card */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -78,6 +81,7 @@ export default function AccountPage(): React.JSX.Element {
                         </CardContent>
                     </Card>
 
+                    {/* Order history card */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -96,6 +100,7 @@ export default function AccountPage(): React.JSX.Element {
                                     orders.map((order) => (
                                         <Card key={order.id}>
                                             <CardContent className="p-4">
+                                                {/* Order header with date and total */}
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div>
                                                         <p className="font-medium">
@@ -121,12 +126,14 @@ export default function AccountPage(): React.JSX.Element {
                                                         </p>
                                                     </div>
                                                 </div>
+                                                {/* Order items list */}
                                                 <div className="space-y-1">
                                                     {order.items.map((item, index) => (
                                                         <div
                                                             key={index}
                                                             className="flex flex-col text-sm border-b last:border-b-0 pb-2 last:pb-0"
                                                         >
+                                                            {/* Item name and price */}
                                                             <div className="flex justify-between">
                                                                 <span>
                                                                     {item.quantity}x{" "}
@@ -139,6 +146,7 @@ export default function AccountPage(): React.JSX.Element {
                                                                     ).toFixed(2)}
                                                                 </span>
                                                             </div>
+                                                            {/* Item customizations */}
                                                             {(item.addedItems?.length >
                                                                 0 ||
                                                                 item.removedItems

@@ -33,6 +33,7 @@ import {
 import {User} from "@supabase/supabase-js";
 import {z} from "zod";
 
+// Validation schemas for form inputs
 const customerSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email("Please enter a valid email address"),
@@ -72,7 +73,9 @@ type ValidationErrors = {
     [key: string]: string[] | undefined;
 };
 
+// Checkout page component
 export default function CheckoutPage(): React.JSX.Element {
+    // State management for form, cart, and authentication
     const [loading, setLoading] = useState(false);
     const [createAccount, setCreateAccount] = useState(false);
     const [password, setPassword] = useState("");
@@ -91,6 +94,7 @@ export default function CheckoutPage(): React.JSX.Element {
         phone: "",
     });
 
+    // Load menu data and check user authentication status
     useEffect(() => {
         const loadMenu = async (): Promise<void> => {
             const menuData = await getMenu();
@@ -118,9 +122,11 @@ export default function CheckoutPage(): React.JSX.Element {
         checkUser();
     }, []);
 
+    // Helper to find menu item by id
     const getMenuItem = (id: number): MenuItem | undefined =>
         menu.find((item) => item.id === id);
 
+    // Calculate cart total with discounts
     const calculateTotal = (): number => {
         return cart.items.reduce((total, item) => {
             const menuItem = getMenuItem(item.menuItemId);
@@ -134,6 +140,7 @@ export default function CheckoutPage(): React.JSX.Element {
         }, 0);
     };
 
+    // Handle form input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const {name, value} = e.target;
         setCustomerDetails((prev) => ({
@@ -144,6 +151,7 @@ export default function CheckoutPage(): React.JSX.Element {
         setErrors((prev: ValidationErrors) => ({...prev, [name]: undefined}));
     };
 
+    // Validate form using Zod schemas
     const validateForm = (): boolean => {
         try {
             checkoutSchema.parse({
@@ -168,6 +176,7 @@ export default function CheckoutPage(): React.JSX.Element {
         }
     };
 
+    // Handle checkout form submission
     const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
 
@@ -208,6 +217,7 @@ export default function CheckoutPage(): React.JSX.Element {
         }
     };
 
+    // Handle user sign in
     const handleSignIn = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
 

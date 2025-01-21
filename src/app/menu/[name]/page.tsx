@@ -5,12 +5,14 @@ import {MenuItem} from "@/types";
 import {Metadata} from "next";
 import React from "react";
 
+// Props type for menu item page
 type Props = {
     params: {
         name: string;
     };
 };
 
+// Generate dynamic metadata for menu item
 export const generateMetadata = ({params: {name}}: Props): Metadata => {
     const itemName = decodeURIComponent(name);
     return {
@@ -19,7 +21,9 @@ export const generateMetadata = ({params: {name}}: Props): Metadata => {
     };
 };
 
+// Individual menu item page component
 const MenuItemPage = async ({params: {name}}: Props): Promise<React.JSX.Element> => {
+    // Fetch menu and find specific item
     const getMenuRes = await getMenu();
     const menu = getMenuRes.data;
     const itemName = decodeURIComponent(name);

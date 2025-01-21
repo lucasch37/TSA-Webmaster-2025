@@ -1,13 +1,17 @@
 import {Cart, MenuItem} from "@/types";
 
+
+// Local storage key for cart data
 const CART_KEY = "sprout_cart";
 
+// Trigger cart update event
 const dispatchCartUpdate = (): void => {
     if (typeof window !== "undefined") {
         window.dispatchEvent(new Event("cartUpdated"));
     }
 };
 
+// Get cart from local storage
 export const getCart = (): Cart => {
     if (typeof window === "undefined") {
         return {items: []};
@@ -16,6 +20,7 @@ export const getCart = (): Cart => {
     return cart ? JSON.parse(cart) : {items: []};
 };
 
+// Save cart to local storage
 export const saveCart = (cart: Cart): void => {
     if (typeof window === "undefined") {
         return;
@@ -24,6 +29,7 @@ export const saveCart = (cart: Cart): void => {
     dispatchCartUpdate();
 };
 
+// Add or update item in cart
 export const addToCart = (
     menuItem: MenuItem,
     quantity: number,
@@ -55,6 +61,7 @@ export const addToCart = (
     return cart;
 };
 
+// Remove item from cart
 export const removeFromCart = (index: number): Cart => {
     const cart = getCart();
     cart.items.splice(index, 1);
@@ -62,6 +69,7 @@ export const removeFromCart = (index: number): Cart => {
     return cart;
 };
 
+// Update item quantity in cart
 export const updateCartItemQuantity = (index: number, quantity: number): Cart => {
     const cart = getCart();
     if (cart.items[index]) {

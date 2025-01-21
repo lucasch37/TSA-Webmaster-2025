@@ -24,13 +24,16 @@ import {
 import {ChevronDown} from "lucide-react";
 import {updateMenuItemHidden} from "@/lib/actions/updateMenuItemHidden";
 
+// Props interface for menu item card
 interface MenuItemCardProps {
     item: MenuItem;
 }
 
+// Menu item card component for admin view
 export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
     const [isHidden, setIsHidden] = useState(item.hidden);
 
+    // Toggle menu item visibility
     const handleToggle = async (checked: boolean): Promise<void> => {
         try {
             const response = await updateMenuItemHidden(item.id, !checked);
@@ -43,8 +46,10 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
             setIsHidden(checked);
         }
     };
+
     return (
         <Card className={isHidden ? "opacity-60" : ""}>
+            {/* Card header with item name and visibility toggle */}
             <CardHeader>
                 <CardTitle className="flex justify-between items-center">
                     <span>{item.name}</span>
@@ -55,7 +60,10 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                 </CardTitle>
                 <CardDescription>{item.type}</CardDescription>
             </CardHeader>
+
+            {/* Card content with image and basic info */}
             <CardContent>
+                {/* Item image */}
                 <div className="h-48 relative mb-4">
                     <Image
                         src={item.image_url}
@@ -64,6 +72,8 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                         className="object-cover rounded-md"
                     />
                 </div>
+
+                {/* Price and description */}
                 <div className="h-28">
                     <div className="flex items-center gap-4">
                         <p className="font-bold text-lg mb-2">Price: ${item.price}</p>
@@ -78,6 +88,8 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                     </p>
                 </div>
             </CardContent>
+
+            {/* Details dialog trigger */}
             <CardFooter>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -86,11 +98,14 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                             <ChevronDown className="h-4 w-4" />
                         </Button>
                     </DialogTrigger>
+
+                    {/* Detailed item information dialog */}
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>{item.name} Details</DialogTitle>
                         </DialogHeader>
                         <div className="space-y-2">
+                            {/* Ingredients and customization options */}
                             <p>
                                 <strong>Ingredients:</strong>{" "}
                                 {item.ingredients.join(", ")}
@@ -103,6 +118,8 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                                 <strong>Items to add:</strong>{" "}
                                 {item.items_to_add.join(", ")}
                             </p>
+
+                            {/* Health statistics */}
                             <div>
                                 <strong>Health stats:</strong>
                                 <ul className="list-disc pl-5">

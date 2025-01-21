@@ -1,11 +1,13 @@
 import {createClient} from "@/lib/supabase/client";
 import {CustomerDetails} from "@/types";
 
+// Result type for auth operations
 interface AuthResult {
     success: boolean;
     error?: string;
 }
 
+// Create new account and sign in user
 export async function createAccountAndSignIn(
     customerDetails: CustomerDetails,
     password: string,
@@ -13,6 +15,7 @@ export async function createAccountAndSignIn(
     try {
         const supabase = createClient();
 
+        // Create new user account
         const {error: signUpError} = await supabase.auth.signUp({
             email: customerDetails.email,
             password: password,
@@ -29,6 +32,7 @@ export async function createAccountAndSignIn(
             throw signUpError;
         }
 
+        // Sign in the new user
         const {error: signInError} = await supabase.auth.signInWithPassword({
             email: customerDetails.email,
             password: password,

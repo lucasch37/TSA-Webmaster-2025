@@ -6,6 +6,7 @@ import React, {useRef} from "react";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 
+// Image URLs for timeline sections
 const IMAGES = {
     dinnerParty:
         // eslint-disable-next-line no-secrets/no-secrets
@@ -21,11 +22,13 @@ const IMAGES = {
         "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=3870&auto=format&fit=crop",
 };
 
+// Main about page component
 export default function AboutPage(): React.JSX.Element {
     const containerRef = useRef(null);
 
     return (
         <main ref={containerRef} className="relative min-h-screen bg-[hsl(55,92%,95%)]">
+            {/* Animated background with gradient and blobs */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-green-100/40 via-yellow-100/40 to-emerald-100/40 will-change-transform scale-110" />
 
@@ -39,6 +42,7 @@ export default function AboutPage(): React.JSX.Element {
             <Navbar />
 
             <div className="pt-16">
+                {/* Hero section */}
                 <section className="relative py-8">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -58,6 +62,7 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </section>
 
+                {/* Mission statement section */}
                 <section className="relative py-12">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -81,6 +86,7 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </section>
 
+                {/* Timeline section */}
                 <section className="relative py-16">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="space-y-24">
@@ -116,6 +122,7 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </section>
 
+                {/* Impact statistics section */}
                 <section className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4">
                         <motion.div
@@ -154,6 +161,7 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </section>
 
+                {/* Call to action section */}
                 <section className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4 text-center">
                         <motion.div
@@ -185,6 +193,7 @@ export default function AboutPage(): React.JSX.Element {
     );
 }
 
+// Timeline item component for history section
 function TimelineItem({
     year,
     title,
@@ -257,6 +266,7 @@ function TimelineItem({
     );
 }
 
+// Impact statistics component
 function ImpactStat({
     number,
     label,

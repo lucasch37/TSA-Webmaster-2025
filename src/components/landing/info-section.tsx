@@ -4,10 +4,12 @@ import React from "react";
 import {Button} from "../ui/button";
 import {Lightbulb} from "lucide-react";
 
+// Restaurant info section component
 const InfoSection = (): React.JSX.Element => {
     return (
         <div className="md:absolute md:centered w-full md:px-10 my-16 md:my-0">
             <div className="grid md:grid-cols-2 gap-12 items-center">
+                {/* Left side image with decorative dot */}
                 <div className="flex justify-start">
                     <div className="relative">
                         <Image
@@ -26,10 +28,15 @@ const InfoSection = (): React.JSX.Element => {
                         />
                     </div>
                 </div>
+
+                {/* Right side content */}
                 <div className="flex flex-col">
+                    {/* Heading */}
                     <div className="text-primary font-bold text-4xl 2xl:text-5xl 2xl:text-[3.25rem] 2xl:leading-tight leading-tight">
                         A TASTE OF LIFE IN EACH AND EVERY SERVING
                     </div>
+
+                    {/* Mission statement */}
                     <div className="text-primary text-sm md:text-sm 2xl:text-base font-medium mt-6 md:mt-12 max-w-2xl flex flex-col gap-8">
                         <div>
                             At our restaurant, we believe that food is more than just
@@ -51,6 +58,8 @@ const InfoSection = (): React.JSX.Element => {
                             for everyone.
                         </div>
                     </div>
+
+                    {/* CTA button */}
                     <Link href={"/about"} className="mt-8 md:mt-16">
                         <Button size={"lg"}>
                             <Lightbulb />

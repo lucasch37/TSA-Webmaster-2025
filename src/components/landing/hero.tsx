@@ -8,11 +8,14 @@ import {MenuSquare} from "lucide-react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
+// Hero section component for landing page
 const Hero = (): React.JSX.Element => {
     return (
         <div>
             <div className="container grid grid-cols-1 md:grid-cols-5 mt-2 md:centered md:absolute">
+                {/* Left side content */}
                 <div className="flex flex-col justify-center md:col-span-3">
+                    {/* Animated title */}
                     <motion.div
                         initial={{opacity: 0, scale: 0.9}}
                         animate={{opacity: 1, scale: 1}}
@@ -37,6 +40,8 @@ const Hero = (): React.JSX.Element => {
                             </div>
                         ))}
                     </motion.div>
+
+                    {/* Description text */}
                     <motion.div
                         initial={{opacity: 0, scale: 0.9}}
                         animate={{opacity: 1, scale: 1}}
@@ -47,6 +52,8 @@ const Hero = (): React.JSX.Element => {
                         health, without compromising on taste. Join us for an dining
                         experience that nourishes both body and soul.
                     </motion.div>
+
+                    {/* CTA button */}
                     <motion.div
                         initial={{opacity: 0, scale: 0.9}}
                         animate={{opacity: 1, scale: 1}}
@@ -67,12 +74,15 @@ const Hero = (): React.JSX.Element => {
                         </Link>
                     </motion.div>
                 </div>
+
+                {/* Right side image with decorative leaves */}
                 <motion.div
                     initial={{opacity: 0, scale: 0.9}}
                     animate={{opacity: 1, scale: 1}}
                     transition={{type: "spring", stiffness: 80}}
                     className="relative h-fit xl:-ml-32 md:-ml-12 md:col-span-2 md:my-0 mt-12"
                 >
+                    {/* Main hero image */}
                     <Image
                         height={400}
                         width={400}
@@ -80,6 +90,7 @@ const Hero = (): React.JSX.Element => {
                         alt=""
                         className="w-[22rem] md:w-full mx-auto md:mx-0"
                     />
+                    {/* Decorative leaves */}
                     <Image
                         src="/leaf.png"
                         width={400}
@@ -103,6 +114,8 @@ const Hero = (): React.JSX.Element => {
                     />
                 </motion.div>
             </div>
+
+            {/* Vegetarian banner */}
             <motion.div
                 initial={{opacity: 0, x: 40}}
                 animate={{opacity: 1, x: 0}}

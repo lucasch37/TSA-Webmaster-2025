@@ -2,11 +2,13 @@
 
 import React, {useEffect, useRef, useState} from "react";
 
+// Position type for x,y coordinates
 interface Position {
     x: number;
     y: number;
 }
 
+// Particle properties including position, animation and lifecycle
 interface Particle extends Position {
     id: number;
     rotation: number;
@@ -21,10 +23,12 @@ export function CursorEffects(): React.JSX.Element {
     const [lastSpawn, setLastSpawn] = useState(0);
     const [lastPosition, setLastPosition] = useState<Position>({x: 0, y: 0});
 
+    // Calculate distance between two points
     const getDistance = (pos1: Position, pos2: Position): number => {
         return Math.sqrt(Math.pow(pos2.x - pos1.x, 2) + Math.pow(pos2.y - pos1.y, 2));
     };
 
+    // Track mouse movement and spawn particles
     useEffect(() => {
         const updatePosition = (e: MouseEvent): void => {
             const currentPosition = {
@@ -33,8 +37,10 @@ export function CursorEffects(): React.JSX.Element {
             };
 
             const now = Date.now();
+            // Minimum distance before spawning new particle
             const minDistance = 20;
 
+            // Create new particle if enough time passed and mouse moved enough
             if (
                 now - lastSpawn > 100 &&
                 getDistance(lastPosition, currentPosition) > minDistance
@@ -61,6 +67,7 @@ export function CursorEffects(): React.JSX.Element {
         return (): void => window.removeEventListener("mousemove", updatePosition);
     }, [counter, lastSpawn, lastPosition]);
 
+    // Animate and cleanup particles
     useEffect(() => {
         const interval = setInterval(() => {
             const now = Date.now();
@@ -68,16 +75,20 @@ export function CursorEffects(): React.JSX.Element {
                 prev
                     .map((particle) => ({
                         ...particle,
+                        // Move particle down
                         y: particle.y + 1,
+                        // Fade out
                         opacity: Math.max(0, particle.opacity - 0.02),
+                        // Rotate
                         rotation: particle.rotation + 2,
                     }))
+                    // Remove invisible and old particles
                     .filter(
                         (particle) =>
                             particle.opacity > 0 && now - particle.createdAt < 5000,
                     ),
             );
-        }, 16);
+        }, 16); // ~60fps
 
         return (): void => {
             clearInterval(interval);
@@ -85,6 +96,7 @@ export function CursorEffects(): React.JSX.Element {
         };
     }, []);
 
+    // Render particles as leaf images
     return (
         <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
             {particles.map((particle) => (

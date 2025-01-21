@@ -6,6 +6,7 @@ export function Footer(): React.JSX.Element {
         <footer className="mt-24 border-t border-primary/20">
             <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    {/* Contact section with phone and email */}
                     <div className="space-y-3">
                         <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
                             Contact Us
@@ -58,6 +59,7 @@ export function Footer(): React.JSX.Element {
                         </ul>
                     </div>
 
+                    {/* Physical address section */}
                     <div className="space-y-3">
                         <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
                             Visit Us
@@ -91,6 +93,7 @@ export function Footer(): React.JSX.Element {
                         </div>
                     </div>
 
+                    {/* Site navigation links */}
                     <div className="space-y-3">
                         <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
                             Quick Links
@@ -165,6 +168,7 @@ export function Footer(): React.JSX.Element {
                         </ul>
                     </div>
 
+                    {/* Restaurant mission statement */}
                     <div className="space-y-3">
                         <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
                             Our Mission
@@ -177,6 +181,7 @@ export function Footer(): React.JSX.Element {
                     </div>
                 </div>
 
+                {/* Copyright footer */}
                 <div className="mt-8 pt-6 border-t border-primary/20">
                     <p className="text-center text-muted-foreground/80 text-sm">
                         © {new Date().getFullYear()} Sprout & About. All rights reserved.

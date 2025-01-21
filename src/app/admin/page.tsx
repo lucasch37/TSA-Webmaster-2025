@@ -7,8 +7,10 @@ import AdminNavbar from "@/components/admin/admin-navbar";
 import {useEffect, useState} from "react";
 import {MenuItem} from "@/types";
 
+// Menu section types
 const sections = ["appetizer", "entree", "side", "dessert"];
 
+// Smooth scroll function for menu sections
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -23,9 +25,11 @@ const scrollToSection = (sectionId: string): void => {
     }
 };
 
+// Admin dashboard home page
 export default function Home(): React.JSX.Element {
     const [menu, setMenu] = useState<MenuItem[]>([]);
 
+    // Fetch menu data on component mount
     useEffect(() => {
         const fetchMenu = async (): Promise<void> => {
             const menuRes = await getMenu();
@@ -40,6 +44,7 @@ export default function Home(): React.JSX.Element {
         <>
             <AdminNavbar />
             <div className="mt-8 container mx-auto">
+                {/* Navigation header */}
                 <div className="sticky top-0 z-10 w-full bg-background">
                     <div className="flex items-center justify-between py-4 border-b-2 border-primary">
                         <div className="text-primary font-bold text-6xl">EDIT MENU</div>
@@ -57,6 +62,7 @@ export default function Home(): React.JSX.Element {
                     </div>
                 </div>
 
+                {/* Menu sections grid */}
                 {sections.map((section) => (
                     <div key={section} id={section} className="mt-12">
                         <div className="text-primary font-bold text-4xl mb-6">
