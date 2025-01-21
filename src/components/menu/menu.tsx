@@ -8,7 +8,14 @@ import {useSearchParams} from "next/navigation";
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
-        element.scrollIntoView({behavior: "smooth"});
+        const offset = 30; // Adjust value as needed
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+        });
     }
 };
 
