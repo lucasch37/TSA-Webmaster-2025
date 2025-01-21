@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect, useState, Suspense} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {
     Card,
@@ -34,8 +34,7 @@ interface OrderDetails {
     displayTotal: number;
 }
 
-// Checkout success page component
-export default function CheckoutSuccessPage(): React.JSX.Element {
+function CheckoutSuccess() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const sessionId = searchParams.get("session_id");
@@ -262,5 +261,29 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
                 </div>
             </div>
         </div>
+    );
+}
+
+// Wrap the component with Suspense
+export default function CheckoutSuccessPage(): React.JSX.Element {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-background">
+                <Navbar />
+                <div className="container mx-auto py-16">
+                    <div className="max-w-2xl mx-auto">
+                        <Card>
+                            <CardContent className="p-8">
+                                <div className="flex justify-center">
+                                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" />
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        }>
+            <CheckoutSuccess />
+        </Suspense>
     );
 }
