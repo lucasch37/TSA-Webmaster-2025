@@ -137,8 +137,7 @@ export default function CheckoutSuccessPage(): React.JSX.Element {
 
                 localStorage.removeItem("sprout_cart");
                 window.dispatchEvent(new Event("cartUpdated"));
-            } catch (error) {
-                console.error("Error loading order details:", error);
+            } catch {
                 toast.error("Could not load order details");
             } finally {
                 setLoading(false);

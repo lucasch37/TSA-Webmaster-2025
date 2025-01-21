@@ -1,13 +1,12 @@
-import Navbar from "@/components/navbar";
 import React from "react";
+import {Metadata} from "next";
+import ReserveClient from "@/components/reserve/reserve-client";
 
-const ReservePage = (): React.JSX.Element => {
-    return (
-        <>
-            <Navbar />
-            <div></div>
-        </>
-    );
+export const metadata: Metadata = {
+    title: "Reserve | Sprout & About",
+    description: "Make a reservation at our restaurant",
 };
 
-export default ReservePage;
+export default function ReservePage(): React.JSX.Element {
+    return <ReserveClient />;
+}

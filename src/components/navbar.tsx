@@ -106,8 +106,7 @@ const Navbar = (): React.JSX.Element => {
             setSignInOpen(false);
             setDropdownOpen(false);
             toast.success("Signed in successfully!");
-        } catch (error) {
-            console.error("Sign in error:", error);
+        } catch {
             toast.error("Failed to sign in. Please check your credentials.");
         } finally {
             setSignInLoading(false);

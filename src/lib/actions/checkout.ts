@@ -88,8 +88,7 @@ export async function createCheckoutSession(
         }
 
         return {success: true, url: session.url};
-    } catch (error) {
-        console.error("Error creating checkout session:", error);
+    } catch {
         return {success: false, error: "Error creating checkout session"};
     }
 }

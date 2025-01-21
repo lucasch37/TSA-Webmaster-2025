@@ -207,7 +207,6 @@ export default function CheckoutPage(): React.JSX.Element {
 
             window.location.href = result.url;
         } catch (error) {
-            console.error("Checkout error:", error);
             toast.error(
                 error instanceof Error
                     ? error.message
@@ -266,8 +265,7 @@ export default function CheckoutPage(): React.JSX.Element {
 
             setSignInOpen(false);
             toast.success("Signed in successfully!");
-        } catch (error) {
-            console.error("Sign in error:", error);
+        } catch {
             toast.error("Failed to sign in. Please check your credentials.");
         } finally {
             setSignInLoading(false);

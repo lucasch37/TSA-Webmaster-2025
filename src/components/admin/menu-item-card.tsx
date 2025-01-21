@@ -41,8 +41,7 @@ export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
                 throw new Error(response.message);
             }
             setIsHidden(!checked);
-        } catch (error) {
-            console.error("Error updating hidden status:", error);
+        } catch {
             setIsHidden(checked);
         }
     };

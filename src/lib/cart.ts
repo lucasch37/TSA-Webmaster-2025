@@ -1,6 +1,5 @@
 import {Cart, MenuItem} from "@/types";
 
-
 // Local storage key for cart data
 const CART_KEY = "sprout_cart";
 

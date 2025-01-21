@@ -44,7 +44,6 @@ export async function createAccountAndSignIn(
 
         return {success: true};
     } catch (error) {
-        console.error("Auth error:", error);
         return {
             success: false,
             error:
