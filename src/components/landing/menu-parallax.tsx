@@ -14,8 +14,7 @@ const MenuParallax = (): React.JSX.Element => {
         return useTransform(value, [0, 1], [-distance, distance]);
     }
 
-    const ref = React.useRef(null);
-    const {scrollYProgress} = useScroll({target: ref});
+    const {scrollYProgress} = useScroll();
     const y = useParallax(scrollYProgress, 300);
     const y2 = useParallax(scrollYProgress, 800);
 
@@ -57,7 +56,7 @@ const MenuParallax = (): React.JSX.Element => {
     };
 
     return (
-        <div ref={ref} className="flex flex-col relative">
+        <div className="flex flex-col relative">
             <motion.div
                 className="sticky top-[50vh] text-center text-4xl md:text-7xl xl:text-8xl xl:text-[7rem] text-primary z-20 mt-32 font-semibold"
                 variants={container}

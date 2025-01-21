@@ -10,9 +10,12 @@ const InfoSection = (): React.JSX.Element => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="flex justify-start">
                     <div className="relative">
-                        <img
+                        <Image
                             src={"/large-dot.svg"}
+                            height={100}
+                            width={100}
                             className="w-[35rem] 2xl:w-[40rem] -rotate-[55deg] shrink-0"
+                            alt="dot"
                         />
                         <Image
                             src={"/landing/jalapeno-poppers.png"}

@@ -8,7 +8,7 @@ import {useSearchParams} from "next/navigation";
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
     if (element) {
-        const offset = 30; // Adjust value as needed
+        const offset = 60; // Adjust value as needed
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
