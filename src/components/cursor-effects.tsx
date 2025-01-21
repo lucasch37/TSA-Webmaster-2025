@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, {useEffect, useRef, useState} from "react";
 
 interface Position {
@@ -89,10 +88,8 @@ export function CursorEffects(): React.JSX.Element {
     return (
         <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
             {particles.map((particle) => (
-                <Image
+                <img
                     key={particle.id}
-                    height={24}
-                    width={24}
                     src="/small-leaf.svg"
                     alt=""
                     className="absolute w-6 h-6"

@@ -91,7 +91,7 @@ const MenuParallax = (): React.JSX.Element => {
                 </motion.div>
             </motion.div>
 
-            <div className="h-[60rem]"></div>
+            <div className="h-[30rem]"></div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 mx-10">
                 <div className="flex flex-col items-start gap-48">

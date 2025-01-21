@@ -89,26 +89,19 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                             </div>
                         </div>
                         <div className="p-8 min-h-[10rem]">
-                            <div className="grid grid-cols-3 gap-4">
-                                {activeOptions === "Additives"
-                                    ? menuItem.items_to_add.map((item, index) => (
-                                          <div
-                                              className="flex gap-2 items-center"
-                                              key={index}
-                                          >
-                                              <Checkbox />
-                                              <div>{item}</div>
-                                          </div>
-                                      ))
-                                    : menuItem.items_to_remove.map((item, index) => (
-                                          <div
-                                              className="flex gap-2 items-center"
-                                              key={index}
-                                          >
-                                              <Checkbox />
-                                              <div>{item}</div>
-                                          </div>
-                                      ))}
+                            <div className="grid grid-cols-3 gap-4 text-">
+                                {(activeOptions === "Additives"
+                                    ? menuItem.items_to_add
+                                    : menuItem.items_to_remove
+                                ).map((item, index) => (
+                                    <div
+                                        className="flex gap-2 items-center text-primary"
+                                        key={index}
+                                    >
+                                        <Checkbox />
+                                        <div>{item}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
