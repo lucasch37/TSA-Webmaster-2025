@@ -80,19 +80,16 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                 </div>
             </div>
 
-            {/* Menu Sections */}
             <div className="mt-16">
                 {sections.map((section) => (
                     <div key={section} id={section} className="mb-12">
                         <div className="text-primary font-bold text-4xl">
                             {section.toUpperCase()}S
                         </div>
-                        {/* Filter the menu items based on their type */}
                         <MenuCard
                             menu={menu.filter(
                                 (item) =>
-                                    item.type.toLowerCase() === section &&
-                                    item.hidden === false,
+                                    item.type.toLowerCase() === section && !item.hidden,
                             )}
                         />
                     </div>

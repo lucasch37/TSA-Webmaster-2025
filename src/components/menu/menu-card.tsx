@@ -38,7 +38,7 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                             >
                                 <div>${menuItem.price}</div>
                                 <div className="flex gap-2 items-center">
-                                    <div className="text-sm">ADD TO CART</div>
+                                    <div className="text-sm">SEE DETAILS</div>
                                     <ShoppingBasket size={18} />
                                 </div>
                             </Button>

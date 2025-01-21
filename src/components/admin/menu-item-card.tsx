@@ -26,7 +26,6 @@ import {updateMenuItemHidden} from "@/lib/actions/updateMenuItemHidden";
 
 interface MenuItemCardProps {
     item: MenuItem;
-    // onToggleHidden: (id: string, hidden: boolean) => void;
 }
 
 export function MenuItemCard({item}: MenuItemCardProps): React.JSX.Element {

@@ -8,11 +8,108 @@ import {
     ShoppingBasket,
     SquareMenu,
     User,
+    LogOut,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {getCart} from "@/lib/cart";
+import {createClient} from "@/lib/supabase/client";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {useRouter} from "next/navigation";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import {toast} from "sonner";
+import {User as SupabaseUser} from "@supabase/supabase-js";
 
 const Navbar = (): React.JSX.Element => {
+    const [cartCount, setCartCount] = useState(0);
+    const [user, setUser] = useState<SupabaseUser | null>(null);
+    const [signInOpen, setSignInOpen] = useState(false);
+    const [signInEmail, setSignInEmail] = useState("");
+    const [signInPassword, setSignInPassword] = useState("");
+    const [signInLoading, setSignInLoading] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const router = useRouter();
+    const supabase = createClient();
+
+    useEffect(() => {
+        const updateCartCount = (): void => {
+            const cart = getCart();
+            setCartCount(cart.items.length);
+        };
+
+        const checkUser = async (): Promise<void> => {
+            const {
+                data: {user},
+            } = await supabase.auth.getUser();
+            setUser(user);
+        };
+
+        checkUser();
+        updateCartCount();
+
+        window.addEventListener("cartUpdated", updateCartCount);
+        window.addEventListener("storage", updateCartCount);
+
+        const {
+            data: {subscription},
+        } = supabase.auth.onAuthStateChange((_event, session): void => {
+            setUser(session?.user ?? null);
+        });
+
+        return (): void => {
+            window.removeEventListener("cartUpdated", updateCartCount);
+            window.removeEventListener("storage", updateCartCount);
+            subscription.unsubscribe();
+        };
+    }, [supabase.auth]);
+
+    const handleSignOut = async (): Promise<void> => {
+        await supabase.auth.signOut();
+        setDropdownOpen(false);
+        router.push("/");
+    };
+
+    const handleSignIn = async (e: React.FormEvent): Promise<void> => {
+        e.preventDefault();
+        setSignInLoading(true);
+
+        try {
+            const {error} = await supabase.auth.signInWithPassword({
+                email: signInEmail,
+                password: signInPassword,
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            setSignInOpen(false);
+            setDropdownOpen(false);
+            toast.success("Signed in successfully!");
+        } catch (error) {
+            console.error("Sign in error:", error);
+            toast.error("Failed to sign in. Please check your credentials.");
+        } finally {
+            setSignInLoading(false);
+            setSignInEmail("");
+            setSignInPassword("");
+        }
+    };
+
     return (
         <div className="inset-x-0 top-0 z-0 h-fit py-6">
             <div className="flex items-center justify-between h-full gap-2 container">
@@ -43,24 +140,98 @@ const Navbar = (): React.JSX.Element => {
                     </Link>
                 </motion.div>
                 <div className="flex items-center gap-4 w-32">
-                    <motion.button
-                        initial={{scale: 0.9}}
-                        animate={{scale: 1}}
-                        transition={{type: "spring", stiffness: 80}}
-                        className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
-                    >
-                        <User />
-                    </motion.button>
-                    <motion.button
-                        initial={{scale: 0.9}}
-                        animate={{scale: 1}}
-                        transition={{type: "spring", stiffness: 80}}
-                        className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
-                    >
-                        <ShoppingBasket />
-                    </motion.button>
+                    <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+                        <DropdownMenuTrigger asChild>
+                            <motion.button
+                                initial={{scale: 0.9}}
+                                animate={{scale: 1}}
+                                transition={{type: "spring", stiffness: 80}}
+                                className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
+                            >
+                                <User />
+                            </motion.button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            {user ? (
+                                <>
+                                    <DropdownMenuItem disabled>
+                                        {user.user_metadata.name || user.email}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/account">
+                                            <User className="mr-2 h-4 w-4" />
+                                            Account
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleSignOut}>
+                                        <LogOut className="mr-2 h-4 w-4" />
+                                        Sign out
+                                    </DropdownMenuItem>
+                                </>
+                            ) : (
+                                <DropdownMenuItem
+                                    onClick={() => {
+                                        setSignInOpen(true);
+                                        setDropdownOpen(false);
+                                    }}
+                                >
+                                    Sign in
+                                </DropdownMenuItem>
+                            )}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    <Link href="/cart">
+                        <motion.div
+                            initial={{scale: 0.9}}
+                            animate={{scale: 1}}
+                            transition={{type: "spring", stiffness: 80}}
+                            className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative"
+                        >
+                            <ShoppingBasket />
+                            {cartCount > 0 && (
+                                <div className="absolute -top-2 -right-2 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                                    {cartCount}
+                                </div>
+                            )}
+                        </motion.div>
+                    </Link>
                 </div>
             </div>
+            <Dialog open={signInOpen} onOpenChange={setSignInOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Sign In</DialogTitle>
+                        <DialogDescription>
+                            Sign in to your account to view orders and checkout faster
+                        </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleSignIn} className="space-y-4">
+                        <div>
+                            <Label htmlFor="signInEmail">Email</Label>
+                            <Input
+                                id="signInEmail"
+                                type="email"
+                                value={signInEmail}
+                                onChange={(e) => setSignInEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="signInPassword">Password</Label>
+                            <Input
+                                id="signInPassword"
+                                type="password"
+                                value={signInPassword}
+                                onChange={(e) => setSignInPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <Button type="submit" className="w-full" disabled={signInLoading}>
+                            {signInLoading ? "Signing in..." : "Sign In"}
+                        </Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

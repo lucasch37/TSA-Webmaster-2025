@@ -6,6 +6,9 @@ import React from "react";
 import {Button} from "../ui/button";
 import {ShoppingBasket} from "lucide-react";
 import {Checkbox} from "../ui/checkbox";
+import {addToCart} from "@/lib/cart";
+import {useRouter} from "next/navigation";
+import {toast} from "sonner";
 
 type Props = {
     menuItem: MenuItem;
@@ -13,6 +16,38 @@ type Props = {
 
 const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
     const [activeOptions, setActivOptions] = React.useState("Additives");
+    const [selectedAddItems, setSelectedAddItems] = React.useState<string[]>([]);
+    const [selectedRemoveItems, setSelectedRemoveItems] = React.useState<string[]>([]);
+    const [quantity, setQuantity] = React.useState(1);
+    const router = useRouter();
+
+    const handleAddToCart = (): void => {
+        addToCart(menuItem, quantity, selectedAddItems, selectedRemoveItems);
+        toast.success("Added to cart!", {
+            description: `${quantity}x ${menuItem.name} added to your cart`,
+            action: {
+                label: "View Cart",
+                onClick: () => router.push("/cart"),
+            },
+            cancel: {
+                label: "Keep Browsing",
+                onClick: () => router.push("/menu"),
+            },
+        });
+    };
+
+    const handleCheckboxChange = (item: string, type: "add" | "remove"): void => {
+        if (type === "add") {
+            setSelectedAddItems((prev) =>
+                prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item],
+            );
+        } else {
+            setSelectedRemoveItems((prev) =>
+                prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item],
+            );
+        }
+    };
+
     return (
         <div className="flex flex-col container mx-auto mt-8">
             <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-8">
@@ -64,12 +99,33 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                             </div>
                         </div>
                         <div className="mt-12 flex gap-6 items-center">
-                            <Button size={"lg"}>
+                            <div className="flex items-center gap-4">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() =>
+                                        setQuantity((prev) => Math.max(1, prev - 1))
+                                    }
+                                >
+                                    -
+                                </Button>
+                                <span className="text-primary font-medium">
+                                    {quantity}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => setQuantity((prev) => prev + 1)}
+                                >
+                                    +
+                                </Button>
+                            </div>
+                            <Button size={"lg"} onClick={handleAddToCart}>
                                 <div className="font-normal">ADD TO CART</div>
                                 <ShoppingBasket size={20} />
                             </Button>
                             <div className="font-bold text-primary text-[23px]">
-                                ${menuItem.price}
+                                ${(menuItem.price * quantity).toFixed(2)}
                             </div>
                         </div>
                     </div>
@@ -98,7 +154,21 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                                         className="flex gap-2 items-center text-primary"
                                         key={index}
                                     >
-                                        <Checkbox />
+                                        <Checkbox
+                                            checked={
+                                                activeOptions === "Additives"
+                                                    ? selectedAddItems.includes(item)
+                                                    : selectedRemoveItems.includes(item)
+                                            }
+                                            onCheckedChange={() =>
+                                                handleCheckboxChange(
+                                                    item,
+                                                    activeOptions === "Additives"
+                                                        ? "add"
+                                                        : "remove",
+                                                )
+                                            }
+                                        />
                                         <div>{item}</div>
                                     </div>
                                 ))}

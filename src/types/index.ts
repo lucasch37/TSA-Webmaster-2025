@@ -19,3 +19,46 @@ export interface MenuResponse {
     message: string;
     data?: MenuItem[];
 }
+
+export interface CartItem {
+    menuItemId: number;
+    quantity: number;
+    addedItems: string[];
+    removedItems: string[];
+}
+
+export interface Cart {
+    items: CartItem[];
+}
+
+export interface CustomerDetails {
+    email: string;
+    name: string;
+    phone: string;
+}
+
+export interface UserStats {
+    user_id: string;
+    sustainability_score: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Order {
+    id: string;
+    user_id: string;
+    stripe_session_id: string;
+    total_amount: number;
+    sustainability_score: number;
+    items: {
+        name: string;
+        quantity: number;
+        amount: number;
+        addedItems: string[];
+        removedItems: string[];
+    }[];
+    customer_name: string;
+    customer_email: string;
+    customer_phone?: string;
+    created_at: string;
+}

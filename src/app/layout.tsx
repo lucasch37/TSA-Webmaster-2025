@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import {CursorEffects} from "@/components/cursor-effects";
 import Footer from "@/components/footer";
 import React from "react";
+import {Toaster} from "sonner";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Toaster richColors position="top-center" />
                     <CursorEffects />
                     <main className="flex-grow">{children}</main>
                     <Footer />
