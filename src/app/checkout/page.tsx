@@ -15,6 +15,7 @@ import Navbar from "@/components/navbar";
 import CheckoutForm from "../../components/checkout/checkout-form";
 import {Metadata} from "next";
 import {MenuItem} from "@/types";
+import {getUser} from "@/lib/actions/getUser";
 
 export const metadata: Metadata = {
     title: "Checkout | Sprout & About",
@@ -28,9 +29,7 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
 
     // Get user data from server
     const supabase = createClient();
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
+    const user = await getUser();
     let userPoints = 0;
 
     if (user) {

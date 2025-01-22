@@ -6,6 +6,7 @@ import {getMenu} from "./getMenu";
 import {createStripeSession} from "../stripe";
 import {createClient} from "@/lib/supabase/server";
 import Stripe from "stripe";
+import {getUser} from "@/lib/actions/getUser";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "stripe_key", {
     apiVersion: "2024-12-18.acacia",
@@ -30,9 +31,7 @@ export async function createCheckoutSession(
     try {
         const supabase = createClient();
         // Get user and their points
-        const {
-            data: {user},
-        } = await supabase.auth.getUser();
+        const user = await getUser();
 
         let availablePoints = 0;
         if (user) {
@@ -69,6 +68,7 @@ export async function createCheckoutSession(
 
         const session = await createStripeSession({
             payment_method_types: ["card"],
+            customer_email: customerDetails.email,
             line_items: cart.items.map((cartItem) => {
                 const menuItem = menuItems.find(
                     (item) => item.id === cartItem.menuItemId,
@@ -92,10 +92,6 @@ export async function createCheckoutSession(
                                     ? `\nRemoved: ${cartItem.removedItems.join(", ")}`
                                     : ""
                             }`,
-                            metadata: {
-                                original_price: menuItem.price,
-                                sale_percentage: menuItem.sale_percentage,
-                            },
                         },
                         unit_amount: Math.round(price * 100), // Convert to cents
                     },
@@ -109,10 +105,8 @@ export async function createCheckoutSession(
                     .reduce((sum, item) => sum + item.quantity * 5, 0)
                     .toString(), // 5 points per item, accounting for quantity
                 userId: user?.id || "",
-                orderType: "pickup",
                 customerName: customerDetails.name,
                 customerPhone: customerDetails.phone,
-                customerEmail: customerDetails.email,
             },
             mode: "payment",
             success_url: `${APP_CONFIG.api.baseUrl}/checkout/success?session_id=${CHECKOUT_SESSION_ID_PLACEHOLDER}`,

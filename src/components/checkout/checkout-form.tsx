@@ -1,10 +1,9 @@
 "use client";
 
-import React, {useState} from "react";
-import {CustomerDetails, Cart} from "@/types";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import React from "react";
+import { CustomerDetails, Cart } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
     Card,
     CardContent,
@@ -12,12 +11,12 @@ import {
     CardTitle,
     CardDescription,
 } from "@/components/ui/card";
-import {Checkbox} from "@/components/ui/checkbox";
-import {createClient} from "@/lib/supabase/client";
-import {createCheckoutSession} from "@/lib/actions/checkout";
-import {toast} from "sonner";
-import {User} from "@supabase/supabase-js";
-import {z} from "zod";
+import { Checkbox } from "@/components/ui/checkbox";
+import { createClient } from "@/lib/supabase/client";
+import { createCheckoutSession } from "@/lib/actions/checkout";
+import { toast } from "sonner";
+import { User } from "@supabase/supabase-js";
+import { z } from "zod";
 import {
     Dialog,
     DialogContent,
@@ -26,6 +25,20 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import { getUser } from "@/lib/actions/getUser";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import type * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { createAccountAndSignIn } from "@/lib/actions/auth";
 
 // Validation schemas
 const customerSchema = z.object({
@@ -39,33 +52,15 @@ const signInSchema = z.object({
     password: z.string().min(1, "Password is required"),
 });
 
-const checkoutSchema = z.object({
+const checkoutFormSchema = z.object({
     customerDetails: customerSchema,
-    password: z
-        .string()
-        .optional()
-        .refine(
-            (val) => {
-                if (typeof window !== "undefined") {
-                    const createAccountCheckbox = document.getElementById(
-                        "createAccount",
-                    ) as HTMLInputElement;
-                    if (createAccountCheckbox?.checked) {
-                        return val && val.length >= 6;
-                    }
-                }
-                return true;
-            },
-            {
-                message:
-                    "Password must be at least 6 characters when creating an account",
-            },
-        ),
+    createAccount: z.boolean().default(false),
+    password: z.string().optional(),
+    usePoints: z.boolean().default(false),
+    useExistingDetails: z.boolean().default(true),
 });
 
-type ValidationErrors = {
-    [key: string]: string[] | undefined;
-};
+type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;
 
 interface CheckoutFormProps {
     cart: Cart;
@@ -80,34 +75,40 @@ export default function CheckoutForm({
     user,
     userPoints,
 }: CheckoutFormProps): React.JSX.Element {
-    const [loading, setLoading] = useState(false);
-    const [createAccount, setCreateAccount] = useState(false);
-    const [password, setPassword] = useState("");
-    const [usePoints, setUsePoints] = useState(false);
-    const [useExistingDetails, setUseExistingDetails] = useState(true);
-    const [signInOpen, setSignInOpen] = useState(false);
-    const [signInEmail, setSignInEmail] = useState("");
-    const [signInPassword, setSignInPassword] = useState("");
-    const [signInLoading, setSignInLoading] = useState(false);
-    const [errors, setErrors] = useState<ValidationErrors>({});
-    const [customerDetails, setCustomerDetails] = useState<CustomerDetails>({
-        email: user?.email || "",
-        name: user?.user_metadata?.name || "",
-        phone: user?.user_metadata?.phone || "",
+    const [signInOpen, setSignInOpen] = React.useState(false);
+    const [signInLoading, setSignInLoading] = React.useState(false);
+
+    const form = useForm<CheckoutFormValues>({
+        resolver: zodResolver(checkoutFormSchema),
+        defaultValues: {
+            customerDetails: {
+                email: user?.email || "",
+                name: user?.user_metadata?.name || "",
+                phone: user?.user_metadata?.phone || "",
+            },
+            createAccount: false,
+            usePoints: false,
+            useExistingDetails: true,
+        },
+    });
+
+    const signInForm = useForm<z.infer<typeof signInSchema>>({
+        resolver: zodResolver(signInSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        },
     });
 
     // Calculate maximum points that can be used (based on total)
     const calculateMaxPointsToUse = (): number => {
-        // Maximum points that could be used (25 points = $1)
         const maxPointsPossible = Math.floor(subtotal * 25);
-        // Get max points in increments of 25
         const maxPoints = Math.min(userPoints, maxPointsPossible);
         return Math.floor(maxPoints / 25) * 25;
     };
 
     const calculateTotal = (): number => {
-        // Only apply points discount if checkbox is checked
-        if (usePoints) {
+        if (form.watch("usePoints")) {
             const maxPoints = calculateMaxPointsToUse();
             const pointsDiscount = maxPoints / 25;
             return Math.max(0, subtotal - pointsDiscount);
@@ -115,55 +116,27 @@ export default function CheckoutForm({
         return subtotal;
     };
 
-    // Handle form input changes
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const {name, value} = e.target;
-        setCustomerDetails((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-        setErrors((prev) => ({...prev, [name]: undefined}));
-    };
-
-    // Validate form using Zod schemas
-    const validateForm = (): boolean => {
+    const onSubmit = async (values: CheckoutFormValues) => {
         try {
-            checkoutSchema.parse({
-                customerDetails,
-                password: createAccount ? password : undefined,
-            });
-            setErrors({});
-            return true;
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                const fieldErrors: ValidationErrors = {};
-                error.errors.forEach((err) => {
-                    const field = err.path[err.path.length - 1] as string;
-                    if (!fieldErrors[field]) {
-                        fieldErrors[field] = [];
-                    }
-                    fieldErrors[field]?.push(err.message);
-                });
-                setErrors(fieldErrors);
+            // If user wants to create an account, do it before checkout
+            if (!user && values.createAccount && values.password) {
+                const result = await createAccountAndSignIn(
+                    values.customerDetails,
+                    values.password
+                );
+                
+                if (!result.success) {
+                    toast.error(result.error || "Failed to create account");
+                    return;
+                }
+                
+                toast.success("Account created successfully!");
             }
-            return false;
-        }
-    };
 
-    // Handle form submission
-    const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-        e.preventDefault();
-
-        if (!validateForm()) {
-            return;
-        }
-
-        try {
-            setLoading(true);
-            const pointsToUse = usePoints ? calculateMaxPointsToUse() : 0;
+            const pointsToUse = values.usePoints ? calculateMaxPointsToUse() : 0;
             const result = await createCheckoutSession(
                 cart,
-                customerDetails,
+                values.customerDetails,
                 pointsToUse,
             );
 
@@ -178,51 +151,27 @@ export default function CheckoutForm({
         } catch (error) {
             console.error("Checkout error:", error);
             toast.error("An error occurred during checkout");
-        } finally {
-            setLoading(false);
         }
     };
 
-    // Handle user sign in
-    const handleSignIn = async (e: React.FormEvent): Promise<void> => {
-        e.preventDefault();
-
-        try {
-            signInSchema.parse({email: signInEmail, password: signInPassword});
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                const fieldErrors: ValidationErrors = {};
-                error.errors.forEach((err) => {
-                    const field = err.path[err.path.length - 1] as string;
-                    if (!fieldErrors[field]) {
-                        fieldErrors[field] = [];
-                    }
-                    fieldErrors[field]?.push(err.message);
-                });
-                setErrors(fieldErrors);
-                return;
-            }
-        }
-
+    const onSignInSubmit = async (values: z.infer<typeof signInSchema>) => {
         setSignInLoading(true);
 
         try {
             const supabase = createClient();
-            const {error} = await supabase.auth.signInWithPassword({
-                email: signInEmail,
-                password: signInPassword,
+            const { error } = await supabase.auth.signInWithPassword({
+                email: values.email,
+                password: values.password,
             });
 
             if (error) {
                 throw error;
             }
 
-            const {
-                data: {user},
-            } = await supabase.auth.getUser();
+            const user = await getUser();
 
             if (user?.user_metadata) {
-                setCustomerDetails({
+                form.setValue("customerDetails", {
                     email: user.email || "",
                     name: user.user_metadata.name || "",
                     phone: user.user_metadata.phone || "",
@@ -236,8 +185,7 @@ export default function CheckoutForm({
             toast.error("Failed to sign in. Please check your credentials.");
         } finally {
             setSignInLoading(false);
-            setSignInEmail("");
-            setSignInPassword("");
+            signInForm.reset();
         }
     };
 
@@ -264,299 +212,218 @@ export default function CheckoutForm({
                                         Sign in to your account for faster checkout
                                     </DialogDescription>
                                 </DialogHeader>
-                                <form onSubmit={handleSignIn} className="space-y-4">
-                                    <div>
-                                        <Label htmlFor="signInEmail">Email</Label>
-                                        <Input
-                                            id="signInEmail"
-                                            type="email"
-                                            value={signInEmail}
-                                            onChange={(e) => {
-                                                setSignInEmail(e.target.value);
-                                                setErrors((prev) => ({
-                                                    ...prev,
-                                                    email: undefined,
-                                                }));
-                                            }}
-                                            required
-                                            className={
-                                                errors.email ? "border-red-500" : ""
-                                            }
+                                <Form {...signInForm}>
+                                    <form onSubmit={signInForm.handleSubmit(onSignInSubmit)} className="space-y-4">
+                                        <FormField
+                                            control={signInForm.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Email</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="Email" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
                                         />
-                                        {errors.email && (
-                                            <p className="text-sm text-red-500 mt-1">
-                                                {errors.email.join(", ")}
-                                            </p>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <Label htmlFor="signInPassword">Password</Label>
-                                        <Input
-                                            id="signInPassword"
-                                            type="password"
-                                            value={signInPassword}
-                                            onChange={(e) => {
-                                                setSignInPassword(e.target.value);
-                                                setErrors((prev) => ({
-                                                    ...prev,
-                                                    password: undefined,
-                                                }));
-                                            }}
-                                            required
-                                            className={
-                                                errors.password ? "border-red-500" : ""
-                                            }
+                                        <FormField
+                                            control={signInForm.control}
+                                            name="password"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Password</FormLabel>
+                                                    <FormControl>
+                                                        <Input type="password" placeholder="Password" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
                                         />
-                                        {errors.password && (
-                                            <p className="text-sm text-red-500 mt-1">
-                                                {errors.password.join(", ")}
-                                            </p>
-                                        )}
-                                    </div>
-                                    <Button
-                                        type="submit"
-                                        className="w-full"
-                                        disabled={signInLoading}
-                                    >
-                                        {signInLoading ? "Signing in..." : "Sign In"}
-                                    </Button>
-                                </form>
+                                        <Button type="submit" className="w-full" disabled={signInLoading}>
+                                            {signInLoading ? "Signing in..." : "Sign In"}
+                                        </Button>
+                                    </form>
+                                </Form>
                             </DialogContent>
                         </Dialog>
                     )}
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    {user ? (
-                        <div className="space-y-4">
-                            <div className="flex items-center space-x-2 mb-6">
-                                <Checkbox
-                                    id="useExisting"
-                                    checked={useExistingDetails}
-                                    onCheckedChange={(checked) => {
-                                        setUseExistingDetails(checked as boolean);
-                                        if (checked && user.user_metadata) {
-                                            setCustomerDetails({
-                                                email: user.email || "",
-                                                name: user.user_metadata.name || "",
-                                                phone: user.user_metadata.phone || "",
-                                            });
-                                        }
-                                    }}
-                                />
-                                <label
-                                    htmlFor="useExisting"
-                                    className="text-sm font-medium leading-none"
-                                >
-                                    Use my account details
-                                </label>
-                            </div>
-
-                            <div>
-                                <Label htmlFor="name">Full Name</Label>
-                                <Input
-                                    id="name"
-                                    name="name"
-                                    required
-                                    value={customerDetails.name}
-                                    onChange={handleInputChange}
-                                    placeholder="Name for pickup"
-                                    disabled={useExistingDetails}
-                                    className={errors.name ? "border-red-500" : ""}
-                                />
-                                {errors.name && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.name.join(", ")}
-                                    </p>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        {user && (
+                            <FormField
+                                control={form.control}
+                                name="useExistingDetails"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 mb-6">
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value}
+                                                onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => {
+                                                    field.onChange(checked === true);
+                                                    if (checked === true && user.user_metadata) {
+                                                        form.setValue("customerDetails", {
+                                                            email: user.email || "",
+                                                            name: user.user_metadata.name || "",
+                                                            phone: user.user_metadata.phone || "",
+                                                        });
+                                                    }
+                                                }}
+                                            />
+                                        </FormControl>
+                                        <div className="space-y-1 leading-none">
+                                            <FormLabel>Use my account details</FormLabel>
+                                        </div>
+                                    </FormItem>
                                 )}
-                            </div>
+                            />
+                        )}
 
-                            <div>
-                                <Label htmlFor="phone">Phone Number</Label>
-                                <Input
-                                    id="phone"
-                                    name="phone"
-                                    type="tel"
-                                    required
-                                    value={customerDetails.phone}
-                                    onChange={handleInputChange}
-                                    placeholder="We'll text you when your order is ready"
-                                    disabled={useExistingDetails}
-                                    className={errors.phone ? "border-red-500" : ""}
-                                />
-                                {errors.phone && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.phone.join(", ")}
-                                    </p>
-                                )}
-                            </div>
+                        <FormField
+                            control={form.control}
+                            name="customerDetails.name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Full Name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Name for pickup"
+                                            {...field}
+                                            disabled={user && form.watch("useExistingDetails")}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <div>
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    value={customerDetails.email}
-                                    onChange={handleInputChange}
-                                    placeholder="For your receipt"
-                                    disabled={useExistingDetails}
-                                    className={errors.email ? "border-red-500" : ""}
-                                />
-                                {errors.email && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.email.join(", ")}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="space-y-4">
-                            <div>
-                                <Label htmlFor="name">Full Name</Label>
-                                <Input
-                                    id="name"
-                                    name="name"
-                                    required
-                                    value={customerDetails.name}
-                                    onChange={handleInputChange}
-                                    placeholder="Name for pickup"
-                                    className={errors.name ? "border-red-500" : ""}
-                                />
-                                {errors.name && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.name.join(", ")}
-                                    </p>
-                                )}
-                            </div>
+                        <FormField
+                            control={form.control}
+                            name="customerDetails.phone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Phone Number</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="tel"
+                                            placeholder="We'll text you when your order is ready"
+                                            {...field}
+                                            disabled={user && form.watch("useExistingDetails")}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <div>
-                                <Label htmlFor="phone">Phone Number</Label>
-                                <Input
-                                    id="phone"
-                                    name="phone"
-                                    type="tel"
-                                    required
-                                    value={customerDetails.phone}
-                                    onChange={handleInputChange}
-                                    placeholder="We'll text you when your order is ready"
-                                    className={errors.phone ? "border-red-500" : ""}
-                                />
-                                {errors.phone && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.phone.join(", ")}
-                                    </p>
-                                )}
-                            </div>
+                        <FormField
+                            control={form.control}
+                            name="customerDetails.email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="email"
+                                            placeholder="For your receipt"
+                                            {...field}
+                                            disabled={user && form.watch("useExistingDetails")}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <div>
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    value={customerDetails.email}
-                                    onChange={handleInputChange}
-                                    placeholder="For your receipt"
-                                    className={errors.email ? "border-red-500" : ""}
-                                />
-                                {errors.email && (
-                                    <p className="text-sm text-red-500 mt-1">
-                                        {errors.email.join(", ")}
-                                    </p>
-                                )}
-                            </div>
-
-                            <div className="flex items-center space-x-2">
-                                <Checkbox
-                                    id="createAccount"
-                                    checked={createAccount}
-                                    onCheckedChange={(checked) =>
-                                        setCreateAccount(checked as boolean)
-                                    }
-                                />
-                                <label
-                                    htmlFor="createAccount"
-                                    className="text-sm font-medium leading-none"
-                                >
-                                    Create an account for faster checkout next time
-                                </label>
-                            </div>
-
-                            {createAccount && (
-                                <div>
-                                    <Label htmlFor="password">Password</Label>
-                                    <Input
-                                        id="password"
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required={createAccount}
-                                        minLength={6}
-                                        className={
-                                            errors.password ? "border-red-500" : ""
-                                        }
-                                    />
-                                    {errors.password && (
-                                        <p className="text-sm text-red-500 mt-1">
-                                            {errors.password.join(", ")}
-                                        </p>
+                        {!user && (
+                            <>
+                                <FormField
+                                    control={form.control}
+                                    name="createAccount"
+                                    render={({ field }) => (
+                                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => field.onChange(checked === true)}
+                                                />
+                                            </FormControl>
+                                            <div className="space-y-1 leading-none">
+                                                <FormLabel>Create an account for faster checkout next time</FormLabel>
+                                            </div>
+                                        </FormItem>
                                     )}
-                                </div>
-                            )}
-                        </div>
-                    )}
+                                />
 
-                    {user && userPoints > 0 && (
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <Checkbox
-                                        id="usePoints"
-                                        checked={usePoints}
-                                        onCheckedChange={(checked) =>
-                                            setUsePoints(checked as boolean)
-                                        }
+                                {form.watch("createAccount") && (
+                                    <FormField
+                                        control={form.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Password</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        type="password"
+                                                        placeholder="Create a password"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
                                     />
-                                    <Label
-                                        className="text-sm font-medium"
-                                        htmlFor="usePoints"
-                                    >
-                                        Use Sustainability Points
-                                    </Label>
-                                </div>
-                                <p className="text-sm text-muted-foreground">
-                                    Available: {userPoints} (Usable:{" "}
-                                    {calculateMaxPointsToUse()})
-                                </p>
+                                )}
+                            </>
+                        )}
+
+                        {user && userPoints > 0 && (
+                            <div className="space-y-4">
+                                <FormField
+                                    control={form.control}
+                                    name="usePoints"
+                                    render={({ field }) => (
+                                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => field.onChange(checked === true)}
+                                                />
+                                            </FormControl>
+                                            <div className="space-y-1 leading-none">
+                                                <FormLabel>Use Sustainability Points</FormLabel>
+                                                <FormDescription>
+                                                    Available: {userPoints} (Usable: {calculateMaxPointsToUse()})
+                                                </FormDescription>
+                                            </div>
+                                        </FormItem>
+                                    )}
+                                />
+
+                                {form.watch("usePoints") && calculateMaxPointsToUse() > 0 && (
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="text-muted-foreground">Points Discount</span>
+                                        <span className="text-green-600">
+                                            -${(calculateMaxPointsToUse() / 25).toFixed(2)}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
-                            {usePoints && calculateMaxPointsToUse() > 0 && (
-                                <div className="flex justify-between items-center text-sm">
-                                    <span className="text-muted-foreground">
-                                        Points Discount
-                                    </span>
-                                    <span className="text-green-600">
-                                        -${(calculateMaxPointsToUse() / 25).toFixed(2)}
-                                    </span>
-                                </div>
-                            )}
+                        )}
+
+                        <div className="flex justify-between items-center text-lg font-semibold border-t pt-4">
+                            <span>Total</span>
+                            <span className="text-primary">${calculateTotal().toFixed(2)}</span>
                         </div>
-                    )}
 
-                    <div className="flex justify-between items-center text-lg font-semibold border-t pt-4">
-                        <span>Total</span>
-                        <span className="text-primary">
-                            ${calculateTotal().toFixed(2)}
-                        </span>
-                    </div>
-
-                    <Button type="submit" className="w-full" disabled={loading}>
-                        {loading ? "Processing..." : "Continue to Payment"}
-                    </Button>
-                </form>
+                        <Button type="submit" className="w-full">
+                            Continue to Payment
+                        </Button>
+                    </form>
+                </Form>
             </CardContent>
         </Card>
     );

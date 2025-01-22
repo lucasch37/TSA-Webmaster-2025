@@ -27,7 +27,5 @@ export async function updateSession(request: NextRequest) {
       }
   )
 
-  await supabase.auth.getUser()
-
   return supabaseResponse
 }

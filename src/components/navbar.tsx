@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/dialog";
 import {toast} from "sonner";
 import {User as SupabaseUser} from "@supabase/supabase-js";
+import {getUser} from "@/lib/actions/getUser";
 
 // Main navigation bar component
 const Navbar = (): React.JSX.Element => {
@@ -54,9 +55,7 @@ const Navbar = (): React.JSX.Element => {
         };
 
         const checkUser = async (): Promise<void> => {
-            const {
-                data: {user},
-            } = await supabase.auth.getUser();
+            const user = await getUser();
             setUser(user);
         };
 

@@ -2,6 +2,7 @@
 
 import {createClient} from "@/lib/supabase/server";
 import {Order, UserStats} from "@/types";
+import {getUser} from "@/lib/actions/getUser";
 
 // Create new order from Stripe checkout session
 export async function createOrder(
@@ -19,9 +20,7 @@ export async function createOrder(
     const supabase = createClient();
 
     // Verify user authentication
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) {
         return new Error("User not authenticated");
     }
@@ -88,9 +87,7 @@ export async function createOrder(
 export async function getUserOrders(): Promise<Order[]> {
     const supabase = createClient();
 
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) {
         throw new Error("User not authenticated");
     }
@@ -111,9 +108,7 @@ export async function getUserOrders(): Promise<Order[]> {
 export async function getUserStats(): Promise<UserStats> {
     const supabase = createClient();
 
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
+    const user = await getUser();
     if (!user) {
         throw new Error("User not authenticated");
     }
