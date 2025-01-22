@@ -2,7 +2,7 @@ import React from "react";
 import {Metadata} from "next";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
-import {AnimatedSection} from "@/app/about/components/animated-sections";
+import {AnimatedSection} from "@/components/about/animated-sections";
 import Link from "next/link";
 
 // Image URLs for timeline sections
