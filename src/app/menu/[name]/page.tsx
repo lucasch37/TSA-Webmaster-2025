@@ -7,13 +7,14 @@ import React from "react";
 
 // Props type for menu item page
 type Props = {
-    params: {
+    params: Promise<{
         name: string;
-    };
+    }>;
 };
 
 // Generate dynamic metadata for menu item
-export const generateMetadata = ({params: {name}}: Props): Metadata => {
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
+    const {name} = await props.params;
     const itemName = decodeURIComponent(name);
     return {
         title: `${itemName} | Sprout & About`,
@@ -22,7 +23,11 @@ export const generateMetadata = ({params: {name}}: Props): Metadata => {
 };
 
 // Individual menu item page component
-const MenuItemPage = async ({params: {name}}: Props): Promise<React.JSX.Element> => {
+const MenuItemPage = async (props: Props): Promise<React.JSX.Element> => {
+    const params = await props.params;
+
+    const {name} = params;
+
     // Fetch menu and find specific item
     const getMenuRes = await getMenu();
     const menu = getMenuRes.data;

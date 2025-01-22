@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { CustomerDetails, Cart } from "@/types";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {Cart} from "@/types";
+import {Button} from "@/components/ui/button";
+import {Input} from "@/components/ui/input";
 import {
     Card,
     CardContent,
@@ -11,12 +11,12 @@ import {
     CardTitle,
     CardDescription,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { createClient } from "@/lib/supabase/client";
-import { createCheckoutSession } from "@/lib/actions/checkout";
-import { toast } from "sonner";
-import { User } from "@supabase/supabase-js";
-import { z } from "zod";
+import {Checkbox} from "@/components/ui/checkbox";
+import {createClient} from "@/lib/supabase/client";
+import {createCheckoutSession} from "@/lib/actions/checkout";
+import {toast} from "sonner";
+import {User} from "@supabase/supabase-js";
+import {z} from "zod";
 import {
     Dialog,
     DialogContent,
@@ -25,9 +25,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { getUser } from "@/lib/actions/getUser";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {getUser} from "@/lib/actions/getUser";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 import {
     Form,
     FormControl,
@@ -38,7 +38,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import type * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { createAccountAndSignIn } from "@/lib/actions/auth";
+import {createAccountAndSignIn} from "@/lib/actions/auth";
 
 // Validation schemas
 const customerSchema = z.object({
@@ -116,20 +116,20 @@ export default function CheckoutForm({
         return subtotal;
     };
 
-    const onSubmit = async (values: CheckoutFormValues) => {
+    const onSubmit = async (values: CheckoutFormValues): Promise<void> => {
         try {
             // If user wants to create an account, do it before checkout
             if (!user && values.createAccount && values.password) {
                 const result = await createAccountAndSignIn(
                     values.customerDetails,
-                    values.password
+                    values.password,
                 );
-                
+
                 if (!result.success) {
                     toast.error(result.error || "Failed to create account");
                     return;
                 }
-                
+
                 toast.success("Account created successfully!");
             }
 
@@ -154,12 +154,14 @@ export default function CheckoutForm({
         }
     };
 
-    const onSignInSubmit = async (values: z.infer<typeof signInSchema>) => {
+    const onSignInSubmit = async (
+        values: z.infer<typeof signInSchema>,
+    ): Promise<void> => {
         setSignInLoading(true);
 
         try {
             const supabase = createClient();
-            const { error } = await supabase.auth.signInWithPassword({
+            const {error} = await supabase.auth.signInWithPassword({
                 email: values.email,
                 password: values.password,
             });
@@ -213,15 +215,21 @@ export default function CheckoutForm({
                                     </DialogDescription>
                                 </DialogHeader>
                                 <Form {...signInForm}>
-                                    <form onSubmit={signInForm.handleSubmit(onSignInSubmit)} className="space-y-4">
+                                    <form
+                                        onSubmit={signInForm.handleSubmit(onSignInSubmit)}
+                                        className="space-y-4"
+                                    >
                                         <FormField
                                             control={signInForm.control}
                                             name="email"
-                                            render={({ field }) => (
+                                            render={({field}) => (
                                                 <FormItem>
                                                     <FormLabel>Email</FormLabel>
                                                     <FormControl>
-                                                        <Input placeholder="Email" {...field} />
+                                                        <Input
+                                                            placeholder="Email"
+                                                            {...field}
+                                                        />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -230,17 +238,25 @@ export default function CheckoutForm({
                                         <FormField
                                             control={signInForm.control}
                                             name="password"
-                                            render={({ field }) => (
+                                            render={({field}) => (
                                                 <FormItem>
                                                     <FormLabel>Password</FormLabel>
                                                     <FormControl>
-                                                        <Input type="password" placeholder="Password" {...field} />
+                                                        <Input
+                                                            type="password"
+                                                            placeholder="Password"
+                                                            {...field}
+                                                        />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
-                                        <Button type="submit" className="w-full" disabled={signInLoading}>
+                                        <Button
+                                            type="submit"
+                                            className="w-full"
+                                            disabled={signInLoading}
+                                        >
                                             {signInLoading ? "Signing in..." : "Sign In"}
                                         </Button>
                                     </form>
@@ -257,18 +273,27 @@ export default function CheckoutForm({
                             <FormField
                                 control={form.control}
                                 name="useExistingDetails"
-                                render={({ field }) => (
+                                render={({field}) => (
                                     <FormItem className="flex flex-row items-start space-x-3 space-y-0 mb-6">
                                         <FormControl>
                                             <Checkbox
                                                 checked={field.value}
-                                                onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => {
+                                                onCheckedChange={(
+                                                    checked: CheckboxPrimitive.CheckedState,
+                                                ) => {
                                                     field.onChange(checked === true);
-                                                    if (checked === true && user.user_metadata) {
+                                                    if (
+                                                        checked === true &&
+                                                        user.user_metadata
+                                                    ) {
                                                         form.setValue("customerDetails", {
                                                             email: user.email || "",
-                                                            name: user.user_metadata.name || "",
-                                                            phone: user.user_metadata.phone || "",
+                                                            name:
+                                                                user.user_metadata.name ||
+                                                                "",
+                                                            phone:
+                                                                user.user_metadata
+                                                                    .phone || "",
                                                         });
                                                     }
                                                 }}
@@ -285,14 +310,18 @@ export default function CheckoutForm({
                         <FormField
                             control={form.control}
                             name="customerDetails.name"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Full Name</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Name for pickup"
                                             {...field}
-                                            disabled={user && form.watch("useExistingDetails")}
+                                            disabled={
+                                                (user &&
+                                                    form.watch("useExistingDetails")) ||
+                                                false
+                                            }
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -303,7 +332,7 @@ export default function CheckoutForm({
                         <FormField
                             control={form.control}
                             name="customerDetails.phone"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Phone Number</FormLabel>
                                     <FormControl>
@@ -311,7 +340,11 @@ export default function CheckoutForm({
                                             type="tel"
                                             placeholder="We'll text you when your order is ready"
                                             {...field}
-                                            disabled={user && form.watch("useExistingDetails")}
+                                            disabled={
+                                                (user &&
+                                                    form.watch("useExistingDetails")) ||
+                                                false
+                                            }
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -322,7 +355,7 @@ export default function CheckoutForm({
                         <FormField
                             control={form.control}
                             name="customerDetails.email"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
@@ -330,7 +363,11 @@ export default function CheckoutForm({
                                             type="email"
                                             placeholder="For your receipt"
                                             {...field}
-                                            disabled={user && form.watch("useExistingDetails")}
+                                            disabled={
+                                                (user &&
+                                                    form.watch("useExistingDetails")) ||
+                                                false
+                                            }
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -343,16 +380,21 @@ export default function CheckoutForm({
                                 <FormField
                                     control={form.control}
                                     name="createAccount"
-                                    render={({ field }) => (
+                                    render={({field}) => (
                                         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                                             <FormControl>
                                                 <Checkbox
                                                     checked={field.value}
-                                                    onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => field.onChange(checked === true)}
+                                                    onCheckedChange={(
+                                                        checked: CheckboxPrimitive.CheckedState,
+                                                    ) => field.onChange(checked === true)}
                                                 />
                                             </FormControl>
                                             <div className="space-y-1 leading-none">
-                                                <FormLabel>Create an account for faster checkout next time</FormLabel>
+                                                <FormLabel>
+                                                    Create an account for faster checkout
+                                                    next time
+                                                </FormLabel>
                                             </div>
                                         </FormItem>
                                     )}
@@ -362,7 +404,7 @@ export default function CheckoutForm({
                                     <FormField
                                         control={form.control}
                                         name="password"
-                                        render={({ field }) => (
+                                        render={({field}) => (
                                             <FormItem>
                                                 <FormLabel>Password</FormLabel>
                                                 <FormControl>
@@ -385,38 +427,51 @@ export default function CheckoutForm({
                                 <FormField
                                     control={form.control}
                                     name="usePoints"
-                                    render={({ field }) => (
+                                    render={({field}) => (
                                         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                                             <FormControl>
                                                 <Checkbox
                                                     checked={field.value}
-                                                    onCheckedChange={(checked: CheckboxPrimitive.CheckedState) => field.onChange(checked === true)}
+                                                    onCheckedChange={(
+                                                        checked: CheckboxPrimitive.CheckedState,
+                                                    ) => field.onChange(checked === true)}
                                                 />
                                             </FormControl>
                                             <div className="space-y-1 leading-none">
-                                                <FormLabel>Use Sustainability Points</FormLabel>
+                                                <FormLabel>
+                                                    Use Sustainability Points
+                                                </FormLabel>
                                                 <FormDescription>
-                                                    Available: {userPoints} (Usable: {calculateMaxPointsToUse()})
+                                                    Available: {userPoints} (Usable:{" "}
+                                                    {calculateMaxPointsToUse()})
                                                 </FormDescription>
                                             </div>
                                         </FormItem>
                                     )}
                                 />
 
-                                {form.watch("usePoints") && calculateMaxPointsToUse() > 0 && (
-                                    <div className="flex justify-between items-center text-sm">
-                                        <span className="text-muted-foreground">Points Discount</span>
-                                        <span className="text-green-600">
-                                            -${(calculateMaxPointsToUse() / 25).toFixed(2)}
-                                        </span>
-                                    </div>
-                                )}
+                                {form.watch("usePoints") &&
+                                    calculateMaxPointsToUse() > 0 && (
+                                        <div className="flex justify-between items-center text-sm">
+                                            <span className="text-muted-foreground">
+                                                Points Discount
+                                            </span>
+                                            <span className="text-green-600">
+                                                -$
+                                                {(calculateMaxPointsToUse() / 25).toFixed(
+                                                    2,
+                                                )}
+                                            </span>
+                                        </div>
+                                    )}
                             </div>
                         )}
 
                         <div className="flex justify-between items-center text-lg font-semibold border-t pt-4">
                             <span>Total</span>
-                            <span className="text-primary">${calculateTotal().toFixed(2)}</span>
+                            <span className="text-primary">
+                                ${calculateTotal().toFixed(2)}
+                            </span>
                         </div>
 
                         <Button type="submit" className="w-full">

@@ -42,11 +42,10 @@ interface ProductMetadata {
     sale_percentage: string;
 }
 
-export default async function CheckoutSuccessPage({
-    searchParams,
-}: {
-    searchParams: {session_id?: string};
+export default async function CheckoutSuccessPage(props: {
+    searchParams: Promise<{session_id?: string}>;
 }): Promise<React.JSX.Element> {
+    const searchParams = await props.searchParams;
     const sessionId = searchParams.session_id;
 
     if (!sessionId) {
