@@ -4,8 +4,8 @@ import {getCart} from "@/lib/cart";
 import {getMenu} from "@/lib/actions/getMenu";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
-import CartItemActions from "./components/cart-item-actions";
-import CartCheckoutButton from "./components/cart-checkout-button";
+import CartItemActions from "../../components/cart/cart-item-actions";
+import CartCheckoutButton from "../../components/cart/cart-checkout-button";
 import {MenuItem} from "@/types";
 
 export const metadata: Metadata = {

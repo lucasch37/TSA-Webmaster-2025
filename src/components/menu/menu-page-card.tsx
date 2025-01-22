@@ -3,12 +3,12 @@
 import {MenuItem} from "@/types";
 import Image from "next/image";
 import React from "react";
-import {Button} from "../../../components/ui/button";
 import {ShoppingBasket} from "lucide-react";
-import {Checkbox} from "../../../components/ui/checkbox";
 import {addToCart} from "@/lib/cart";
 import {useRouter} from "next/navigation";
 import {toast} from "sonner";
+import {Button} from "../ui/button";
+import {Checkbox} from "../ui/checkbox";
 
 type Props = {
     menuItem: MenuItem;
@@ -142,7 +142,7 @@ const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
                             <Button
                                 onClick={handleAddToCart}
                                 disabled={loading}
-                                className="w-full"
+                                className="w-fit"
                             >
                                 <div className="font-normal">ADD TO CART</div>
                                 <ShoppingBasket size={20} />

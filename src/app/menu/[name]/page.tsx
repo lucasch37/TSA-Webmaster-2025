@@ -1,4 +1,4 @@
-import MenuPageCard from "@/app/menu/components/menu-page-card";
+import MenuPageCard from "@/components/menu/menu-page-card";
 import Navbar from "@/components/navbar";
 import {getMenu} from "@/lib/actions/getMenu";
 import {MenuItem} from "@/types";

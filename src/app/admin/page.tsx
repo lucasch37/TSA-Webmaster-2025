@@ -1,9 +1,8 @@
 import React from "react";
 import {Metadata} from "next";
-import AdminNavbar from "@/app/admin/components/admin-navbar";
-import {AdminMenuItemCard} from "@/app/admin/components/admin-menu-item-card";
+import AdminNavbar from "@/components/admin/admin-navbar";
+import {AdminMenuItemCard} from "@/components/admin/admin-menu-item-card";
 import {getMenu} from "@/lib/actions/getMenu";
-import MenuScroll from "@/components/menu-scroll";
 
 export const metadata: Metadata = {
     title: "Admin Dashboard | Sprout & About",
@@ -20,10 +19,6 @@ export default async function AdminPage(): Promise<React.JSX.Element> {
         <div>
             <AdminNavbar />
             <div className="mt-8 container mx-auto">
-                {/* Navigation header */}
-                <MenuScroll />
-
-                {/* Menu sections grid */}
                 {sections.map((section) => (
                     <div key={section} id={section} className="mt-12">
                         <div className="text-primary font-bold text-4xl mb-6">

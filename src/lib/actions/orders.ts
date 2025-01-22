@@ -15,7 +15,7 @@ export async function createOrder(
     }[],
     customerDetails: {name: string; email: string; phone?: string},
     totalAmount: number,
-): Promise<Order> {
+): Promise<Order | Error> {
     const supabase = createClient();
 
     // Verify user authentication
@@ -23,7 +23,7 @@ export async function createOrder(
         data: {user},
     } = await supabase.auth.getUser();
     if (!user) {
-        throw new Error("User not authenticated");
+        return new Error("User not authenticated");
     }
 
     // Check for existing order with same session

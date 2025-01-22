@@ -12,7 +12,7 @@ import {
     CardDescription,
 } from "@/components/ui/card";
 import Navbar from "@/components/navbar";
-import CheckoutForm from "./components/checkout-form";
+import CheckoutForm from "../../components/checkout/checkout-form";
 import {Metadata} from "next";
 import {MenuItem} from "@/types";
 
