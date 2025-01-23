@@ -34,16 +34,20 @@ import {
 import {toast} from "sonner";
 import {User as SupabaseUser} from "@supabase/supabase-js";
 import {getUser} from "@/lib/actions/getUser";
+import {User as AppUser} from "@/types";
 
 // Main navigation bar component
 const Navbar = (): React.JSX.Element => {
     const [cartCount, setCartCount] = useState(0);
-    const [user, setUser] = useState<SupabaseUser | null>(null);
-    const [signInOpen, setSignInOpen] = useState(false);
-    const [signInEmail, setSignInEmail] = useState("");
-    const [signInPassword, setSignInPassword] = useState("");
-    const [signInLoading, setSignInLoading] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [authUser, setAuthUser] = useState<SupabaseUser | null>(null);
+    const [userData, setUserData] = useState<AppUser | null>(null);
+    const [dialogState, setDialogState] = useState({
+        signIn: false,
+        dropdown: false,
+        email: "",
+        password: "",
+        loading: false,
+    });
     const router = useRouter();
     const supabase = createClient();
 
@@ -56,7 +60,15 @@ const Navbar = (): React.JSX.Element => {
 
         const checkUser = async (): Promise<void> => {
             const user = await getUser();
-            setUser(user);
+            setAuthUser(user);
+            if (user) {
+                const {data} = await supabase
+                    .from("users")
+                    .select("*")
+                    .eq("id", user.id)
+                    .single();
+                setUserData(data);
+            }
         };
 
         checkUser();
@@ -65,8 +77,18 @@ const Navbar = (): React.JSX.Element => {
         // Set up auth state listener
         const {
             data: {subscription},
-        } = supabase.auth.onAuthStateChange((_event, session): void => {
-            setUser(session?.user ?? null);
+        } = supabase.auth.onAuthStateChange(async (_event, session): Promise<void> => {
+            setAuthUser(session?.user ?? null);
+            if (session?.user) {
+                const {data} = await supabase
+                    .from("users")
+                    .select("*")
+                    .eq("id", session.user.id)
+                    .single();
+                setUserData(data);
+            } else {
+                setUserData(null);
+            }
         });
 
         return (): void => {
@@ -77,34 +99,37 @@ const Navbar = (): React.JSX.Element => {
     // Handle user sign out
     const handleSignOut = async (): Promise<void> => {
         await supabase.auth.signOut();
-        setDropdownOpen(false);
+        setDialogState(prev => ({...prev, dropdown: false}));
         router.push("/");
     };
 
     // Handle user sign in
     const handleSignIn = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
-        setSignInLoading(true);
+        setDialogState(prev => ({...prev, loading: true}));
 
         try {
             const {error} = await supabase.auth.signInWithPassword({
-                email: signInEmail,
-                password: signInPassword,
+                email: dialogState.email,
+                password: dialogState.password,
             });
 
             if (error) {
                 throw error;
             }
 
-            setSignInOpen(false);
-            setDropdownOpen(false);
+            setDialogState(prev => ({
+                ...prev,
+                signIn: false,
+                dropdown: false,
+                email: "",
+                password: "",
+            }));
             toast.success("Signed in successfully!");
         } catch {
             toast.error("Failed to sign in. Please check your credentials.");
         } finally {
-            setSignInLoading(false);
-            setSignInEmail("");
-            setSignInPassword("");
+            setDialogState(prev => ({...prev, loading: false}));
         }
     };
 
@@ -144,7 +169,10 @@ const Navbar = (): React.JSX.Element => {
                 {/* User menu and cart */}
                 <div className="flex items-center gap-4 w-32">
                     {/* User dropdown */}
-                    <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+                    <DropdownMenu 
+                        open={dialogState.dropdown} 
+                        onOpenChange={(open) => setDialogState(prev => ({...prev, dropdown: open}))}
+                    >
                         <DropdownMenuTrigger asChild>
                             <motion.button
                                 initial={{scale: 0.9}}
@@ -156,10 +184,10 @@ const Navbar = (): React.JSX.Element => {
                             </motion.button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            {user ? (
+                            {authUser ? (
                                 <>
                                     <DropdownMenuItem disabled>
-                                        {user.user_metadata.name || user.email}
+                                        {authUser.user_metadata.name || authUser.email}
                                     </DropdownMenuItem>
                                     <DropdownMenuItem asChild>
                                         <Link href="/account">
@@ -167,7 +195,7 @@ const Navbar = (): React.JSX.Element => {
                                             Account
                                         </Link>
                                     </DropdownMenuItem>
-                                    {user.user_metadata.is_admin && (
+                                    {userData?.is_admin && (
                                         <DropdownMenuItem asChild>
                                             <Link href="/admin">
                                                 <User className="mr-2 h-4 w-4" />
@@ -183,8 +211,11 @@ const Navbar = (): React.JSX.Element => {
                             ) : (
                                 <DropdownMenuItem
                                     onClick={() => {
-                                        setSignInOpen(true);
-                                        setDropdownOpen(false);
+                                        setDialogState(prev => ({
+                                            ...prev,
+                                            signIn: true,
+                                            dropdown: false,
+                                        }));
                                     }}
                                 >
                                     Sign in
@@ -213,7 +244,10 @@ const Navbar = (): React.JSX.Element => {
             </div>
 
             {/* Sign in dialog */}
-            <Dialog open={signInOpen} onOpenChange={setSignInOpen}>
+            <Dialog 
+                open={dialogState.signIn} 
+                onOpenChange={(open) => setDialogState(prev => ({...prev, signIn: open}))}
+            >
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Sign In</DialogTitle>
@@ -227,8 +261,8 @@ const Navbar = (): React.JSX.Element => {
                             <Input
                                 id="signInEmail"
                                 type="email"
-                                value={signInEmail}
-                                onChange={(e) => setSignInEmail(e.target.value)}
+                                value={dialogState.email}
+                                onChange={(e) => setDialogState(prev => ({...prev, email: e.target.value}))}
                                 required
                             />
                         </div>
@@ -237,13 +271,13 @@ const Navbar = (): React.JSX.Element => {
                             <Input
                                 id="signInPassword"
                                 type="password"
-                                value={signInPassword}
-                                onChange={(e) => setSignInPassword(e.target.value)}
+                                value={dialogState.password}
+                                onChange={(e) => setDialogState(prev => ({...prev, password: e.target.value}))}
                                 required
                             />
                         </div>
-                        <Button type="submit" className="w-full" disabled={signInLoading}>
-                            {signInLoading ? "Signing in..." : "Sign In"}
+                        <Button type="submit" className="w-full" disabled={dialogState.loading}>
+                            {dialogState.loading ? "Signing in..." : "Sign In"}
                         </Button>
                     </form>
                 </DialogContent>
