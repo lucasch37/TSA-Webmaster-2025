@@ -33,6 +33,7 @@ async function saveCart(cart: Cart): Promise<void> {
         // Path for the cookie
         path: "/",
     });
+    revalidatePath("/");
 }
 
 // Add or update item in cart
@@ -95,6 +96,5 @@ export async function clearCart(): Promise<void> {
     cookieStore.delete(CART_COOKIE_NAME);
 
     // Revalidate cart-related pages
-    revalidatePath("/cart");
-    revalidatePath("/checkout");
+    revalidatePath("/");
 }

@@ -69,3 +69,21 @@ export async function createAccountAndSignIn(
         };
     }
 }
+
+export async function logoutUser(): Promise<{
+    success: boolean;
+    message: string;
+    data: null;
+}> {
+    try {
+        const supabase = createClient();
+        const response = await supabase.auth.signOut();
+        console.log(response);
+        if (response.error !== null) {
+            return {success: false, message: response.error.message, data: null};
+        }
+        return {success: true, message: "Logged Out Successfully", data: null};
+    } catch {
+        return {success: false, message: "Failed to Log Out", data: null};
+    }
+}

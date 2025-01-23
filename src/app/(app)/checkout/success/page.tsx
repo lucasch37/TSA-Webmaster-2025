@@ -1,19 +1,18 @@
-import React from "react";
+import {Button} from "@/components/ui/button";
 import {
     Card,
     CardContent,
+    CardDescription,
     CardHeader,
     CardTitle,
-    CardDescription,
 } from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import Navbar from "@/components/navbar";
-import {CheckCircle, Clock, Phone, Mail, User} from "lucide-react";
-import {getStripeSession} from "@/lib/stripe";
 import {createOrder} from "@/lib/actions/orders";
-import Stripe from "stripe";
-import {redirect} from "next/navigation";
+import {getStripeSession} from "@/lib/stripe";
+import {CheckCircle, Clock, Mail, Phone, User} from "lucide-react";
 import Link from "next/link";
+import {redirect} from "next/navigation";
+import React from "react";
+import Stripe from "stripe";
 import {ClearCartOnLoad} from "./clear-cart";
 
 // Order details type definition
@@ -141,9 +140,8 @@ export default async function CheckoutSuccessPage(props: {
     estimatedTime.setMinutes(estimatedTime.getMinutes() + 20);
 
     return (
-        <div className="min-h-screen bg-background">
+        <div>
             <ClearCartOnLoad />
-            <Navbar />
             <div className="container mx-auto py-16">
                 <div className="max-w-2xl mx-auto">
                     <Card>

@@ -1,21 +1,20 @@
-import React from "react";
-import {getCart} from "@/lib/cart";
-import {getMenu} from "@/lib/actions/getMenu";
-import {createClient} from "@/lib/supabase/server";
-import Image from "next/image";
-import {Clock} from "lucide-react";
 import {
     Card,
     CardContent,
+    CardDescription,
     CardHeader,
     CardTitle,
-    CardDescription,
 } from "@/components/ui/card";
-import Navbar from "@/components/navbar";
-import CheckoutForm from "../../components/checkout/checkout-form";
-import {Metadata} from "next";
-import {MenuItem} from "@/types";
+import {getMenu} from "@/lib/actions/getMenu";
 import {getUser} from "@/lib/actions/getUser";
+import {getCart} from "@/lib/cart";
+import {createClient} from "@/lib/supabase/server";
+import {MenuItem} from "@/types";
+import {Clock} from "lucide-react";
+import {Metadata} from "next";
+import Image from "next/image";
+import React from "react";
+import CheckoutForm from "../../../components/checkout/checkout-form";
 
 export const metadata: Metadata = {
     title: "Checkout | Sprout & About",
@@ -56,8 +55,7 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
     }, 0);
 
     return (
-        <div className="min-h-screen bg-background">
-            <Navbar />
+        <div>
             <div className="container mx-auto py-8">
                 <h1 className="text-4xl font-bold text-primary mb-8">Checkout</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -145,6 +143,12 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
                             user={user}
                             userPoints={userPoints}
                         />
+                        <div className="text-primary mt-4">
+                            <span className="font-bold underline">Important:</span> To
+                            complete a purchase, use 4242-4242-4242-4242 as your card
+                            number, and enter any date, CVC, name, or zipcode when
+                            prompted.
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,7 @@
-import Navbar from "@/components/navbar";
 import {getMenu} from "@/lib/actions/getMenu";
 import {Metadata} from "next";
 import React from "react";
-import Menu from "../../components/menu/menu";
+import Menu from "../../../components/menu/menu";
 
 export const metadata: Metadata = {
     title: "Menu | Sprout & About",
@@ -17,7 +16,6 @@ export default async function MenuPage(): Promise<React.JSX.Element> {
     }
     return (
         <>
-            <Navbar />
             <Menu menu={menu} />
         </>
     );

@@ -84,8 +84,8 @@ const Hero = (): React.JSX.Element => {
                 >
                     {/* Main hero image */}
                     <Image
-                        height={400}
-                        width={400}
+                        height={800}
+                        width={800}
                         src="/landing/hero-img.png"
                         alt=""
                         className="w-[22rem] md:w-full mx-auto md:mx-0"
@@ -96,7 +96,7 @@ const Hero = (): React.JSX.Element => {
                         width={400}
                         height={400}
                         alt=""
-                        className="absolute top-2 right-2 md:top-4 md:right-12 h-12 xl:h-20 xl:w-20 -rotate-90"
+                        className="absolute top-2 right-2 md:top-4 md:right-12 h-12 w-fit xl:h-20 xl:w-20 -rotate-90"
                     />
                     <Image
                         src="/leaf2.png"
@@ -110,7 +110,7 @@ const Hero = (): React.JSX.Element => {
                         width={400}
                         height={400}
                         alt=""
-                        className="absolute top-2 left-2 md:top-4 md:left-12 h-12 xl:h-20 xl:w-20 rotate-[190deg]"
+                        className="absolute top-2 left-2 md:top-4 md:left-12 h-12 w-fit xl:h-20 xl:w-20 rotate-[190deg]"
                     />
                 </motion.div>
             </div>

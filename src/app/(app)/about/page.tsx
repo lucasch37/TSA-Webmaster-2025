@@ -1,9 +1,9 @@
-import React from "react";
+import {AnimatedSection} from "@/components/about/animated-sections";
+import {Button} from "@/components/ui/button";
 import {Metadata} from "next";
 import Image from "next/image";
-import Navbar from "@/components/navbar";
-import {AnimatedSection} from "@/components/about/animated-sections";
 import Link from "next/link";
+import React from "react";
 
 // Image URLs for timeline sections
 const IMAGES = {
@@ -28,21 +28,30 @@ export const metadata: Metadata = {
 
 export default function AboutPage(): React.JSX.Element {
     return (
-        <main className="relative min-h-screen bg-[hsl(55,92%,95%)]">
-            {/* Animated background with gradient and blobs */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-green-100/40 via-yellow-100/40 to-emerald-100/40 will-change-transform scale-110" />
-
-                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow will-change-transform" />
-                <div className="absolute top-1/2 -right-40 w-[600px] h-[600px] bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow animation-delay-2000 will-change-transform" />
-                <div className="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-slow animation-delay-4000 will-change-transform" />
-
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.05)_1px,transparent_0)] bg-[length:32px_32px] opacity-30 animate-subtle-drift" />
+        <main className="relative min-h-screen container mx-auto">
+            <div className="flex justify-center">
+                <Link href={"/references"}>
+                    <Button variant="link" className="underline text-xl">
+                        References
+                    </Button>
+                </Link>
+                <a href={"/pdf/work-log-1.pdf"} rel="noopener noreferrer">
+                    <Button variant="link" className="underline text-xl">
+                        Work Log 1
+                    </Button>
+                </a>
+                <a href={"/pdf/work-log-2.pdf"} rel="noopener noreferrer">
+                    <Button variant="link" className="underline text-xl">
+                        Work Log 2
+                    </Button>
+                </a>
+                <a href={"/pdf/work-log-3.pdf"} rel="noopener noreferrer">
+                    <Button variant="link" className="underline text-xl">
+                        Work Log 3
+                    </Button>
+                </a>
             </div>
-
-            <Navbar />
-
-            <div className="pt-16">
+            <div className="pt-8">
                 {/* Hero section */}
                 <AnimatedSection className="relative py-8">
                     <div className="max-w-7xl mx-auto px-4">

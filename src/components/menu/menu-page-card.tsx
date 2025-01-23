@@ -1,44 +1,34 @@
 "use client";
 
 import {MenuItem} from "@/types";
+import {ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import {ShoppingBasket} from "lucide-react";
-import {addToCart} from "@/lib/cart";
-import {useRouter} from "next/navigation";
 import {toast} from "sonner";
 import {Button} from "../ui/button";
 import {Checkbox} from "../ui/checkbox";
 
 type Props = {
     menuItem: MenuItem;
+    addToCart: Function;
 };
 
 // Detailed menu item page component
-const MenuPageCard = ({menuItem}: Props): React.JSX.Element => {
-    const [activeOptions, setActivOptions] = React.useState("Additives");
+const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
+    const [activeOptions, setActivOptions] = React.useState<"Additives" | "Removables">(
+        "Additives",
+    );
     const [selectedAddItems, setSelectedAddItems] = React.useState<string[]>([]);
     const [selectedRemoveItems, setSelectedRemoveItems] = React.useState<string[]>([]);
     const [quantity, setQuantity] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
-    const router = useRouter();
 
     // Add item to cart with selected options
     const handleAddToCart = async (): Promise<void> => {
         try {
             setLoading(true);
             await addToCart(menuItem, quantity, selectedAddItems, selectedRemoveItems);
-            toast.success("Added to cart!", {
-                description: `${quantity}x ${menuItem.name} added to your cart`,
-                action: {
-                    label: "View Cart",
-                    onClick: () => router.push("/cart"),
-                },
-                cancel: {
-                    label: "Keep Browsing",
-                    onClick: () => router.push("/menu"),
-                },
-            });
+            toast.success(`${quantity}x ${menuItem.name} added to your cart!`);
         } catch {
             toast.error("Failed to add item to cart");
         } finally {

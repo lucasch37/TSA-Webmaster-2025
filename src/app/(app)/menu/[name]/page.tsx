@@ -1,6 +1,6 @@
 import MenuPageCard from "@/components/menu/menu-page-card";
-import Navbar from "@/components/navbar";
 import {getMenu} from "@/lib/actions/getMenu";
+import {addToCart} from "@/lib/cart";
 import {MenuItem} from "@/types";
 import {Metadata} from "next";
 import React from "react";
@@ -40,8 +40,7 @@ const MenuItemPage = async (props: Props): Promise<React.JSX.Element> => {
 
     return (
         <>
-            <Navbar />
-            <MenuPageCard menuItem={menuItem} />
+            <MenuPageCard menuItem={menuItem} addToCart={addToCart} />
         </>
     );
 };
