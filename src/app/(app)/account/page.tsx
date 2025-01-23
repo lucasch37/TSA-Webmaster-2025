@@ -115,9 +115,9 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                     <div className="text-right">
                                                         <p className="font-medium">
                                                             $
-                                                            {order.total_amount.toFixed(
-                                                                2,
-                                                            )}
+                                                            {(
+                                                                order.total_amount / 100
+                                                            ).toFixed(2)}
                                                         </p>
                                                         <p className="text-sm text-green-500">
                                                             +{order.sustainability_score}{" "}
