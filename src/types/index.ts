@@ -37,9 +37,10 @@ export interface CustomerDetails {
     phone: string;
 }
 
-export interface UserStats {
-    user_id: string;
+export interface User {
+    id: string;
     sustainability_score: number;
+    is_admin: boolean;
     created_at: string;
     updated_at: string;
 }
@@ -51,9 +52,10 @@ export interface Order {
     total_amount: number;
     sustainability_score: number;
     items: {
+        menuItemId: number;
         name: string;
         quantity: number;
-        amount: number;
+        price: number;
         addedItems: string[];
         removedItems: string[];
     }[];

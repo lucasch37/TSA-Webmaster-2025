@@ -1,8 +1,8 @@
 "use server";
 
 import {createClient} from "@/lib/supabase/server";
-import {Order, UserStats} from "@/types";
-import {getUser} from "@/lib/actions/getUser";
+import {Order, User} from "@/types";
+import {getUser as getAuthUser} from "@/lib/actions/getUser";
 
 // Create new order from Stripe checkout session
 export async function createOrder(
@@ -10,7 +10,7 @@ export async function createOrder(
     items: {
         name: string;
         quantity: number;
-        amount: number;
+        price: number;
         addedItems?: string[];
         removedItems?: string[];
     }[],
@@ -20,7 +20,7 @@ export async function createOrder(
     const supabase = createClient();
 
     // Verify user authentication
-    const user = await getUser();
+    const user = await getAuthUser();
     if (!user) {
         return new Error("User not authenticated");
     }
@@ -38,89 +38,65 @@ export async function createOrder(
             .select("*")
             .eq("id", existingOrder.id)
             .single();
-        return order;
+        return order as Order;
     }
 
-    // Calculate sustainability score based on items
-    const sustainabilityScore = items.length * 5;
-
-    // Insert new order
+    // Create order using our new function
     const {data: order, error: orderError} = await supabase
-        .from("orders")
-        .insert({
-            user_id: user.id,
-            stripe_session_id: sessionId,
-            total_amount: totalAmount,
-            sustainability_score: sustainabilityScore,
-            items: items.map((item) => ({
-                name: item.name,
-                quantity: item.quantity,
-                amount: item.amount,
-                addedItems: item.addedItems || [],
-                removedItems: item.removedItems || [],
-            })),
-            customer_name: customerDetails.name,
-            customer_email: customerDetails.email,
-            customer_phone: customerDetails.phone,
+        .rpc("create_order_with_items", {
+            p_user_id: user.id,
+            p_stripe_session_id: sessionId,
+            p_total_amount: totalAmount,
+            p_customer_name: customerDetails.name,
+            p_customer_email: customerDetails.email,
+            p_customer_phone: customerDetails.phone,
+            p_items: items,
         })
-        .select()
         .single();
 
     if (orderError) {
         throw orderError;
     }
 
-    // Update user's sustainability stats
-    const {error: statsError} = await supabase.rpc("upsert_user_stats", {
-        p_user_id: user.id,
-        p_sustainability_score: sustainabilityScore,
-    });
-
-    if (statsError) {
-        throw statsError;
-    }
-
-    return order;
+    return order as Order;
 }
 
 // Get all orders for current user
 export async function getUserOrders(): Promise<Order[]> {
     const supabase = createClient();
 
-    const user = await getUser();
+    const user = await getAuthUser();
     if (!user) {
         throw new Error("User not authenticated");
     }
 
-    const {data: orders, error} = await supabase
-        .from("orders")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", {ascending: false});
+    const {data: orders, error} = await supabase.rpc("get_user_orders", {
+        p_user_id: user.id,
+    });
 
     if (error) {
         throw error;
     }
-    return orders;
+    return orders as Order[];
 }
 
-// Get sustainability stats for current user
-export async function getUserStats(): Promise<UserStats | null> {
+// Get user data
+export async function getUserData(): Promise<User | null> {
     const supabase = createClient();
 
-    const user = await getUser();
+    const user = await getAuthUser();
     if (!user) {
         throw new Error("User not authenticated");
     }
 
-    const {data: stats, error} = await supabase
-        .from("user_stats")
+    const {data: userData, error} = await supabase
+        .from("users")
         .select("*")
-        .eq("user_id", user.id)
-        .maybeSingle();
+        .eq("id", user.id)
+        .single();
 
     if (error) {
         throw error;
     }
-    return stats;
+    return userData;
 }

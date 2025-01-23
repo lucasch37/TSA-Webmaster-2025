@@ -36,9 +36,9 @@ export async function createCheckoutSession(
         let availablePoints = 0;
         if (user) {
             const {data: userData} = await supabase
-                .from("user_stats")
+                .from("users")
                 .select("sustainability_score")
-                .eq("user_id", user.id)
+                .eq("id", user.id)
                 .single();
             availablePoints = userData?.sustainability_score || 0;
         }
@@ -92,6 +92,11 @@ export async function createCheckoutSession(
                                     ? `\nRemoved: ${cartItem.removedItems.join(", ")}`
                                     : ""
                             }`,
+                            metadata: {
+                                menu_item_id: menuItem.id.toString(),
+                                original_price: menuItem.price.toString(),
+                                sale_percentage: menuItem.sale_percentage.toString(),
+                            },
                         },
                         unit_amount: Math.round(price * 100), // Convert to cents
                     },
@@ -116,11 +121,11 @@ export async function createCheckoutSession(
         // If successful, deduct the points from the user's account
         if (user && pointsToRedeem > 0) {
             await supabase
-                .from("user_stats")
+                .from("users")
                 .update({
                     sustainability_score: availablePoints - pointsToRedeem,
                 })
-                .eq("user_id", user.id);
+                .eq("id", user.id);
         }
 
         return {

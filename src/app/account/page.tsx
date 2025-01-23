@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import Navbar from "@/components/navbar";
 import {Leaf, ShoppingBag} from "lucide-react";
-import {getUserStats, getUserOrders} from "@/lib/actions/orders";
+import {getUserData, getUserOrders} from "@/lib/actions/orders";
+import {Order} from "@/types";
 
 export const metadata: Metadata = {
     title: "Account | Sprout & About",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AccountPage(): Promise<React.JSX.Element> {
-    const [stats, orders] = await Promise.all([getUserStats(), getUserOrders()]);
+    const [userData, orders] = await Promise.all([getUserData(), getUserOrders()]);
 
     return (
         <div>
@@ -37,7 +38,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                         </CardHeader>
                         <CardContent>
                             <div className="text-4xl font-bold text-green-500">
-                                {stats?.sustainability_score || 0}
+                                {userData?.sustainability_score || 0}
                             </div>
                             <p className="text-sm text-gray-500 mt-2">
                                 Sustainability points earned from your orders
@@ -61,7 +62,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                 {orders.length === 0 ? (
                                     <p className="text-gray-500">No orders yet</p>
                                 ) : (
-                                    orders.map((order) => (
+                                    orders.map((order: Order) => (
                                         <Card key={order.id}>
                                             <CardContent className="p-4">
                                                 {/* Order header with date and total */}
@@ -80,9 +81,9 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                     <div className="text-right">
                                                         <p className="font-medium">
                                                             $
-                                                            {(
-                                                                order.total_amount / 100
-                                                            ).toFixed(2)}
+                                                            {order.total_amount.toFixed(
+                                                                2,
+                                                            )}
                                                         </p>
                                                         <p className="text-sm text-green-500">
                                                             +{order.sustainability_score}{" "}
@@ -105,9 +106,9 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                 </span>
                                                                 <span>
                                                                     $
-                                                                    {(
-                                                                        item.amount / 100
-                                                                    ).toFixed(2)}
+                                                                    {item.price.toFixed(
+                                                                        2,
+                                                                    )}
                                                                 </span>
                                                             </div>
                                                             {/* Item customizations */}

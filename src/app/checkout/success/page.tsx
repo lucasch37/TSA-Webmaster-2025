@@ -22,9 +22,10 @@ interface OrderDetails {
     customerEmail: string;
     customerPhone: string;
     items: Array<{
+        menuItemId: number;
         name: string;
         quantity: number;
-        amount: number;
+        price: number;
         displayAmount: number;
         originalPrice: number;
         salePercentage: number;
@@ -40,6 +41,7 @@ interface OrderDetails {
 interface ProductMetadata {
     original_price: string;
     sale_percentage: string;
+    menu_item_id: string;
 }
 
 export default async function CheckoutSuccessPage(props: {
@@ -74,6 +76,7 @@ export default async function CheckoutSuccessPage(props: {
                 const metadata = (product?.metadata as unknown as ProductMetadata) || {};
                 const originalPrice = parseFloat(metadata.original_price) || 0;
                 const salePercentage = parseFloat(metadata.sale_percentage) || 0;
+                const menuItemId = parseInt(metadata.menu_item_id) || 0;
                 const addedItems =
                     lines
                         .find((line: string) => line.startsWith("Added:"))
@@ -93,9 +96,10 @@ export default async function CheckoutSuccessPage(props: {
                 const amount = item.amount_total || 0;
 
                 return {
+                    menuItemId,
                     name: product?.name || "",
                     quantity: item.quantity || 0,
-                    amount: amount,
+                    price: amount / 100,
                     displayAmount: amount / 100,
                     originalPrice,
                     salePercentage,
@@ -117,9 +121,10 @@ export default async function CheckoutSuccessPage(props: {
     await createOrder(
         sessionId,
         details.items.map((item) => ({
+            menuItemId: item.menuItemId,
             name: item.name,
             quantity: item.quantity,
-            amount: item.amount,
+            price: item.price,
             addedItems: item.addedItems,
             removedItems: item.removedItems,
         })),

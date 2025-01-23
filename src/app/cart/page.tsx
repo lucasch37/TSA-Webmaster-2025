@@ -5,8 +5,9 @@ import {getMenu} from "@/lib/actions/getMenu";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import CartItemActions from "../../components/cart/cart-item-actions";
-import CartCheckoutButton from "../../components/cart/cart-checkout-button";
 import {MenuItem} from "@/types";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 
 export const metadata: Metadata = {
     title: "Cart | Sprout & About",
@@ -23,27 +24,36 @@ export default async function CartPage(): Promise<React.JSX.Element> {
         menu.find((item) => item.id === id);
 
     // Calculate total
-    const total = cart.items.reduce((total, item) => {
+    const total = cart.items.reduce((sum, item) => {
         const menuItem = getMenuItem(item.menuItemId);
         if (!menuItem) {
-            return total;
+            return sum;
         }
-        return (
-            total + menuItem.price * item.quantity * (1 - menuItem.sale_percentage / 100)
-        );
+        const itemPrice = menuItem.price * (1 - menuItem.sale_percentage / 100);
+        return sum + itemPrice * item.quantity;
     }, 0);
 
     return (
         <>
             <Navbar />
-            <div className="container mx-auto py-8">
-                <h1 className="text-4xl font-bold text-primary mb-8">Your Cart</h1>
+            <div className="container mx-auto p-6">
                 {cart.items.length === 0 ? (
-                    <div className="text-center py-8">
-                        <p className="text-xl text-gray-600">Your cart is empty</p>
+                    <div className="text-center py-12">
+                        <h2 className="text-2xl font-bold text-primary mb-4">
+                            Your cart is empty
+                        </h2>
+                        <p className="text-gray-500 mb-8">
+                            Add some delicious items to get started!
+                        </p>
+                        <Link href="/menu">
+                            <Button>Browse Menu</Button>
+                        </Link>
                     </div>
                 ) : (
-                    <div className="grid gap-8">
+                    <div className="max-w-4xl mx-auto">
+                        <h1 className="text-3xl font-bold text-primary mb-8">
+                            Your Cart
+                        </h1>
                         {cart.items.map((item, index) => {
                             const menuItem = getMenuItem(item.menuItemId);
                             if (!menuItem) {
@@ -119,7 +129,14 @@ export default async function CartPage(): Promise<React.JSX.Element> {
                                 Total: ${total.toFixed(2)}
                             </div>
                         </div>
-                        <CartCheckoutButton hasItems={cart.items.length > 0} />
+                        <Link href={"/checkout"}>
+                            <Button
+                                className="w-full mt-4"
+                                disabled={cart.items.length <= 0}
+                            >
+                                Proceed to Checkout
+                            </Button>
+                        </Link>
                     </div>
                 )}
             </div>

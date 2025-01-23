@@ -1,4 +1,6 @@
-import {createClient} from "@/lib/supabase/client";
+"use server";
+
+import {createClient} from "@/lib/supabase/server";
 import {CustomerDetails} from "@/types";
 
 // Result type for auth operations
@@ -16,7 +18,7 @@ export async function createAccountAndSignIn(
         const supabase = createClient();
 
         // Create new user account
-        const {error: signUpError} = await supabase.auth.signUp({
+        const {data: authData, error: signUpError} = await supabase.auth.signUp({
             email: customerDetails.email,
             password: password,
             options: {
@@ -24,12 +26,26 @@ export async function createAccountAndSignIn(
                     name: customerDetails.name,
                     phone: customerDetails.phone,
                 },
-                emailRedirectTo: `${window.location.origin}/auth/callback`,
+                emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
             },
         });
 
         if (signUpError) {
             throw signUpError;
+        }
+
+        if (!authData.user) {
+            throw new Error("Failed to create user account");
+        }
+
+        // Create user record in our database
+        const {error: createUserError} = await supabase.from("users").insert({
+            id: authData.user.id,
+            is_admin: false,
+        });
+
+        if (createUserError) {
+            throw createUserError;
         }
 
         // Sign in the new user

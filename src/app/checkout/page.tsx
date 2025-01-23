@@ -34,9 +34,9 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
 
     if (user) {
         const {data: userData} = await supabase
-            .from("user_stats")
+            .from("users")
             .select("sustainability_score")
-            .eq("user_id", user.id)
+            .eq("id", user.id)
             .single();
         userPoints = userData?.sustainability_score || 0;
     }
