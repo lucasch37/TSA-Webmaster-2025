@@ -10,8 +10,9 @@ import {logoutUser} from "@/lib/actions/auth";
 import {getUser} from "@/lib/actions/getUser";
 import {getUserData, getUserOrders} from "@/lib/actions/orders";
 import {Order} from "@/types";
-import {Leaf, LogOut, ShoppingBag} from "lucide-react";
+import {Leaf, LogOut, ShoppingBag, UserCog} from "lucide-react";
 import {Metadata} from "next";
+import Link from "next/link";
 import {redirect} from "next/navigation";
 import React from "react";
 
@@ -42,12 +43,20 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                     <div className="font-bold text-primary text-2xl">
                         {user?.user_metadata.name}
                     </div>
-                    <form action={logout}>
-                        <Button className="mb-4">
-                            <LogOut size={20} />
-                            Logout
-                        </Button>
-                    </form>
+                    <div className="flex gap-4">
+                        <Link href={"/admin"}>
+                            <Button className="mb-4">
+                                <UserCog size={20} />
+                                Admin Portal
+                            </Button>
+                        </Link>
+                        <form action={logout}>
+                            <Button className="mb-4">
+                                <LogOut size={20} />
+                                Logout
+                            </Button>
+                        </form>
+                    </div>
                 </div>
                 <div className="grid gap-6">
                     {/* Sustainability scorecard */}

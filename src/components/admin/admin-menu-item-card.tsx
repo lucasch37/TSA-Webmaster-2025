@@ -68,7 +68,7 @@ export function AdminMenuItemCard({item}: MenuItemCardProps): React.JSX.Element 
                         src={item.image_url}
                         alt={item.name}
                         fill
-                        className="object-cover rounded-md"
+                        className="object-contain rounded-md"
                     />
                 </div>
 
