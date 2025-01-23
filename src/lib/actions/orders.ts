@@ -105,7 +105,7 @@ export async function getUserOrders(): Promise<Order[]> {
 }
 
 // Get sustainability stats for current user
-export async function getUserStats(): Promise<UserStats> {
+export async function getUserStats(): Promise<UserStats | null> {
     const supabase = createClient();
 
     const user = await getUser();
@@ -117,7 +117,7 @@ export async function getUserStats(): Promise<UserStats> {
         .from("user_stats")
         .select("*")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
     if (error) {
         throw error;
