@@ -37,7 +37,7 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                         </div>
 
                         {/* Price and details button */}
-                        <Link href={`/menu/${menuItem.name}`}>
+                        <Link href={`/menu/${encodeURIComponent(menuItem.name)}`}>
                             <Button
                                 size={"default"}
                                 className="w-full justify-between flex mt-4"
