@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
 import {Button} from "@/components/ui/button";
-import {Minus, Plus, Trash2} from "lucide-react";
 import {removeFromCart, updateCartItemQuantity} from "@/lib/cart";
-import {toast} from "sonner";
+import {Minus, Plus, X} from "lucide-react";
 import {useRouter} from "next/navigation";
+import React from "react";
+import {toast} from "sonner";
 
 interface CartItemActionsProps {
     index: number;
@@ -43,9 +43,12 @@ export default function CartItemActions({
     // If quantity is not provided, render remove button only
     if (!quantity) {
         return (
-            <Button variant="ghost" size="icon" onClick={handleRemoveItem}>
-                <Trash2 className="text-red-500" />
-            </Button>
+            <div
+                onClick={handleRemoveItem}
+                className="absolute top-4 right-4 cursor-pointer"
+            >
+                <X className="text-primary bg-primary/20 p-1 rounded-full" />
+            </div>
         );
     }
 
@@ -57,7 +60,7 @@ export default function CartItemActions({
                 size="icon"
                 onClick={() => handleUpdateQuantity(quantity - 1)}
             >
-                <Minus className="h-4 w-4" />
+                <Minus size={14} />
             </Button>
             <span className="text-primary font-medium">{quantity}</span>
             <Button
@@ -65,7 +68,7 @@ export default function CartItemActions({
                 size="icon"
                 onClick={() => handleUpdateQuantity(quantity + 1)}
             >
-                <Plus className="h-4 w-4" />
+                <Plus size={14} />
             </Button>
         </>
     );

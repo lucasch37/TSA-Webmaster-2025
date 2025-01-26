@@ -1,16 +1,15 @@
 "use client";
 
 import {Cart, MenuItem} from "@/types";
+import {DialogTitle} from "@radix-ui/react-dialog";
+import {ArrowRight, ShoppingBasket} from "lucide-react";
 import {motion} from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 import React from "react";
 import {Button} from "../ui/button";
 import {Dialog, DialogContent, DialogTrigger} from "../ui/dialog";
-import CartItemActions from "./cart-item-actions";
-import {ShoppingBasket} from "lucide-react";
-import {DialogTitle} from "@radix-ui/react-dialog";
-import {usePathname} from "next/navigation";
+import CartListItem from "./cart-list-item";
 
 const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Element => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -44,7 +43,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                 <DialogTitle className="text-3xl font-bold text-primary">
                     Your Cart
                 </DialogTitle>
-                <div className="w-full">
+                <div className="w-full h-full">
                     {cart.items.length === 0 ? (
                         <div className="text-center py-12">
                             <h2 className="text-2xl font-bold text-primary mb-4">
@@ -59,89 +58,32 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                         </div>
                     ) : (
                         <div>
-                            <div className="flex flex-col gap-4 max-h-[800px] overflow-auto pr-4">
-                                {cart.items.map((item, index) => {
-                                    const menuItem = getMenuItem(item.menuItemId);
-                                    if (!menuItem) {
-                                        return null;
-                                    }
-
-                                    return (
-                                        <div
-                                            key={index}
-                                            className="border-2 border-primary p-6 rounded-lg"
-                                        >
-                                            <div className="flex gap-6">
-                                                <div className="w-32 h-32 relative">
-                                                    <Image
-                                                        src={menuItem.image_url}
-                                                        alt={menuItem.name}
-                                                        fill
-                                                        className="object-cover rounded-md"
-                                                    />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className="flex justify-between items-start">
-                                                        <h3 className="text-xl font-semibold text-primary">
-                                                            {menuItem.name}
-                                                        </h3>
-                                                        <CartItemActions index={index} />
-                                                    </div>
-                                                    <p className="text-gray-600 mt-2">
-                                                        {menuItem.description}
-                                                    </p>
-                                                    {item.addedItems.length > 0 && (
-                                                        <p className="text-sm text-primary mt-2">
-                                                            <span className="font-medium">
-                                                                Added:
-                                                            </span>{" "}
-                                                            {item.addedItems.join(", ")}
-                                                        </p>
-                                                    )}
-                                                    {item.removedItems.length > 0 && (
-                                                        <p className="text-sm text-primary mt-1">
-                                                            <span className="font-medium">
-                                                                Removed:
-                                                            </span>{" "}
-                                                            {item.removedItems.join(", ")}
-                                                        </p>
-                                                    )}
-                                                    <div className="flex justify-between items-center mt-4">
-                                                        <div className="flex items-center gap-4">
-                                                            <CartItemActions
-                                                                index={index}
-                                                                quantity={item.quantity}
-                                                            />
-                                                        </div>
-                                                        <div className="text-xl font-bold text-primary">
-                                                            $
-                                                            {(
-                                                                menuItem.price *
-                                                                item.quantity *
-                                                                (1 -
-                                                                    menuItem.sale_percentage /
-                                                                        100)
-                                                            ).toFixed(2)}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                            <div className="flex flex-col gap-4 max-h-[600px] overflow-auto pr-4">
+                                {cart.items.map((item, index) => (
+                                    <CartListItem
+                                        key={index}
+                                        item={item}
+                                        index={index}
+                                        getMenuItem={getMenuItem}
+                                    />
+                                ))}
                             </div>
 
-                            <div className="flex justify-between items-center border-t-2 border-primary pt-6 mt-6">
-                                <div className="text-2xl font-bold text-primary">
-                                    Total: ${total.toFixed(2)}
+                            <div className="flex justify-between items-center pt-6 border-t-2 mt-4">
+                                <div className="text-primary flex items-center gap-2">
+                                    <span className="text-xl">Subtotal:</span>
+                                    <span className="font-bold text-2xl">
+                                        ${total.toFixed(2)}
+                                    </span>
                                 </div>
                             </div>
                             <Link href={"/checkout"}>
                                 <Button
-                                    className="w-full mt-4"
+                                    className="w-full mt-6"
                                     disabled={cart.items.length <= 0}
                                 >
-                                    Proceed to Checkout
+                                    Checkout
+                                    <ArrowRight size={20} />
                                 </Button>
                             </Link>
                         </div>

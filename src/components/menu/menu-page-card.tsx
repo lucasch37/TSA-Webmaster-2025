@@ -1,7 +1,7 @@
 "use client";
 
 import {MenuItem} from "@/types";
-import {ShoppingBasket} from "lucide-react";
+import {Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import {toast} from "sonner";
@@ -116,7 +116,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                         setQuantity((prev) => Math.max(1, prev - 1))
                                     }
                                 >
-                                    -
+                                    <Minus size={14} />
                                 </Button>
                                 <span className="text-primary font-medium">
                                     {quantity}
@@ -126,7 +126,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                     size="icon"
                                     onClick={() => setQuantity((prev) => prev + 1)}
                                 >
-                                    +
+                                    <Plus size={14} />
                                 </Button>
                             </div>
                             <Button

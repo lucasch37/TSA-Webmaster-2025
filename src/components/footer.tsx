@@ -3,19 +3,19 @@ import React from "react";
 
 export function Footer(): React.JSX.Element {
     return (
-        <footer className="mt-24 border-t border-primary/20">
+        <footer className="mt-24 border-t border-primary/40">
             <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Contact section with phone and email */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
+                        <h3 className="text-sm font-bold text-primary tracking-wider uppercase">
                             Contact Us
                         </h3>
                         <ul className="space-y-2">
                             <li>
                                 <a
                                     href="tel:+1234567890"
-                                    className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export function Footer(): React.JSX.Element {
                             <li>
                                 <a
                                     href="mailto:info@sproutandabout.com"
-                                    className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -61,10 +61,10 @@ export function Footer(): React.JSX.Element {
 
                     {/* Physical address section */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
+                        <h3 className="text-sm font-bold text-primary tracking-wider uppercase">
                             Visit Us
                         </h3>
-                        <div className="text-muted-foreground flex items-start gap-2">
+                        <div className="text-primary flex items-start gap-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-4 w-4 mt-1 flex-shrink-0"
@@ -95,14 +95,14 @@ export function Footer(): React.JSX.Element {
 
                     {/* Site navigation links */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
+                        <h3 className="text-sm font-bold text-primary tracking-wider uppercase">
                             Quick Links
                         </h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link
                                     href="/menu"
-                                    className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ export function Footer(): React.JSX.Element {
                             <li>
                                 <Link
                                     href="/about"
-                                    className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +146,7 @@ export function Footer(): React.JSX.Element {
                             <li>
                                 <Link
                                     href="/privacy"
-                                    className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -170,10 +170,10 @@ export function Footer(): React.JSX.Element {
 
                     {/* Restaurant mission statement */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-primary tracking-wider uppercase">
+                        <h3 className="text-sm font-bold text-primary tracking-wider uppercase">
                             Our Mission
                         </h3>
-                        <p className="text-muted-foreground">
+                        <p className="text-primary">
                             To cultivate a sustainable and delightful dining experience
                             that nourishes both our community and the environment, one
                             fresh, locally-sourced meal at a time.
@@ -182,8 +182,8 @@ export function Footer(): React.JSX.Element {
                 </div>
 
                 {/* Copyright footer */}
-                <div className="mt-8 pt-6 border-t border-primary/20">
-                    <p className="text-center text-muted-foreground/80 text-sm">
+                <div className="mt-8 pt-6 border-t border-primary/40">
+                    <p className="text-center text-primary/80 text-sm">
                         © {new Date().getFullYear()} Sprout & About. All rights reserved.
                     </p>
                 </div>

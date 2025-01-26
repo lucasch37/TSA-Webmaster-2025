@@ -10,7 +10,7 @@ import {logoutUser} from "@/lib/actions/auth";
 import {getUser} from "@/lib/actions/getUser";
 import {getUserData, getUserOrders} from "@/lib/actions/orders";
 import {Order} from "@/types";
-import {Leaf, LogOut, ShoppingBag, UserCog} from "lucide-react";
+import {Leaf, LogOut, UserCog} from "lucide-react";
 import {Metadata} from "next";
 import Link from "next/link";
 import {redirect} from "next/navigation";
@@ -40,30 +40,29 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
         <div>
             <div className="container mx-auto p-6">
                 <div className="flex justify-between items-center">
-                    <div className="font-bold text-primary text-2xl">
+                    <div className="font-bold text-primary text-4xl">
                         {user?.user_metadata.name}
                     </div>
                     <div className="flex gap-4">
                         <Link href={"/admin"}>
-                            <Button className="mb-4">
+                            <Button>
                                 <UserCog size={20} />
                                 Admin Portal
                             </Button>
                         </Link>
                         <form action={logout}>
-                            <Button className="mb-4">
+                            <Button>
                                 <LogOut size={20} />
                                 Logout
                             </Button>
                         </form>
                     </div>
                 </div>
-                <div className="grid gap-6">
+                <div className="grid gap-6 mt-4">
                     {/* Sustainability scorecard */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Leaf className="h-5 w-5 text-green-500" />
                                 Your Sustainability Impact
                             </CardTitle>
                             <CardDescription>
@@ -71,7 +70,8 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="text-4xl font-bold text-green-500">
+                            <div className="text-4xl font-bold flex gap-2 items-center text-primary">
+                                <Leaf size={30} />
                                 {userData?.sustainability_score || 0}
                             </div>
                             <p className="text-sm text-gray-500 mt-2">
@@ -84,7 +84,6 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <ShoppingBag className="h-5 w-5" />
                                 Order History
                             </CardTitle>
                             <CardDescription>

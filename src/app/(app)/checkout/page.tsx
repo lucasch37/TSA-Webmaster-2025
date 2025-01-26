@@ -86,7 +86,7 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
                                                         src={menuItem.image_url}
                                                         alt={menuItem.name}
                                                         fill
-                                                        className="object-cover rounded-md"
+                                                        className="object-contain rounded-md"
                                                     />
                                                 </div>
                                                 <div className="flex-1">

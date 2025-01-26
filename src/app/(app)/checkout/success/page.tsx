@@ -146,8 +146,8 @@ export default async function CheckoutSuccessPage(props: {
                 <div className="max-w-2xl mx-auto">
                     <Card>
                         <CardHeader>
-                            <div className="flex justify-center mb-4">
-                                <CheckCircle className="w-16 h-16 text-green-500" />
+                            <div className="flex justify-center mb-2">
+                                <CheckCircle className="w-16 h-16 text-primary" />
                             </div>
                             <CardTitle className="text-center text-2xl">
                                 Order Confirmed!
@@ -157,7 +157,7 @@ export default async function CheckoutSuccessPage(props: {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <div className="p-4 rounded-lg">
+                            <div className="rounded-lg">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Clock className="w-5 h-5 text-primary" />
                                     <h3 className="font-semibold">
@@ -188,7 +188,9 @@ export default async function CheckoutSuccessPage(props: {
                             </div>
 
                             <div>
-                                <h3 className="font-semibold mb-3">Order Details</h3>
+                                <h3 className="font-semibold mb-3 text-primary text-lg">
+                                    Order Details
+                                </h3>
                                 <div className="space-y-3">
                                     {details.items.map((item, index) => (
                                         <div
@@ -251,7 +253,7 @@ export default async function CheckoutSuccessPage(props: {
                                         {details.items.some(
                                             (item) => item.salePercentage > 0,
                                         ) && (
-                                            <div className="flex justify-between items-center text-sm text-green-600">
+                                            <div className="flex justify-between items-center text-sm text-primary">
                                                 <span>Sale Discount</span>
                                                 <span>
                                                     -$
@@ -286,7 +288,7 @@ export default async function CheckoutSuccessPage(props: {
                                                 ${details.displayTotal.toFixed(2)}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between items-center text-sm text-green-600 pt-2">
+                                        <div className="flex justify-between items-center text-sm text-primary pt-2">
                                             <span>Points Earned</span>
                                             <span>+{details.pointsEarned} points</span>
                                         </div>
