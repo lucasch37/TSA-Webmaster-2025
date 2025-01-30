@@ -1,9 +1,7 @@
-"use client";
-
-import {motion} from "framer-motion";
 import {ArrowLeft, UserRoundCog} from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import {Button} from "../ui/button";
 
 // Admin navigation bar component
 const AdminNavbar = (): React.JSX.Element => {
@@ -25,20 +23,11 @@ const AdminNavbar = (): React.JSX.Element => {
                         <UserRoundCog size={20} /> ADMIN PORTAL
                     </button>
 
-                    {/* Return to main site button */}
-                    <motion.div
-                        initial={{scale: 0.9}}
-                        animate={{scale: 1}}
-                        whileHover={{scale: 1.05}}
-                        transition={{type: "spring", stiffness: 80}}
-                        className="border border-primary rounded-full py-1 px-4 flex text-primary"
-                    >
-                        <Link href={"/"}>
-                            <button className="flex gap-2 items-center nav-link">
-                                <ArrowLeft size={20} /> RETURN
-                            </button>
-                        </Link>
-                    </motion.div>
+                    <Link href={"/"}>
+                        <Button>
+                            <ArrowLeft size={20} /> RETURN
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>

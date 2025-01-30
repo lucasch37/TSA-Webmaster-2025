@@ -51,8 +51,7 @@ export default function AboutPage(): React.JSX.Element {
                     </Button>
                 </a>
             </div>
-            <div className="pt-8">
-                {/* Hero section */}
+            {/* <div className="pt-8">
                 <AnimatedSection className="relative py-8">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="max-w-3xl mx-auto text-center space-y-3">
@@ -67,7 +66,6 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </AnimatedSection>
 
-                {/* Mission statement section */}
                 <AnimatedSection className="relative py-12">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -85,7 +83,6 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </AnimatedSection>
 
-                {/* Timeline section */}
                 <section className="relative py-16">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="space-y-24">
@@ -157,7 +154,6 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </section>
 
-                {/* Impact statistics section */}
                 <AnimatedSection className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="text-center space-y-16">
@@ -208,7 +204,6 @@ export default function AboutPage(): React.JSX.Element {
                     </div>
                 </AnimatedSection>
 
-                {/* Call to action section */}
                 <AnimatedSection className="relative py-20">
                     <div className="max-w-7xl mx-auto px-4 text-center">
                         <div className="space-y-8">
@@ -228,7 +223,7 @@ export default function AboutPage(): React.JSX.Element {
                         </div>
                     </div>
                 </AnimatedSection>
-            </div>
+            </div> */}
         </main>
     );
 }

@@ -45,7 +45,7 @@ export default function CartItemActions({
         return (
             <div
                 onClick={handleRemoveItem}
-                className="absolute top-4 right-4 cursor-pointer"
+                className="cursor-pointer absolute top-0 right-0 "
             >
                 <X className="text-primary bg-primary/20 p-1 rounded-full" />
             </div>
@@ -58,17 +58,19 @@ export default function CartItemActions({
             <Button
                 variant="outline"
                 size="icon"
+                className="w-7 h-7 hover:bg-primary hover:text-white"
                 onClick={() => handleUpdateQuantity(quantity - 1)}
             >
-                <Minus size={14} />
+                <Minus size={12} />
             </Button>
             <span className="text-primary font-medium">{quantity}</span>
             <Button
                 variant="outline"
                 size="icon"
+                className="w-7 h-7 hover:bg-primary hover:text-white"
                 onClick={() => handleUpdateQuantity(quantity + 1)}
             >
-                <Plus size={14} />
+                <Plus size={12} />
             </Button>
         </>
     );

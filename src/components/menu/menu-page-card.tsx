@@ -100,10 +100,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8">
                             <div>{menuItem.description}</div>
 
-                            <div>
-                                INGREDIENTS:{" "}
-                                {menuItem.ingredients.join(", ").toLowerCase()}
-                            </div>
+                            <div>Ingredients: {menuItem.ingredients.join(", ")}</div>
                         </div>
 
                         {/* Quantity selector and add to cart */}
@@ -112,6 +109,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 <Button
                                     variant="outline"
                                     size="icon"
+                                    className="hover:bg-primary hover:text-white"
                                     onClick={() =>
                                         setQuantity((prev) => Math.max(1, prev - 1))
                                     }
@@ -124,6 +122,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 <Button
                                     variant="outline"
                                     size="icon"
+                                    className="hover:bg-primary hover:text-white"
                                     onClick={() => setQuantity((prev) => prev + 1)}
                                 >
                                     <Plus size={14} />
@@ -132,6 +131,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                             <Button
                                 onClick={handleAddToCart}
                                 disabled={loading}
+                                size={"lg"}
                                 className="w-fit"
                             >
                                 <div className="font-normal">ADD TO CART</div>

@@ -1,14 +1,14 @@
 "use client";
 
 import {Cart, MenuItem} from "@/types";
-import {DialogTitle} from "@radix-ui/react-dialog";
-import {ArrowRight, ShoppingBasket} from "lucide-react";
+import {DialogDescription, DialogTitle} from "@radix-ui/react-dialog";
+import {ArrowRight, MenuSquare, ShoppingBasket} from "lucide-react";
 import {motion} from "motion/react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import React from "react";
 import {Button} from "../ui/button";
-import {Dialog, DialogContent, DialogTrigger} from "../ui/dialog";
+import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "../ui/dialog";
 import CartListItem from "./cart-list-item";
 
 const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Element => {
@@ -40,25 +40,33 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogContent className="max-w-[800px]">
-                <DialogTitle className="text-3xl font-bold text-primary">
-                    Your Cart
-                </DialogTitle>
-                <div className="w-full h-full">
+                <DialogHeader>
+                    <DialogTitle className="text-4xl font-semibold text-primary">
+                        YOUR CART
+                    </DialogTitle>
+                    <DialogDescription className="text-primary text-lg font-medium">
+                        {cartCount} item{cartCount !== 1 ? "s" : ""} in your cart
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="w-full h-full border-t-[1.5px] mt-2">
                     {cart.items.length === 0 ? (
                         <div className="text-center py-12">
                             <h2 className="text-2xl font-bold text-primary mb-4">
                                 Your cart is empty
                             </h2>
-                            <p className="text-gray-500 mb-8">
+                            <p className="text-primary mb-8">
                                 Add some delicious items to get started!
                             </p>
                             <Link href="/menu">
-                                <Button>Browse Menu</Button>
+                                <Button>
+                                    <MenuSquare />
+                                    Browse Menu
+                                </Button>
                             </Link>
                         </div>
                     ) : (
                         <div>
-                            <div className="flex flex-col gap-4 max-h-[600px] overflow-auto pr-4">
+                            <div className="flex flex-col max-h-[600px] overflow-auto pr-4 divide-y-[1px]">
                                 {cart.items.map((item, index) => (
                                     <CartListItem
                                         key={index}
@@ -69,9 +77,11 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                                 ))}
                             </div>
 
-                            <div className="flex justify-between items-center pt-6 border-t-2 mt-4">
-                                <div className="text-primary flex items-center gap-2">
-                                    <span className="text-xl">Subtotal:</span>
+                            <div className="pt-4 border-t-[1.5px]">
+                                <div className="text-primary flex justify-between items-center gap-2">
+                                    <span className="text-xl font-semibold">
+                                        Subtotal:
+                                    </span>
                                     <span className="font-bold text-2xl">
                                         ${total.toFixed(2)}
                                     </span>
@@ -79,10 +89,10 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                             </div>
                             <Link href={"/checkout"}>
                                 <Button
-                                    className="w-full mt-6"
+                                    className="w-full mt-6 text-base"
                                     disabled={cart.items.length <= 0}
                                 >
-                                    Checkout
+                                    CHECKOUT
                                     <ArrowRight size={20} />
                                 </Button>
                             </Link>

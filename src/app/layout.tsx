@@ -5,7 +5,7 @@ import localFont from "next/font/local";
 import {CursorEffects} from "@/components/cursor-effects";
 import Footer from "@/components/footer";
 import React from "react";
-import {Toaster} from "sonner";
+import {Toaster} from "@/components/ui/sonner";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -33,7 +33,7 @@ export default function RootLayout({
                 className={`${inter.variable} ${homemadeApple.variable} antialiased min-h-screen flex flex-col`}
                 suppressHydrationWarning
             >
-                <Toaster richColors position="top-center" />
+                <Toaster richColors />
                 {/* <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
                     <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-green-100/40 via-yellow-100/40 to-emerald-100/40 will-change-transform scale-110" />
 
