@@ -299,3 +299,62 @@ body {
     @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes gradient-slow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradient-slow-reverse {
+    0% {
+        background-position: 100% 50%;
+    }
+    50% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.animate-gradient-slow {
+    animation: gradient-slow 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+.animate-gradient-slow-reverse {
+    animation: gradient-slow-reverse 12s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradient-shift {
+    0% {
+        stop-color: #c2e6d1;
+    }
+    50% {
+        stop-color: #8ecaa8;
+    }
+    100% {
+        stop-color: #c2e6d1;
+    }
+}
+
+.animate-gradient-stop {
+    animation: gradient-shift 4s ease-in-out infinite;
+}

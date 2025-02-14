@@ -15,6 +15,7 @@ import {Metadata} from "next";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 import React from "react";
+import {UserCard} from "@/features/user/components/user-card";
 
 export const metadata: Metadata = {
     title: "Account | Sprout & About",
@@ -180,6 +181,9 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                             </div>
                         </CardContent>
                     </Card>
+                </div>
+                <div className="pt-12">
+                    <UserCard />
                 </div>
             </div>
         </div>
