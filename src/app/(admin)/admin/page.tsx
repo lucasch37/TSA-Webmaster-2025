@@ -1,4 +1,4 @@
-import {AdminMenuItemCard} from "@/components/admin/admin-menu-item-card";
+import {AdminMenuItemCard} from "@/features/admin/components/admin-menu-item-card";
 import {getMenu} from "@/features/menu/actions/getMenu";
 import {Metadata} from "next";
 import React from "react";

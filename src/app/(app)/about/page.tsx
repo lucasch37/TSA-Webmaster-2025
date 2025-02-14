@@ -1,4 +1,3 @@
-import {AnimatedSection} from "@/components/about/animated-sections";
 import {Button} from "@/components/ui/button";
 import {Metadata} from "next";
 import Image from "next/image";
