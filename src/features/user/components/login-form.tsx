@@ -5,10 +5,12 @@ import {Label} from "@/components/ui/label";
 import {createClient} from "@/lib/supabase/client";
 import {cn} from "@/lib/utils";
 import {ArrowRight} from "lucide-react";
+import {useSearchParams} from "next/navigation";
 import React from "react";
 import {toast} from "sonner";
 
 export default function LoginForm(): React.JSX.Element {
+    const searchParams = useSearchParams();
     const signIn = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         const email = (e.currentTarget.elements[0] as HTMLInputElement).value;
@@ -23,7 +25,7 @@ export default function LoginForm(): React.JSX.Element {
         if (error) {
             toast.error("There was a problem signing you in. Please try again.");
         } else {
-            window.location.href = "/account";
+            window.location.href = searchParams.get("redirect") || "/account";
         }
     };
 

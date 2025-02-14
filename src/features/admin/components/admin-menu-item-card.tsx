@@ -22,7 +22,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import {ChevronDown} from "lucide-react";
-import {updateMenuItemHidden} from "@/lib/actions/updateMenuItemHidden";
+import {updateMenuItemHidden} from "@/features/admin/actions/updateMenuItemHidden";
 
 // Props interface for menu item card
 interface MenuItemCardProps {

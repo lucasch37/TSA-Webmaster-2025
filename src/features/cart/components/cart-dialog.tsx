@@ -7,8 +7,8 @@ import {motion} from "motion/react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import React from "react";
-import {Button} from "../ui/button";
-import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "../ui/dialog";
+import {Button} from "@/components/ui/button";
+import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "@/components/ui/dialog";
 import CartListItem from "./cart-list-item";
 
 const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Element => {
@@ -41,7 +41,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogContent className="max-w-[800px]">
                 <DialogHeader>
-                    <DialogTitle className="text-4xl font-semibold text-primary">
+                    <DialogTitle className="text-4xl font-bold text-primary">
                         YOUR CART
                     </DialogTitle>
                     <DialogDescription className="text-primary text-lg font-medium">
@@ -52,10 +52,10 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                     {cart.items.length === 0 ? (
                         <div className="text-center py-12">
                             <h2 className="text-2xl font-bold text-primary mb-4">
-                                Your cart is empty
+                                Your cart is empty.
                             </h2>
                             <p className="text-primary mb-8">
-                                Add some delicious items to get started!
+                                Add some items to get started!
                             </p>
                             <Link href="/menu">
                                 <Button>

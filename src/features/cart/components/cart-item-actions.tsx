@@ -1,7 +1,7 @@
 "use client";
 
 import {Button} from "@/components/ui/button";
-import {removeFromCart, updateCartItemQuantity} from "@/lib/cart";
+import {removeFromCart, updateCartItemQuantity} from "@/features/cart/actions/cart";
 import {Minus, Plus, X} from "lucide-react";
 import {useRouter} from "next/navigation";
 import React from "react";

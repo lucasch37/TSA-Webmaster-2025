@@ -2,7 +2,7 @@
 
 import {createClient} from "@/lib/supabase/server";
 import {Order, User} from "@/types";
-import {getUser as getAuthUser} from "@/lib/actions/getUser";
+import {getUser as getAuthUser} from "@/features/user/actions/getUser";
 
 // Create new order from Stripe checkout session
 export async function createOrder(

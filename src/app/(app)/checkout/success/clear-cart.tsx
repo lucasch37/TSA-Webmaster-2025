@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect} from "react";
-import {clearCart} from "@/lib/cart";
+import {clearCart} from "@/features/cart/actions/cart";
 
 export function ClearCartOnLoad(): null {
     useEffect(() => {

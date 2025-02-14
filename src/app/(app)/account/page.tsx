@@ -6,9 +6,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import {logoutUser} from "@/lib/actions/auth";
-import {getUser} from "@/lib/actions/getUser";
-import {getUserData, getUserOrders} from "@/lib/actions/orders";
+import {logoutUser} from "@/features/user/actions/auth";
+import {getUser} from "@/features/user/actions/getUser";
+import {getUserData, getUserOrders} from "@/features/checkout/actions/orders";
 import {Order} from "@/types";
 import {Leaf, LogOut, UserCog} from "lucide-react";
 import {Metadata} from "next";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default async function AccountPage(): Promise<React.JSX.Element> {
     const user = await getUser();
     if (!user) {
-        redirect("/login");
+        throw redirect("/login");
     }
     const [userData, orders] = await Promise.all([getUserData(), getUserOrders()]);
 

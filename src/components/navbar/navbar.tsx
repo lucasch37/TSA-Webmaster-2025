@@ -1,7 +1,7 @@
-import {getCart} from "@/lib/cart";
+import {getCart} from "@/features/cart/actions/cart";
 import React from "react";
 import NavLinks from "./nav-links";
-import {getMenu} from "@/lib/actions/getMenu";
+import {getMenu} from "@/features/menu/actions/getMenu";
 
 // Main navigation bar component
 const Navbar = async (): Promise<React.JSX.Element> => {

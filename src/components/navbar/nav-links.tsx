@@ -1,11 +1,11 @@
 "use client";
 
+import CartDialog from "@/features/cart/components/cart-dialog";
 import {Cart, MenuItem} from "@/types";
 import {Calendar, Home, MessageCircleQuestion, SquareMenu, User} from "lucide-react";
 import {motion} from "motion/react";
 import Link from "next/link";
 import React from "react";
-import CartDialog from "../cart/cart-dialog";
 
 const NavLinks = ({
     cart,

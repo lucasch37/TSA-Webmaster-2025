@@ -1,5 +1,5 @@
 import {AdminMenuItemCard} from "@/components/admin/admin-menu-item-card";
-import {getMenu} from "@/lib/actions/getMenu";
+import {getMenu} from "@/features/menu/actions/getMenu";
 import {Metadata} from "next";
 import React from "react";
 

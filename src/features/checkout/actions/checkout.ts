@@ -2,11 +2,11 @@
 
 import {CustomerDetails, CartItem} from "@/types";
 import {APP_CONFIG} from "@/config";
-import {getMenu} from "./getMenu";
-import {createStripeSession} from "../stripe";
+import {getMenu} from "../../menu/actions/getMenu";
+import {createStripeSession} from "../../../lib/stripe";
 import {createClient} from "@/lib/supabase/server";
 import Stripe from "stripe";
-import {getUser} from "@/lib/actions/getUser";
+import {getUser} from "@/features/user/actions/getUser";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "stripe_key", {
     apiVersion: "2024-12-18.acacia",

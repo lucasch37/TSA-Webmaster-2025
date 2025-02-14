@@ -5,8 +5,8 @@ import {Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import {toast} from "sonner";
-import {Button} from "../ui/button";
-import {Checkbox} from "../ui/checkbox";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
 
 type Props = {
     menuItem: MenuItem;

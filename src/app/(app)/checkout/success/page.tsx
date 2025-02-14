@@ -1,22 +1,14 @@
-import {Button} from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import {createOrder} from "@/lib/actions/orders";
+import {createOrder} from "@/features/checkout/actions/orders";
+import Success from "@/features/checkout/components/success";
+import {getMenu} from "@/features/menu/actions/getMenu";
 import {getStripeSession} from "@/lib/stripe";
-import {CheckCircle, Clock, Mail, Phone, User} from "lucide-react";
-import Link from "next/link";
 import {redirect} from "next/navigation";
 import React from "react";
 import Stripe from "stripe";
 import {ClearCartOnLoad} from "./clear-cart";
 
 // Order details type definition
-interface OrderDetails {
+export interface OrderDetails {
     customerName: string;
     customerEmail: string;
     customerPhone: string;
@@ -48,6 +40,12 @@ export default async function CheckoutSuccessPage(props: {
 }): Promise<React.JSX.Element> {
     const searchParams = await props.searchParams;
     const sessionId = searchParams.session_id;
+    const menuRes = await getMenu();
+    const menu = menuRes.data;
+
+    if (!menu) {
+        redirect("/");
+    }
 
     if (!sessionId) {
         redirect("/");
@@ -142,169 +140,7 @@ export default async function CheckoutSuccessPage(props: {
     return (
         <div>
             <ClearCartOnLoad />
-            <div className="container mx-auto py-16">
-                <div className="max-w-2xl mx-auto">
-                    <Card>
-                        <CardHeader>
-                            <div className="flex justify-center mb-2">
-                                <CheckCircle className="w-16 h-16 text-primary" />
-                            </div>
-                            <CardTitle className="text-center text-2xl">
-                                Order Confirmed!
-                            </CardTitle>
-                            <CardDescription className="text-center text-lg">
-                                Thank you for your order
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-6">
-                            <div className="rounded-lg">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Clock className="w-5 h-5 text-primary" />
-                                    <h3 className="font-semibold">
-                                        Estimated Pickup Time
-                                    </h3>
-                                </div>
-                                <p className="text-lg">
-                                    {estimatedTime.toLocaleTimeString([], {
-                                        hour: "numeric",
-                                        minute: "2-digit",
-                                    })}
-                                </p>
-                            </div>
-
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                    <User className="w-4 h-4 text-primary" />
-                                    <span>{details.customerName}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-primary" />
-                                    <span>{details.customerPhone}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Mail className="w-4 h-4 text-primary" />
-                                    <span>{details.customerEmail}</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 className="font-semibold mb-3 text-primary text-lg">
-                                    Order Details
-                                </h3>
-                                <div className="space-y-3">
-                                    {details.items.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex justify-between items-start"
-                                        >
-                                            <div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="font-medium">
-                                                        {item.name}
-                                                    </span>
-                                                    <span className="text-muted-foreground">
-                                                        x{item.quantity}
-                                                    </span>
-                                                </div>
-                                                {item.addedItems.length > 0 && (
-                                                    <p className="text-sm text-muted-foreground">
-                                                        Added:{" "}
-                                                        {item.addedItems.join(", ")}
-                                                    </p>
-                                                )}
-                                                {item.removedItems.length > 0 && (
-                                                    <p className="text-sm text-muted-foreground">
-                                                        Removed:{" "}
-                                                        {item.removedItems.join(", ")}
-                                                    </p>
-                                                )}
-                                            </div>
-                                            <div className="text-right">
-                                                <span className="font-medium">
-                                                    $
-                                                    {(
-                                                        item.originalPrice * item.quantity
-                                                    ).toFixed(2)}
-                                                </span>
-                                                {item.salePercentage > 0 && (
-                                                    <p className="text-sm text-green-600">
-                                                        -{item.salePercentage}% off
-                                                    </p>
-                                                )}
-                                            </div>
-                                        </div>
-                                    ))}
-                                    <div className="border-t pt-3 mt-3 space-y-2">
-                                        <div className="flex justify-between items-center text-sm text-muted-foreground">
-                                            <span>Subtotal</span>
-                                            <span>
-                                                $
-                                                {details.items
-                                                    .reduce(
-                                                        (sum, item) =>
-                                                            sum +
-                                                            item.originalPrice *
-                                                                item.quantity,
-                                                        0,
-                                                    )
-                                                    .toFixed(2)}
-                                            </span>
-                                        </div>
-                                        {details.items.some(
-                                            (item) => item.salePercentage > 0,
-                                        ) && (
-                                            <div className="flex justify-between items-center text-sm text-primary">
-                                                <span>Sale Discount</span>
-                                                <span>
-                                                    -$
-                                                    {details.items
-                                                        .reduce(
-                                                            (sum, item) =>
-                                                                sum +
-                                                                (item.originalPrice *
-                                                                    item.quantity *
-                                                                    item.salePercentage) /
-                                                                    100,
-                                                            0,
-                                                        )
-                                                        .toFixed(2)}
-                                                </span>
-                                            </div>
-                                        )}
-                                        {details.pointsRedeemed > 0 && (
-                                            <div className="flex justify-between items-center text-sm text-muted-foreground">
-                                                <span>Points Discount</span>
-                                                <span>
-                                                    -$
-                                                    {(
-                                                        details.pointsRedeemed / 25
-                                                    ).toFixed(2)}
-                                                </span>
-                                            </div>
-                                        )}
-                                        <div className="flex justify-between items-center font-semibold">
-                                            <span>Total</span>
-                                            <span>
-                                                ${details.displayTotal.toFixed(2)}
-                                            </span>
-                                        </div>
-                                        <div className="flex justify-between items-center text-sm text-primary pt-2">
-                                            <span>Points Earned</span>
-                                            <span>+{details.pointsEarned} points</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="pt-6">
-                                <Link href="/menu" className="w-full">
-                                    <Button className="w-full">Continue Shopping</Button>
-                                </Link>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
+            <Success details={details} menu={menu} />
         </div>
     );
 }
