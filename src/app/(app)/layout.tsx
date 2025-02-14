@@ -6,7 +6,7 @@ export default async function Layout({
     children: React.ReactNode;
 }): Promise<React.JSX.Element> {
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen flex flex-col">
             <Navbar />
             {children}
         </div>

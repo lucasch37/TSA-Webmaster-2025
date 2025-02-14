@@ -4,7 +4,7 @@ import CheckoutItemList from "@/features/checkout/components/checkout-item-list"
 import {getMenu} from "@/features/menu/actions/getMenu";
 import {getUser} from "@/features/user/actions/getUser";
 import {createClient} from "@/lib/supabase/server";
-import {ArrowLeft} from "lucide-react";
+import {ShoppingBasket} from "lucide-react";
 import {Metadata} from "next";
 import Link from "next/link";
 import React from "react";
@@ -36,12 +36,12 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
 
     return (
         <div>
-            <div className="container mx-auto py-8">
+            <div className="container mx-auto mt-8">
                 <div className="flex justify-between mb-8 items-center">
                     <div className="text-6xl font-bold text-primary">CHECKOUT</div>
                     <Link href={"/menu"}>
                         <Button size={"default"} className="h-fit">
-                            <ArrowLeft size={18} />
+                            <ShoppingBasket size={18} />
                             Continue Shopping
                         </Button>
                     </Link>

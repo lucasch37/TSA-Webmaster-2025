@@ -1,7 +1,7 @@
 import {Tilt} from "@/components/ui/tilt";
 import React from "react";
 
-export function UserCard(): React.JSX.Element {
+export function UserCard({name}: {name: string}): React.JSX.Element {
     return (
         <div className="w-[280px] relative ">
             <div className="absolute inset-0 bg-[#40c9a2]/20 rounded-xl blur-2xl transform translate-y-8 scale-95"></div>
@@ -66,10 +66,10 @@ export function UserCard(): React.JSX.Element {
                         </div>
 
                         <h1 className="text-[#2d5242] text-2xl leading-snug font-bold">
-                            Ali Macky
+                            {name}
                         </h1>
                         <p className="text-[#5c8b76] pb-10 font-mono text-sm">
-                            GOLD MEMBER
+                            Sprout & About
                         </p>
                         <div className="flex justify-between flex-row items-center gap-2">
                             <div className="flex flex-row border border-[#a7d8bc] bg-white/50 rounded px-2 text-xs">

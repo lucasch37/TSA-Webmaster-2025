@@ -300,15 +300,6 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 @keyframes gradient-slow {
     0% {
         background-position: 0% 50%;

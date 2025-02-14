@@ -150,11 +150,14 @@ export default function CheckoutForm({
     };
 
     return (
-        <div className="border-2 p-4">
-            <div>
+        <div className="border-2 p-4 px-6 rounded-lg">
+            <div className="mb-4">
                 {!user && (
                     <Link href={"/login?redirect=/checkout"}>
-                        <Button variant={"link"} className="text-primary p-0 h-auto">
+                        <Button
+                            variant={"link"}
+                            className="text-primary p-0 h-auto font-semibold"
+                        >
                             Already have an account? Sign in here
                         </Button>
                     </Link>
@@ -204,7 +207,9 @@ export default function CheckoutForm({
                         name="customerDetails.name"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel className="text-primary">Full Name</FormLabel>
+                                <FormLabel className="text-primary uppercase">
+                                    Full Name
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         placeholder="Name for pickup"
@@ -225,7 +230,7 @@ export default function CheckoutForm({
                         name="customerDetails.phone"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel className="text-primary">
+                                <FormLabel className="text-primary uppercase">
                                     Phone Number
                                 </FormLabel>
                                 <FormControl>
@@ -249,7 +254,9 @@ export default function CheckoutForm({
                         name="customerDetails.email"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel className="text-primary">Email</FormLabel>
+                                <FormLabel className="text-primary uppercase">
+                                    Email
+                                </FormLabel>
                                 <FormControl>
                                     <Input
                                         type="email"
@@ -297,7 +304,9 @@ export default function CheckoutForm({
                                     name="password"
                                     render={({field}) => (
                                         <FormItem>
-                                            <FormLabel>Password</FormLabel>
+                                            <FormLabel className="text-primary uppercase">
+                                                Password
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input
                                                     type="password"
@@ -368,7 +377,7 @@ export default function CheckoutForm({
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle className="text-primary text-2xl">
-                                    IMPORTANT
+                                    NOTE TO JUDGES
                                 </DialogTitle>
                             </DialogHeader>
                             <p className="text-sm text-primary mb-4">

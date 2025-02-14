@@ -12,7 +12,6 @@ export default [
             "@typescript-eslint": typescript,
             spellcheck: spellcheck,
             sonarjs: sonarjs,
-            "no-secrets": noSecrets,
             prettier: prettier,
         },
         languageOptions: {

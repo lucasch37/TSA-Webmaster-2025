@@ -183,7 +183,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                     </Card>
                 </div>
                 <div className="pt-12">
-                    <UserCard />
+                    <UserCard name={user?.user_metadata.name} />
                 </div>
             </div>
         </div>

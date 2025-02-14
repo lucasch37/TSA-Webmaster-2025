@@ -23,12 +23,14 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
     }, 0);
 
     return (
-        <div className="flex flex-col h-fit">
-            <div className="flex justify-between items-center text-primary border-b-2 pb-4">
-                <div className="font-semibold text-2xl">Order Summary</div>
-                <div className="font-bold text-xl">{cart.items.length} Items</div>
+        <div>
+            <div className="flex justify-between items-center text-primary">
+                <div className="font-semibold text-2xl">Order Details</div>
+                <div className="font-bold text-xl">
+                    {cart.items.length} Item{cart.items.length !== 1 ? "s" : ""}
+                </div>
             </div>
-            <div className="">
+            <div className="flex flex-col h-fit p-4 px-6 border-2 rounded-lg mt-4">
                 {cart.items.map((item, index) => {
                     const menuItem = getMenuItem(item.menuItemId);
                     if (!menuItem) {
@@ -36,8 +38,8 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
                     }
 
                     return (
-                        <div key={index} className="flex gap-4 pt-4">
-                            <div className="w-32 h-32 relative flex-shrink-0 border-[1.5px]">
+                        <div key={index} className="flex gap-4 py-2">
+                            <div className="w-32 h-32 relative flex-shrink-0 border-[1.5px] rounded-lg">
                                 <Image
                                     src={menuItem.image_url}
                                     alt={menuItem.name}
@@ -46,7 +48,7 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
                                 />
                             </div>
                             <div className="flex-1 flex flex-col gap-1">
-                                <h3 className="font-semibold text-lg text-primary">
+                                <h3 className="font-semibold text-xl text-primary">
                                     {menuItem.name} x{item.quantity}
                                 </h3>
                                 <div>
