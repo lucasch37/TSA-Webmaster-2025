@@ -36,7 +36,6 @@ export default function RootLayout({
                 <Toaster richColors />
                 <CursorEffects />
                 <main className="flex-grow">{children}</main>
-                <Footer />
             </body>
         </html>
     );

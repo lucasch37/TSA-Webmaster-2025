@@ -27,7 +27,10 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
             <div className="flex justify-between items-center text-primary">
                 <div className="font-semibold text-2xl">Order Details</div>
                 <div className="font-bold text-xl">
-                    {cart.items.length} Item{cart.items.length !== 1 ? "s" : ""}
+                    {cart.items.reduce((sum, item) => sum + item.quantity, 0)} Item
+                    {cart.items.reduce((sum, item) => sum + item.quantity, 0) !== 1
+                        ? "s"
+                        : ""}
                 </div>
             </div>
             <div className="flex flex-col h-fit p-4 px-6 border-2 rounded-lg mt-4">

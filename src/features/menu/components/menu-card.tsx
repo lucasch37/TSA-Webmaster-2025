@@ -44,7 +44,7 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                             >
                                 <div>${menuItem.price}</div>
                                 <div className="flex gap-2 items-center">
-                                    <div className="text-sm">SEE DETAILS</div>
+                                    <div className="text-sm">See Details</div>
                                     <InfoCircledIcon className="w-5 h-5" />
                                 </div>
                             </Button>

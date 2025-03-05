@@ -22,15 +22,18 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import {ChevronDown} from "lucide-react";
-import {updateMenuItemHidden} from "@/features/admin/actions/updateMenuItemHidden";
 
 // Props interface for menu item card
 interface MenuItemCardProps {
     item: MenuItem;
+    updateMenuItemHidden: Function;
 }
 
 // Menu item card component for admin view
-export function AdminMenuItemCard({item}: MenuItemCardProps): React.JSX.Element {
+export function AdminMenuItemCard({
+    item,
+    updateMenuItemHidden,
+}: MenuItemCardProps): React.JSX.Element {
     const [isHidden, setIsHidden] = useState(item.hidden);
 
     // Toggle menu item visibility

@@ -63,6 +63,8 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 height={1000}
                                 width={1000}
                                 alt={menuItem?.name}
+                                placeholder="blur"
+                                blurDataURL="UGK^mD-o1-M_XNR4xvtS1,RjIon+M#b_yDVs"
                             />
                         </div>
 
@@ -100,7 +102,10 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8">
                             <div>{menuItem.description}</div>
 
-                            <div>Ingredients: {menuItem.ingredients.join(", ")}</div>
+                            <div>
+                                <span className="font-bold underline">Ingredients:</span>{" "}
+                                {menuItem.ingredients.join(", ")}
+                            </div>
                         </div>
 
                         {/* Quantity selector and add to cart */}
@@ -134,7 +139,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 size={"lg"}
                                 className="w-fit"
                             >
-                                <div className="font-normal">ADD TO CART</div>
+                                <div className="font-medium">Add To Cart</div>
                                 <ShoppingBasket size={20} />
                             </Button>
                             <div className="font-bold text-primary text-[23px]">
@@ -151,13 +156,13 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 className={`px-4 py-3 ${activeOptions === "Additives" ? "bg-primary text-white" : "text-primary"} font-medium cursor-pointer`}
                                 onClick={() => setActivOptions("Additives")}
                             >
-                                Additives
+                                Add Items
                             </div>
                             <div
                                 className={`px-4 py-3 ${activeOptions === "Removables" ? "bg-primary text-white" : "text-primary"} font-medium cursor-pointer`}
                                 onClick={() => setActivOptions("Removables")}
                             >
-                                Removables
+                                Remove Items
                             </div>
                         </div>
 

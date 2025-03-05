@@ -1,0 +1,40 @@
+import LoginForm from "@/features/user/components/login-form";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const LoginPage = async (): Promise<React.JSX.Element> => {
+    return (
+        <div className="min-h-screen grid lg:grid-cols-2">
+            <div className="h-full flex items-center justify-center relative">
+                <LoginForm />
+                <div className="absolute top-10 left-12">
+                    <Link href={"/"} className="flex items-center gap-2 w-32">
+                        <div className="font-bold text-2xl text-center text-primary font-homemade-apple">
+                            Sprout &<br />
+                            About
+                        </div>
+                    </Link>
+                </div>
+                <div className="border-2 rounded-xl p-4 flex flex-col absolute bottom-8 left-8 w-[20rem] text-primary">
+                    <div className="font-semibold text-base underline">TSA Judges:</div>
+                    <div className="mt-1">Admin Email: </div>
+                    <div>Admin Password: </div>
+                </div>
+            </div>
+            <div className="h-screen items-center justify-center hidden lg:flex p-6">
+                <div className="w-full h-full overflow-hidden border-2 rounded-2xl flex">
+                    <Image
+                        src={"/login-img.jpg"}
+                        width={1000}
+                        height={1000}
+                        alt="Restaurant Image"
+                        className="object-cover"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default LoginPage;

@@ -1,3 +1,4 @@
+import {updateMenuItemHidden} from "@/features/admin/actions/updateMenuItemHidden";
 import {AdminMenuItemCard} from "@/features/admin/components/admin-menu-item-card";
 import {getMenu} from "@/features/menu/actions/getMenu";
 import {Metadata} from "next";
@@ -26,7 +27,11 @@ export default async function AdminPage(): Promise<React.JSX.Element> {
                             menu
                                 .filter((item) => item.type.toLowerCase() === section)
                                 .map((item) => (
-                                    <AdminMenuItemCard key={item.id} item={item} />
+                                    <AdminMenuItemCard
+                                        key={item.id}
+                                        item={item}
+                                        updateMenuItemHidden={updateMenuItemHidden}
+                                    />
                                 ))}
                     </div>
                 </div>

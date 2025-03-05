@@ -5,6 +5,7 @@ import {Label} from "@/components/ui/label";
 import {createClient} from "@/lib/supabase/client";
 import {cn} from "@/lib/utils";
 import {ArrowRight} from "lucide-react";
+import Link from "next/link";
 import {useSearchParams} from "next/navigation";
 import React from "react";
 import {toast} from "sonner";
@@ -30,30 +31,35 @@ export default function LoginForm(): React.JSX.Element {
     };
 
     return (
-        <div>
-            <div className="max-w-lg mx-auto w-full shadow-input px-8 md:px-0">
-                <div className="flex justify-center font-semibold text-4xl text-primary tracking-tight">
-                    Sign In
-                </div>
-                <div className="text-center mt-4 text-base">
-                    Enter your details to sign in.
-                </div>
-                <form className="mt-6" onSubmit={signIn}>
-                    <LabelInputContainer className="mb-4">
-                        <Label htmlFor="email">Email Address</Label>
-                        <Input id="email" placeholder="Email" type="email" />
-                    </LabelInputContainer>
-                    <LabelInputContainer className="mb-4">
-                        <Label htmlFor="password">Password</Label>
-                        <Input id="password" placeholder="••••••••" type="password" />
-                    </LabelInputContainer>
-
-                    <Button type="submit" className="w-full mt-4">
-                        Continue
-                        <ArrowRight size={20} />
-                    </Button>
-                </form>
+        <div className="max-w-[25rem] mx-auto w-full shadow-input px-8 md:px-0 text-primary">
+            <div className="flex justify-center font-semibold text-4xl text-primary tracking-tight">
+                Welcome Back
             </div>
+            <div className="text-center mt-4 text-base font-medium">
+                Enter your details to sign in.
+            </div>
+            <form className="mt-6" onSubmit={signIn}>
+                <LabelInputContainer className="mb-4">
+                    <Label htmlFor="email">EMAIL</Label>
+                    <Input id="email" placeholder="Email" type="email" />
+                </LabelInputContainer>
+                <LabelInputContainer className="mb-4">
+                    <Label htmlFor="password">PASSWORD</Label>
+                    <Input id="password" placeholder="Password" type="password" />
+                </LabelInputContainer>
+
+                <Button type="submit" className="w-full mt-4">
+                    Continue
+                    <ArrowRight size={18} />
+                </Button>
+                <div className="flex mt-8 text-base font-medium text-primary items-center justify-center">
+                    Don't have an account?{" "}
+                    <span className="underline mx-1 font-semibold">
+                        <Link href={"/signup"}>Sign up</Link>
+                    </span>{" "}
+                    <ArrowRight size={16} />
+                </div>
+            </form>
         </div>
     );
 }

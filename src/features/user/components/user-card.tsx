@@ -1,17 +1,24 @@
 import {Tilt} from "@/components/ui/tilt";
 import React from "react";
+import {format} from "date-fns";
 
-export function UserCard({name}: {name: string}): React.JSX.Element {
+export function UserCard({
+    name,
+    isAdmin,
+    createdAt,
+}: {
+    name: string;
+    isAdmin: boolean;
+    createdAt: Date;
+}): React.JSX.Element {
     return (
-        <div className="w-[280px] relative ">
-            <div className="absolute inset-0 bg-[#40c9a2]/20 rounded-xl blur-2xl transform translate-y-8 scale-95"></div>
-            <div className="absolute inset-0 bg-[#34d399]/15 rounded-xl blur-3xl transform translate-y-10 scale-90"></div>
+        <div className="w-[300px] relative ">
             <Tilt rotationFactor={8} isRevese>
                 <div
                     style={{
                         borderRadius: "12px",
                     }}
-                    className="flex w-full flex-col overflow-hidden bg-gradient-to-br from-[#e8f5f3] via-[#f0f9f7] to-[#e1f1ee] shadow-sm relative"
+                    className="flex w-full flex-col overflow-hidden bg-background relative border"
                 >
                     <div className="p-2 m-2">
                         <div className="relative pb-4">
@@ -29,29 +36,29 @@ export function UserCard({name}: {name: string}): React.JSX.Element {
                                         y2="100%"
                                         gradientUnits="userSpaceOnUse"
                                     >
-                                        <stop offset="0%" style={{stopColor: "#40c9a2"}}>
+                                        <stop offset="0%" style={{stopColor: "#15803d"}}>
                                             <animate
                                                 attributeName="stop-color"
-                                                values="#40c9a2; #2dd4bf; #34d399; #40c9a2"
+                                                values="#15803d; #15803d; #15803d; #15803d"
                                                 dur="6s"
                                                 repeatCount="indefinite"
                                             />
                                         </stop>
-                                        <stop offset="50%" style={{stopColor: "#2dd4bf"}}>
+                                        <stop offset="50%" style={{stopColor: "#15803d"}}>
                                             <animate
                                                 attributeName="stop-color"
-                                                values="#2dd4bf; #34d399; #3cbbb4; #2dd4bf"
+                                                values="#15803d; #15803d; #15803d; #15803d"
                                                 dur="6s"
                                                 repeatCount="indefinite"
                                             />
                                         </stop>
                                         <stop
                                             offset="100%"
-                                            style={{stopColor: "#34d399"}}
+                                            style={{stopColor: "#15803d"}}
                                         >
                                             <animate
                                                 attributeName="stop-color"
-                                                values="#34d399; #3cbbb4; #40c9a2; #34d399"
+                                                values="#15803d; #15803d; #15803d; #15803d"
                                                 dur="6s"
                                                 repeatCount="indefinite"
                                             />
@@ -69,13 +76,15 @@ export function UserCard({name}: {name: string}): React.JSX.Element {
                             {name}
                         </h1>
                         <p className="text-[#5c8b76] pb-10 font-mono text-sm">
-                            Sprout & About
+                            Sprout & About {isAdmin && "ADMIN"}
                         </p>
                         <div className="flex justify-between flex-row items-center gap-2">
-                            <div className="flex flex-row border border-[#a7d8bc] bg-white/50 rounded px-2 text-xs">
+                            <div className="flex flex-row border border-primary bg-white/50 rounded px-2 text-xs">
                                 <p className="text-[#2d5242]">SPRT</p>
-                                <div className="w-4 mx-2 h-4 border-x border-[#a7d8bc] bg-[repeating-linear-gradient(45deg,#a7d8bc_0px,#a7d8bc_1px,transparent_1px,transparent_3px)]"></div>
-                                <p className="text-[#2d5242]">Aug 7, 2023</p>
+                                <div className="w-4 mx-2 h-4 border-x border-primary bg-[repeating-linear-gradient(45deg,#15803d_0px,#15803d_1px,transparent_1px,transparent_3px)]"></div>
+                                <p className="text-[#2d5242]">
+                                    {format(createdAt, "MM/dd/yyyy")}
+                                </p>
                             </div>
                             <div className="flex text-[10px] font-homemade-apple flex-col text-right text-[#5c8b76]">
                                 <p>Sprout &</p>

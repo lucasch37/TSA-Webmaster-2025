@@ -143,7 +143,7 @@ const ParallaxCard = (): React.JSX.Element => {
     return (
         <>
             {/* Card container with image */}
-            <div className="h-[36rem] w-[15rem] lg:w-[20rem] xl:w-[32rem] overflow-hidden border-2 border-primary relative flex flex-col justify-center rounded-2xl">
+            <div className="h-[36rem] w-[15rem] lg:w-[20rem] xl:w-[32rem] overflow-hidden border-2 border-primary relative flex flex-col justify-center rounded-2xl bg-[repeating-linear-gradient(45deg,#15803d_0px,#15803d_2px,transparent_2px,transparent_14px)]">
                 <Image
                     src={"/landing/jalapeno-poppers.png"}
                     width={500}
@@ -151,8 +151,6 @@ const ParallaxCard = (): React.JSX.Element => {
                     alt={"Jalapeno poppers"}
                     className="w-[26rem] mx-auto h-fit"
                 />
-                {/* Decorative background pattern */}
-                <div className="absolute inset-0 bg-[url('/lines.svg')] w-screen h-screen centered scale-[350%] -z-10 rotate-45"></div>
             </div>
 
             {/* Card title and CTA */}

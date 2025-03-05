@@ -10,7 +10,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default: cn(
-                    "bg-primary uppercase font-semibold text-primary-foreground shadow hover:bg-primary/90",
+                    "bg-primary font-semibold text-primary-foreground shadow hover:bg-primary/90",
                     `active:translate-y-1.5 active:-translate-x-0.5  active:[box-shadow:0_0px_0_0_#166534]
                                                     active:border-b-[0px]
                                                     transition-all duration-150 [box-shadow:-2px_5px_0_0_#166534]
@@ -21,7 +21,7 @@ const buttonVariants = cva(
                 outline: "border text-primary",
                 secondary:
                     "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-                ghost: "hover:text-accent-foreground hover:bg-primary/20",
+                ghost: "hover:bg-primary/20",
                 link: "text-primary underline-offset-4 hover:underline",
             },
             size: {

@@ -2,6 +2,7 @@
 
 import {MenuResponse} from "@/types";
 import {createClient} from "@/lib/supabase/server";
+import {revalidateTag} from "next/cache";
 
 // Toggle menu item visibility state
 export async function updateMenuItemHidden(
@@ -17,7 +18,7 @@ export async function updateMenuItemHidden(
         if (error) {
             return {success: false, message: "Failed to update hidden status"};
         }
-
+        revalidateTag("/");
         return {success: true, message: "Hidden status updated successfully"};
     } catch {
         return {success: false, message: "An unexpected error occurred"};
