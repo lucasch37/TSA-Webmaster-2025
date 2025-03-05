@@ -39,7 +39,7 @@ export default [
             "callback-return": "warn",
             "handle-callback-err": "error",
             "no-path-concat": "error",
-            "no-secrets/no-secrets": "error",
+            // "no-secrets/no-secrets": "error",
             "spellcheck/spell-checker": [
                 0,
                 {

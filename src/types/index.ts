@@ -51,6 +51,8 @@ export interface Order {
     stripe_session_id: string;
     total_amount: number;
     sustainability_score: number;
+    order_number: number;
+    fulfilled: boolean;
     items: {
         menuItemId: number;
         name: string;
