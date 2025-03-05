@@ -187,12 +187,6 @@ export function Footer(): React.JSX.Element {
                         © {new Date().getFullYear()} Sprout & About. All rights reserved.
                     </p>
                 </div>
-
-                <div className="text-center pt-16 mt-8 flex justify-center items-center w-full h-fit bg-clip-text bg-gradient-to-b from-primary/50 to-transparent">
-                    <div className="text-9xl font-extrabold text-transparent font-homemade-apple flex items-center justify-center">
-                        Sprout & About
-                    </div>
-                </div>
             </div>
         </footer>
     );

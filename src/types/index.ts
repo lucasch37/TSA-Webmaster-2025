@@ -66,3 +66,8 @@ export interface Order {
     customer_phone?: string;
     created_at: string;
 }
+
+export type Table = {
+    name: string;
+    seats: number;
+};

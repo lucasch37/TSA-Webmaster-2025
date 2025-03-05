@@ -123,7 +123,15 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                             item.quantity,
                                                                         0,
                                                                     )}{" "}
-                                                                    items
+                                                                    item
+                                                                    {order.items.reduce(
+                                                                        (sum, item) =>
+                                                                            sum +
+                                                                            item.quantity,
+                                                                        0,
+                                                                    ) > 1
+                                                                        ? "s"
+                                                                        : ""}
                                                                 </p>
                                                             </div>
                                                             <div className="text-right">
