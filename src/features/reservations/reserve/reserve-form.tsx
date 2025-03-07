@@ -72,7 +72,7 @@ const reserveSchema = z.object({
 export type ReserveFormValues = z.infer<typeof reserveSchema>;
 
 const ReserveForm = (): React.ReactNode => {
-    const {tables, setTables, setDate, setTime, user} = useReserve();
+    const {tables, setTables, setDate, setTime, user, setReservations} = useReserve();
 
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [successfulReservation, setSuccessfulReservation] =
@@ -119,7 +119,7 @@ const ReserveForm = (): React.ReactNode => {
         } else {
             setDialogOpen(true);
             setSuccessfulReservation(reservation);
-            form.reset();
+            setReservations((reservations) => [...reservations, reservation]);
         }
     }
 
