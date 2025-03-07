@@ -42,7 +42,26 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                                 size={"default"}
                                 className="w-full justify-between flex mt-4"
                             >
-                                <div>${menuItem.price}</div>
+                                <div>
+                                    <span
+                                        className={
+                                            menuItem.sale_percentage !== 0
+                                                ? "line-through decoration-red-500 decoration-[2px]"
+                                                : ""
+                                        }
+                                    >
+                                        ${menuItem.price.toFixed(2)}{" "}
+                                    </span>
+                                    {menuItem.sale_percentage !== 0 && (
+                                        <span className="ml-1">
+                                            $
+                                            {(
+                                                menuItem.price *
+                                                (1 - menuItem.sale_percentage / 100)
+                                            ).toFixed(2)}
+                                        </span>
+                                    )}
+                                </div>
                                 <div className="flex gap-2 items-center">
                                     <div className="text-sm">See Details</div>
                                     <InfoCircledIcon className="w-5 h-5" />

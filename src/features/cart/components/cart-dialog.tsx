@@ -92,7 +92,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                                     className="w-full mt-6 text-base"
                                     disabled={cart.items.length <= 0}
                                 >
-                                    CHECKOUT
+                                    Checkout
                                     <ArrowRight size={20} />
                                 </Button>
                             </Link>

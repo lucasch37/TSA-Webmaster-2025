@@ -49,7 +49,7 @@ const reserveSchema = z.object({
         })
         .int("Please enter a whole number")
         .positive("Number of guests must be positive")
-        .max(6, "Maximum 6 guests allowed per reservation")
+        .max(12, "Maximum 12 guests allowed per reservation")
         .min(1, "At least 1 guest is required"),
     email: z
         .string({

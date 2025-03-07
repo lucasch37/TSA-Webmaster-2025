@@ -1,12 +1,12 @@
 "use client";
 
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
 import {MenuItem} from "@/types";
 import {Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import {toast} from "sonner";
-import {Button} from "@/components/ui/button";
-import {Checkbox} from "@/components/ui/checkbox";
 
 type Props = {
     menuItem: MenuItem;
@@ -63,8 +63,6 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 height={1000}
                                 width={1000}
                                 alt={menuItem?.name}
-                                placeholder="blur"
-                                blurDataURL="UGK^mD-o1-M_XNR4xvtS1,RjIon+M#b_yDVs"
                             />
                         </div>
 
@@ -82,7 +80,13 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                             {`${key}`.toUpperCase()}
                                         </div>
                                         <div className="text-xl font-semibold">
-                                            {`${value}`}
+                                            {`${value}`}{" "}
+                                            {key.toLocaleLowerCase() === "calories"
+                                                ? "kcal"
+                                                : !(
+                                                      key.toLocaleLowerCase() ===
+                                                      "serving size"
+                                                  ) && "g"}
                                         </div>
                                     </div>
                                 ),
@@ -95,8 +99,15 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                 <div className="flex flex-col justify-between">
                     {/* Item name and description */}
                     <div>
-                        <div className="text-primary font-semibold text-4xl">
-                            {menuItem.name.toUpperCase()}
+                        <div className="flex gap-6 items-center">
+                            <div className="text-primary font-semibold text-4xl">
+                                {menuItem.name.toUpperCase()}
+                            </div>
+                            {menuItem.sale_percentage !== 0 && (
+                                <div className="border text-red-500 rounded-full px-4 py-1 font-medium border-red-500 text-sm">
+                                    {menuItem.sale_percentage}% discount
+                                </div>
+                            )}
                         </div>
                         <hr className="border-t-2 border-primary my-6 w-full" />
                         <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8">
@@ -142,8 +153,22 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 <div className="font-medium">Add To Cart</div>
                                 <ShoppingBasket size={20} />
                             </Button>
-                            <div className="font-bold text-primary text-[23px]">
-                                ${(menuItem.price * quantity).toFixed(2)}
+                            <div className="flex items-center gap-4">
+                                <div
+                                    className={`font-bold text-primary text-[23px] ${menuItem.sale_percentage !== 0 ? "line-through decoration-red-500 decoration-[4px]" : ""}`}
+                                >
+                                    ${(menuItem.price * quantity).toFixed(2)}
+                                </div>
+                                {menuItem.sale_percentage !== 0 && (
+                                    <div className="text-primary font-bold text-[23px]">
+                                        $
+                                        {(
+                                            menuItem.price *
+                                            (1 - menuItem.sale_percentage / 100) *
+                                            quantity
+                                        ).toFixed(2)}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

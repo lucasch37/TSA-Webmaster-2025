@@ -115,7 +115,7 @@ export default async function CheckoutSuccessPage(props: {
     };
 
     // Create order in database
-    await createOrder(
+    const order = await createOrder(
         sessionId,
         details.items.map((item) => ({
             menuItemId: item.menuItemId,
@@ -131,6 +131,8 @@ export default async function CheckoutSuccessPage(props: {
             phone: details.customerPhone,
         },
         details.total,
+        details.pointsEarned,
+        menu,
     );
 
     // Calculate estimated pickup time (20 mins from now)
@@ -140,7 +142,7 @@ export default async function CheckoutSuccessPage(props: {
     return (
         <div>
             <ClearCartOnLoad />
-            <Success details={details} menu={menu} />
+            <Success details={details} menu={menu} order={order} />
         </div>
     );
 }

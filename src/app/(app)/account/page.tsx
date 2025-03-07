@@ -9,7 +9,7 @@ import {UserCard} from "@/features/user/components/user-card";
 import {createClient} from "@/lib/supabase/server";
 import {Order, Reservation} from "@/types";
 import {format} from "date-fns";
-import {Leaf, LogOut, UserCog} from "lucide-react";
+import {Leaf, ListCheck, LogOut, UserCog} from "lucide-react";
 import {Metadata} from "next";
 import Link from "next/link";
 import {redirect} from "next/navigation";
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AccountPage(): Promise<React.JSX.Element> {
-    const supabase = await createClient();
+    const supabase = createClient();
     const user = await getUser();
     if (!user) {
         throw redirect("/login");
@@ -31,6 +31,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
     const {data: userReservations} = await supabase
         .from("reservations")
         .select("*")
+        .order("date", {ascending: false})
         .eq("uid", user.id);
 
     let reservations = userReservations as Reservation[];
@@ -299,6 +300,15 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                 ),
                                                             )}
                                                         </div>
+                                                        <Link
+                                                            href={`/checkout/success?session_id=${order.stripe_session_id}`}
+                                                            className="flex justify-end"
+                                                        >
+                                                            <Button className="mt-4 h-8">
+                                                                <ListCheck size={15} />{" "}
+                                                                View Summary
+                                                            </Button>
+                                                        </Link>
                                                     </div>
                                                 ))
                                             )}

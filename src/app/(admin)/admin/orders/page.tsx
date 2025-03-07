@@ -12,10 +12,8 @@ export default async function AdminOrdersPage(): Promise<React.JSX.Element> {
     const ordersRes = await getAdminOrders();
     const orders = ordersRes.data || [];
 
-    const pendingCount = orders.filter((order) => !order.fulfilled).length;
-
     return (
-        <div className="mt-8 pb-12 w-full max-w-full">
+        <div className="mt-12 mb-32">
             <AdminOrders initialOrders={orders} />
         </div>
     );

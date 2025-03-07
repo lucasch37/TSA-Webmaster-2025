@@ -1,7 +1,7 @@
 "use server";
 
 import {createClient} from "@/lib/supabase/server";
-import {Order, User} from "@/types";
+import {MenuItem, Order, User} from "@/types";
 import {getUser as getAuthUser} from "@/features/user/actions/getUser";
 
 // Create new order from Stripe checkout session
@@ -16,43 +16,50 @@ export async function createOrder(
     }[],
     customerDetails: {name: string; email: string; phone?: string},
     totalAmount: number,
-): Promise<Order | Error> {
+    pointsEarned: number,
+    menu: MenuItem[],
+): Promise<Order> {
     const supabase = createClient();
 
     // Verify user authentication
     const user = await getAuthUser();
-    if (!user) {
-        return new Error("User not authenticated");
-    }
 
     // Check for existing order with same session
     const {data: existingOrder} = await supabase
         .from("orders")
-        .select("id")
+        .select()
         .eq("stripe_session_id", sessionId)
         .single();
 
     if (existingOrder) {
-        const {data: order} = await supabase
-            .from("orders")
-            .select("*")
-            .eq("id", existingOrder.id)
-            .single();
-        return order as Order;
+        return existingOrder as Order;
     }
 
-    // Create order using our new function
     const {data: order, error: orderError} = await supabase
-        .rpc("create_order_with_items", {
-            p_user_id: user.id,
-            p_stripe_session_id: sessionId,
-            p_total_amount: totalAmount,
-            p_customer_name: customerDetails.name,
-            p_customer_email: customerDetails.email,
-            p_customer_phone: customerDetails.phone,
-            p_items: items,
+        .from("orders")
+        .insert({
+            user_id: user?.id,
+            stripe_session_id: sessionId,
+            total_amount: totalAmount,
+            customer_name: customerDetails.name,
+            customer_email: customerDetails.email,
+            customer_phone: customerDetails.phone,
+            sustainability_score: pointsEarned,
+            order_number: Math.floor(1000 + Math.random() * 9000),
         })
+        .select()
         .single();
+    items.forEach(async (item) => {
+        await supabase.from("order_items").insert({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            added_items: item.addedItems,
+            removed_items: item.removedItems,
+            order_id: order.id,
+            menu_item_id: menu.find((menuItem) => menuItem.name === item.name)?.id,
+        });
+    });
 
     if (orderError) {
         throw orderError;
@@ -73,6 +80,7 @@ export async function getUserOrders(): Promise<Order[]> {
     const {data: orders, error} = await supabase
         .from("orders")
         .select("*, order_items(*)")
+        .order("created_at", {ascending: false})
         .eq("user_id", user.id);
 
     if (error) {

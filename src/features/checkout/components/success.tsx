@@ -2,7 +2,7 @@
 
 import {OrderDetails} from "@/app/(app)/checkout/success/page";
 import {Button} from "@/components/ui/button";
-import {MenuItem} from "@/types";
+import {MenuItem, Order} from "@/types";
 import {ArrowLeft, CheckCircle, Leaf} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,9 +12,10 @@ import Map from "./map";
 type Props = {
     details: OrderDetails;
     menu: MenuItem[];
+    order: Order;
 };
 
-const Success = ({details, menu}: Props): React.JSX.Element => {
+const Success = ({details, menu, order}: Props): React.JSX.Element => {
     const getMenuItem = (id: number): MenuItem | undefined =>
         menu.find((item) => item.id === id);
 
@@ -26,7 +27,7 @@ const Success = ({details, menu}: Props): React.JSX.Element => {
                         <CheckCircle className="w-20 h-20 text-primary" />
                         <div>
                             <h1 className="text-3xl font-semibold text-primary">
-                                Order Confirmed
+                                Order #{order.order_number} Confirmed
                             </h1>
                             <div className="text-primary text-lg">
                                 Thank you {details.customerName.split(" ")[0]}!
@@ -50,6 +51,10 @@ const Success = ({details, menu}: Props): React.JSX.Element => {
                         <div className="py-4 px-6 flex">
                             <div className="font-bold text-primary w-[80px]">Phone #</div>
                             <div className="text-primary">{details.customerPhone}</div>
+                        </div>
+                        <div className="py-4 px-6 flex">
+                            <div className="font-bold text-primary w-[80px]">Order</div>
+                            <div className="text-primary">{order.order_number}</div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +156,7 @@ const Success = ({details, menu}: Props): React.JSX.Element => {
                                     </div>
                                 )}
                                 {details.pointsRedeemed > 0 && (
-                                    <div className="flex justify-between items-center text-sm text-muted-foreground">
+                                    <div className="flex justify-between items-center text-sm text-primary">
                                         <span>Points Discount</span>
                                         <span>
                                             -$
