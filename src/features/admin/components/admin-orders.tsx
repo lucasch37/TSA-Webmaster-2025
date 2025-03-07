@@ -27,7 +27,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState<"pending" | "fulfilled">("pending");
 
-    const getFilteredOrders = (fulfilled: boolean) => {
+    const getFilteredOrders = (fulfilled: boolean): Order[] => {
         return orders
             .filter(
                 (order) =>
@@ -52,7 +52,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
     const pendingOrders = getFilteredOrders(false);
     const fulfilledOrders = getFilteredOrders(true);
 
-    const updateOrderStatus = async (id: string, fulfilled: boolean) => {
+    const updateOrderStatus = async (id: string, fulfilled: boolean): Promise<void> => {
         const response = await updateOrderFulfilled(id, fulfilled);
 
         if (response.success) {
@@ -62,7 +62,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
         }
     };
 
-    const formatOrderDate = (dateString: string) => {
+    const formatOrderDate = (dateString: string): string => {
         return format(new Date(dateString), "MMM d, h:mm a");
     };
 
@@ -168,7 +168,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                     </TableCell>
                                                     <TableCell className="py-4">
                                                         <div className="max-w-[250px]">
-                                                            {order.items.map(
+                                                            {order.order_items.map(
                                                                 (item, index) => (
                                                                     <div
                                                                         key={index}
@@ -336,7 +336,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                     </TableCell>
                                                     <TableCell className="py-4">
                                                         <div className="max-w-[250px]">
-                                                            {order.items.map(
+                                                            {order.order_items.map(
                                                                 (item, index) => (
                                                                     <div
                                                                         key={index}

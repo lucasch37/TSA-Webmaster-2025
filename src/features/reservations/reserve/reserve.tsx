@@ -1,15 +1,12 @@
 "use client";
 
 import React from "react";
-import SeatMap from "./seat-map";
 import ReserveForm from "./reserve-form";
-import {Table} from "@/types";
+import SeatMap from "./seat-map";
 
-type Props = {};
-
-const Reserve = (props: Props) => {
+const Reserve = (): React.ReactNode => {
     return (
-        <div className="flex gap-8">
+        <div className="flex flex-col xl:flex-row gap-8">
             <SeatMap />
             <div className="flex flex-col flex-1 border-2 rounded-lg h-fit p-6">
                 <ReserveForm />

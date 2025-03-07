@@ -78,7 +78,7 @@ export async function logoutUser(): Promise<{
     try {
         const supabase = createClient();
         const response = await supabase.auth.signOut();
-        console.log(response);
+
         if (response.error !== null) {
             return {success: false, message: response.error.message, data: null};
         }

@@ -1,23 +1,19 @@
 import {Button} from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {getUserData, getUserOrders} from "@/features/checkout/actions/orders";
+import cancelReservation from "@/features/reservations/actions/cancelReservation";
+import CancelReservation from "@/features/reservations/reserve/cancel-reservation";
 import {logoutUser} from "@/features/user/actions/auth";
 import {getUser} from "@/features/user/actions/getUser";
-import {getUserData, getUserOrders} from "@/features/checkout/actions/orders";
-import {Order} from "@/types";
+import {UserCard} from "@/features/user/components/user-card";
+import {createClient} from "@/lib/supabase/server";
+import {Order, Reservation} from "@/types";
+import {format} from "date-fns";
 import {Leaf, LogOut, UserCog} from "lucide-react";
 import {Metadata} from "next";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 import React from "react";
-import {UserCard} from "@/features/user/components/user-card";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {format} from "date-fns";
 
 export const metadata: Metadata = {
     title: "Account | Sprout & About",
@@ -25,11 +21,23 @@ export const metadata: Metadata = {
 };
 
 export default async function AccountPage(): Promise<React.JSX.Element> {
+    const supabase = await createClient();
     const user = await getUser();
     if (!user) {
         throw redirect("/login");
     }
     const [userData, orders] = await Promise.all([getUserData(), getUserOrders()]);
+
+    const {data: userReservations} = await supabase
+        .from("reservations")
+        .select("*")
+        .eq("uid", user.id);
+
+    let reservations = userReservations as Reservation[];
+
+    if (!userReservations) {
+        reservations = [];
+    }
 
     const logout = async (): Promise<void> => {
         "use server";
@@ -68,7 +76,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                         />
                         <div className="rounded-lg border p-4 w-[300px] mt-8 text-primary">
                             <div>
-                                <div className="font-semibold text-xl">
+                                <div className="font-semibold text-lg">
                                     Your Sustainability Impact
                                 </div>
                             </div>
@@ -92,11 +100,76 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                         Reservations
                                     </TabsTrigger>
                                 </TabsList>
+                                <TabsContent value="reservations">
+                                    <div className="mt-8">
+                                        <div className="space-y-4">
+                                            {orders.length === 0 ? (
+                                                <p className="text-primary">
+                                                    No reservations
+                                                </p>
+                                            ) : (
+                                                reservations.map(
+                                                    (reservation: Reservation) => (
+                                                        <div
+                                                            key={reservation.id}
+                                                            className="p-4 border rounded-lg"
+                                                        >
+                                                            <div className="flex justify-between items-start mb-2">
+                                                                <div>
+                                                                    <p className="font-semibold text-lg">
+                                                                        {format(
+                                                                            new Date(
+                                                                                reservation.date,
+                                                                            ),
+                                                                            "MMMM d, yyyy",
+                                                                        )}
+                                                                        {", "}
+                                                                        {reservation.time}
+                                                                    </p>
+                                                                </div>
+                                                                <CancelReservation
+                                                                    id={reservation.id}
+                                                                    cancelReservation={
+                                                                        cancelReservation
+                                                                    }
+                                                                />
+                                                            </div>
+                                                            <div className="mt-2 flex gap-1 text-sm">
+                                                                <div className="font-medium">
+                                                                    Tables:{" "}
+                                                                </div>
+                                                                {reservation.tables.map(
+                                                                    (table, index) => (
+                                                                        <div
+                                                                            key={index}
+                                                                            className="flex flex-col"
+                                                                        >
+                                                                            <div>
+                                                                                Table{" "}
+                                                                                {table}
+                                                                            </div>
+                                                                        </div>
+                                                                    ),
+                                                                )}
+                                                            </div>
+                                                            <div className="mt-2 flex gap-1 text-sm">
+                                                                <div className="font-medium">
+                                                                    Guests:{" "}
+                                                                </div>
+                                                                {reservation.guests}
+                                                            </div>
+                                                        </div>
+                                                    ),
+                                                )
+                                            )}
+                                        </div>
+                                    </div>
+                                </TabsContent>
                                 <TabsContent value="orders">
                                     <div className="mt-8">
                                         <div className="space-y-4">
                                             {orders.length === 0 ? (
-                                                <p className="text-gray-500">
+                                                <p className="text-primary">
                                                     No orders yet
                                                 </p>
                                             ) : (
@@ -108,23 +181,31 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                         {/* Order header with date and total */}
                                                         <div className="flex justify-between items-start mb-2">
                                                             <div>
-                                                                <p className="font-semibold text-lg">
-                                                                    {format(
-                                                                        new Date(
-                                                                            order.created_at,
-                                                                        ),
-                                                                        "MMMM d, yyyy",
-                                                                    )}
-                                                                </p>
+                                                                <div className="flex gap-2 items-center">
+                                                                    <div className="font-semibold text-lg">
+                                                                        Order #
+                                                                        {
+                                                                            order.order_number
+                                                                        }
+                                                                    </div>
+                                                                    <p className="text-base">
+                                                                        {format(
+                                                                            new Date(
+                                                                                order.created_at,
+                                                                            ),
+                                                                            "MMMM d, yyyy",
+                                                                        )}
+                                                                    </p>
+                                                                </div>
                                                                 <p className="text-base font-medium mt-1">
-                                                                    {order.items.reduce(
+                                                                    {order.order_items.reduce(
                                                                         (sum, item) =>
                                                                             sum +
                                                                             item.quantity,
                                                                         0,
                                                                     )}{" "}
                                                                     item
-                                                                    {order.items.reduce(
+                                                                    {order.order_items.reduce(
                                                                         (sum, item) =>
                                                                             sum +
                                                                             item.quantity,
@@ -157,7 +238,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                         </div>
                                                         {/* Order items list */}
                                                         <div className="space-y-1 mt-2">
-                                                            {order.items.map(
+                                                            {order.order_items.map(
                                                                 (item, index) => (
                                                                     <div
                                                                         key={index}

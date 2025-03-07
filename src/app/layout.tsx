@@ -1,11 +1,10 @@
+import {CursorEffects} from "@/components/cursor-effects";
+import {Toaster} from "@/components/ui/sonner";
 import type {Metadata} from "next";
-import "./globals.css";
 import {Inter} from "next/font/google";
 import localFont from "next/font/local";
-import {CursorEffects} from "@/components/cursor-effects";
-import Footer from "@/components/footer";
 import React from "react";
-import {Toaster} from "@/components/ui/sonner";
+import "./globals.css";
 
 const inter = Inter({
     subsets: ["latin"],

@@ -53,7 +53,7 @@ export interface Order {
     sustainability_score: number;
     order_number: number;
     fulfilled: boolean;
-    items: {
+    order_items: {
         menuItemId: number;
         name: string;
         quantity: number;
@@ -67,7 +67,29 @@ export interface Order {
     created_at: string;
 }
 
+export type Item = {
+    menu_item_id: number;
+    name: string;
+    quantity: number;
+    price: number;
+    added_items: string[];
+    removed_items: string[];
+};
+
 export type Table = {
     name: string;
     seats: number;
+};
+
+export type Reservation = {
+    id: string;
+    created_at: string;
+    uid?: string | null;
+    date: string;
+    time: string;
+    name: string;
+    email: string;
+    phone_number: string;
+    guests: number;
+    tables: string[];
 };

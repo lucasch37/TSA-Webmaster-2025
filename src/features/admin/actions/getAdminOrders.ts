@@ -20,26 +20,10 @@ export async function getAdminOrders(): Promise<{
             return {success: false, message: "Failed to fetch orders"};
         }
 
-        const transformedOrders = orders.map((order) => {
-            const items = (order.order_items || []).map((item: any) => ({
-                menuItemId: item.menu_item_id,
-                name: item.name,
-                quantity: item.quantity,
-                price: item.price,
-                addedItems: item.added_items || [],
-                removedItems: item.removed_items || [],
-            }));
-
-            return {
-                ...order,
-                items,
-            };
-        });
-
         return {
             success: true,
             message: "Orders fetched successfully",
-            data: transformedOrders as Order[],
+            data: orders as Order[],
         };
     } catch (error) {
         console.error("Error fetching orders:", error);

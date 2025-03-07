@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-import {z} from "zod";
-import {useForm} from "react-hook-form";
+import {cn} from "@/lib/utils";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {format} from "date-fns";
 import {CalendarIcon} from "lucide-react";
-import {cn} from "@/lib/utils";
+import React from "react";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
 
 import {Button} from "@/components/ui/button";
 import {Calendar} from "@/components/ui/calendar";
@@ -19,6 +19,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {
     Select,
     SelectContent,
@@ -26,9 +27,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {Table} from "@/types";
+import {toast} from "sonner";
+import {createReservation} from "../actions/createReservation";
 import {useReserve} from "./reserve-context";
+import ReserveDialog from "./reserve-dialog";
+import {Reservation} from "@/types";
+import {Checkbox} from "@/components/ui/checkbox";
+import type * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import Link from "next/link";
 
 const reserveSchema = z.object({
     date: z.date({
@@ -59,13 +65,18 @@ const reserveSchema = z.object({
         .string({
             required_error: "Phone number is required",
         })
-        .min(10, "Phone number must be at least 10 digits"),
+        .min(10, "Please enter a valid phone number"),
+    useExistingDetails: z.boolean(),
 });
 
-type ReserveFormValues = z.infer<typeof reserveSchema>;
+export type ReserveFormValues = z.infer<typeof reserveSchema>;
 
-const ReserveForm = () => {
-    const {setTables} = useReserve();
+const ReserveForm = (): React.ReactNode => {
+    const {tables, setTables, setDate, setTime, user} = useReserve();
+
+    const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [successfulReservation, setSuccessfulReservation] =
+        React.useState<Reservation | null>(null);
 
     const form = useForm<ReserveFormValues>({
         resolver: zodResolver(reserveSchema),
@@ -74,18 +85,116 @@ const ReserveForm = () => {
             email: "",
             phoneNumber: "",
             numberOfGuests: 2,
+            date: new Date(),
+            time: undefined,
+            useExistingDetails: false,
         },
     });
 
-    function onSubmit(data: ReserveFormValues) {
-        // Handle form submission
-        console.log(data);
+    async function onSubmit(data: ReserveFormValues): Promise<void> {
+        if (tables.length === 0) {
+            toast.error("Please select a table");
+            return;
+        }
+        if (tables.reduce((acc, table) => acc + table.seats, 0) < data.numberOfGuests) {
+            toast.error("Selected tables do not have enough seats");
+            return;
+        }
+        if (
+            tables.reduce((acc, table) => acc + table.seats, 0) >
+            2 * data.numberOfGuests
+        ) {
+            toast.error(
+                `You only have ${data.numberOfGuests} guests, please select fewer tables or seats.`,
+            );
+            return;
+        }
+        const reservation = await createReservation(
+            data,
+            tables.map((table) => table.name),
+            user,
+        );
+        if (!reservation) {
+            toast.error("Failed to create reservation");
+        } else {
+            setDialogOpen(true);
+            setSuccessfulReservation(reservation);
+            form.reset();
+        }
     }
+
+    const date = form.watch("date");
+    const time = form.watch("time");
+
+    React.useEffect(() => {
+        setDate(date);
+        setTables([]);
+    }, [date]);
+
+    React.useEffect(() => {
+        setTime(time);
+        setTables([]);
+    }, [time]);
+
+    React.useEffect(() => {
+        if (user) {
+            form.setValue("useExistingDetails", true);
+            form.setValue("name", user.user_metadata?.name || "");
+            form.setValue("email", user.email || "");
+            form.setValue("phoneNumber", user.user_metadata?.phone || "");
+        }
+    }, [user]);
 
     return (
         <div className="rounded-lg shadow-sm">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    {user ? (
+                        <FormField
+                            control={form.control}
+                            name="useExistingDetails"
+                            render={({field}) => (
+                                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={(
+                                                checked: CheckboxPrimitive.CheckedState,
+                                            ) => {
+                                                field.onChange(checked === true);
+                                                if (
+                                                    checked === true &&
+                                                    user.user_metadata
+                                                ) {
+                                                    form.setValue(
+                                                        "name",
+                                                        user.user_metadata.name || "",
+                                                    );
+                                                    form.setValue(
+                                                        "email",
+                                                        user.email || "",
+                                                    );
+                                                    form.setValue(
+                                                        "phoneNumber",
+                                                        user.user_metadata.phone || "",
+                                                    );
+                                                }
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none text-primary">
+                                        <FormLabel>Use my account to reserve</FormLabel>
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                    ) : (
+                        <Link href={"/signup"}>
+                            <Button variant={"link"} className="p-0">
+                                Sign up to better manage your reservations.
+                            </Button>
+                        </Link>
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
@@ -99,6 +208,7 @@ const ReserveForm = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
+                            disabled={form.watch("useExistingDetails")}
                         />
                         <FormField
                             control={form.control}
@@ -115,6 +225,7 @@ const ReserveForm = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
+                            disabled={form.watch("useExistingDetails")}
                         />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -123,13 +234,14 @@ const ReserveForm = () => {
                             name="phoneNumber"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Phone Number</FormLabel>
+                                    <FormLabel>PHONE NUMBER</FormLabel>
                                     <FormControl>
                                         <Input placeholder="(123) 456-7890" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
+                            disabled={form.watch("useExistingDetails")}
                         />
                         <FormField
                             control={form.control}
@@ -139,6 +251,7 @@ const ReserveForm = () => {
                                     <FormLabel># OF GUESTS</FormLabel>
                                     <FormControl>
                                         <Input
+                                            placeholder="Number of guests"
                                             type="number"
                                             min={1}
                                             {...field}
@@ -187,6 +300,7 @@ const ReserveForm = () => {
                                                 mode="single"
                                                 selected={field.value}
                                                 onSelect={field.onChange}
+                                                fromDate={new Date()}
                                                 initialFocus
                                                 className="bg-background"
                                             />
@@ -203,10 +317,7 @@ const ReserveForm = () => {
                                 <FormItem>
                                     <FormLabel>TIME</FormLabel>
                                     <Select
-                                        onValueChange={() => {
-                                            field.onChange;
-                                            setTables([]);
-                                        }}
+                                        onValueChange={field.onChange}
                                         defaultValue={field.value}
                                     >
                                         <FormControl>
@@ -233,11 +344,16 @@ const ReserveForm = () => {
                             )}
                         />
                     </div>
-                    <Button type="submit" className="w-full">
-                        Reserve Table
+                    <Button type="submit" className="w-full mt-2">
+                        Reserve Seats
                     </Button>
                 </form>
             </Form>
+            <ReserveDialog
+                dialogOpen={dialogOpen}
+                setDialogOpen={setDialogOpen}
+                reservation={successfulReservation || null}
+            />
         </div>
     );
 };

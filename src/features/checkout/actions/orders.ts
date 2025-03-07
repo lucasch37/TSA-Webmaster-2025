@@ -70,13 +70,15 @@ export async function getUserOrders(): Promise<Order[]> {
         throw new Error("User not authenticated");
     }
 
-    const {data: orders, error} = await supabase.rpc("get_user_orders", {
-        p_user_id: user.id,
-    });
+    const {data: orders, error} = await supabase
+        .from("orders")
+        .select("*, order_items(*)")
+        .eq("user_id", user.id);
 
     if (error) {
         throw error;
     }
+
     return orders as Order[];
 }
 
