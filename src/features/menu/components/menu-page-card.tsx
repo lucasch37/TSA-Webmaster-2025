@@ -1,12 +1,13 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import {Checkbox} from "@/components/ui/checkbox";
-import {MenuItem} from "@/types";
-import {Minus, Plus, ShoppingBasket} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { MenuItem } from "@/types";
+import { motion } from "framer-motion";
+import { Minus, Plus, ShoppingBasket } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import {toast} from "sonner";
+import { toast } from "sonner";
 
 type Props = {
     menuItem: MenuItem;
@@ -14,7 +15,7 @@ type Props = {
 };
 
 // Detailed menu item page component
-const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
+const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
     const [activeOptions, setActivOptions] = React.useState<"Additives" | "Removables">(
         "Additives",
     );
@@ -84,9 +85,9 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                             {key.toLocaleLowerCase() === "calories"
                                                 ? ""
                                                 : !(
-                                                      key.toLocaleLowerCase() ===
-                                                      "serving size"
-                                                  ) && "g"}
+                                                    key.toLocaleLowerCase() ===
+                                                    "serving size"
+                                                ) && "g"}
                                         </div>
                                     </div>
                                 ),
@@ -177,15 +178,29 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                     {/* Customization options */}
                     <div className="border-2 mt-12">
                         {/* Tab switcher */}
-                        <div className="grid grid-cols-2 divide-x-2 divide-primary border-b-2">
+                        <div className="grid grid-cols-2 border-b-2 border-primary relative overflow-hidden">
+                            {/* Animated background element */}
+                            <motion.div
+                                className="absolute top-0 bottom-0 bg-primary z-0"
+                                initial={false}
+                                animate={{
+                                    left: activeOptions === "Additives" ? "0%" : "50%",
+                                }}
+                                transition={{
+                                    type: "tween",
+                                    ease: "easeInOut",
+                                    duration: 0.25
+                                }}
+                                style={{ width: "50%" }}
+                            />
                             <div
-                                className={`px-4 py-3 ${activeOptions === "Additives" ? "bg-primary text-white" : "text-primary"} font-medium cursor-pointer`}
+                                className={`px-4 py-3 transition duration-300 ease-in-out ${activeOptions === "Additives" ? "text-white" : "text-primary"} font-medium cursor-pointer z-10 relative`}
                                 onClick={() => setActivOptions("Additives")}
                             >
                                 Add Items
                             </div>
                             <div
-                                className={`px-4 py-3 ${activeOptions === "Removables" ? "bg-primary text-white" : "text-primary"} font-medium cursor-pointer`}
+                                className={`px-4 py-3 transition duration-300 ease-in-out border-l-2 border-primary ${activeOptions === "Removables" ? "text-white" : "text-primary"} font-medium cursor-pointer z-10 relative`}
                                 onClick={() => setActivOptions("Removables")}
                             >
                                 Remove Items

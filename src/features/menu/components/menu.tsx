@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {MenuItem} from "@/types";
 import MenuCard from "./menu-card";
 import {useSearchParams} from "next/navigation";
+import {motion, AnimatePresence} from "framer-motion";
 
 const scrollToSection = (sectionId: string): void => {
     const element = document.getElementById(sectionId);
@@ -64,8 +65,18 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
         <div className="mt-8 container">
             <div className="sticky top-0 w-full z-20 bg-background border-b-2 border-b-primary px-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-4 gap-4">
-                    <div className="text-primary font-bold text-6xl text-center w-full sm:w-auto">
-                        {activeSection}
+                    <div className="text-primary font-bold text-6xl text-center w-full sm:w-auto min-h-[80px] flex items-center justify-center sm:justify-start">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeSection}
+                                initial={{ y: 10 }}
+                                animate={{ y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.1 }}
+                            >
+                                {activeSection}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                     <div className="flex justify-center gap-4 md:gap-8 text-primary text-md sm:text-lg">
                         {sections.map((section) => (

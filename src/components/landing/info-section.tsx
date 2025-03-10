@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {Button} from "../ui/button";
 import {Lightbulb} from "lucide-react";
+import { motion } from "motion/react";
 
 // Restaurant info section component
 const InfoSection = (): React.JSX.Element => {
@@ -32,12 +35,24 @@ const InfoSection = (): React.JSX.Element => {
                 {/* Right side content */}
                 <div className="flex flex-col">
                     {/* Heading */}
-                    <div className="text-primary font-bold text-4xl 2xl:text-5xl 2xl:text-[3.25rem] 2xl:leading-tight leading-tight">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 80 }}
+                        className="text-primary font-bold text-4xl 2xl:text-5xl 2xl:text-[3.25rem] 2xl:leading-tight leading-tight"
+                    >
                         A TASTE OF LIFE IN EACH AND EVERY SERVING
-                    </div>
+                    </motion.div>
 
                     {/* Mission statement */}
-                    <div className="text-primary text-sm md:text-sm 2xl:text-base font-medium mt-6 md:mt-12 max-w-2xl flex flex-col gap-8">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ type: "spring", stiffness: 80 }}
+                        className="text-primary text-sm md:text-sm 2xl:text-base font-medium mt-6 md:mt-12 max-w-2xl flex flex-col gap-8"
+                    >
                         <div>
                             At our restaurant, we believe that food is more than just
                             sustenance; it is an experience that brings people together,
@@ -57,15 +72,23 @@ const InfoSection = (): React.JSX.Element => {
                             to explore new culinary horizons, our menu offers something
                             for everyone.
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* CTA button */}
-                    <Link href={"/about"} className="mt-8 md:mt-16">
-                        <Button size={"lg"}>
-                            <Lightbulb />
-                            Learn More
-                        </Button>
-                    </Link>
+                    <motion.div
+                        initial={{opacity: 0, scale: 0.9}}
+                        whileInView={{opacity: 1, scale: 1}}
+                        viewport={{ once: true }}
+                        transition={{type: "spring", stiffness: 80}}
+                        className="mt-8 md:mt-16"
+                    >
+                        <Link href={"/about"}>
+                            <Button size={"lg"}>
+                                <Lightbulb />
+                                Learn More
+                            </Button>
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         </div>
