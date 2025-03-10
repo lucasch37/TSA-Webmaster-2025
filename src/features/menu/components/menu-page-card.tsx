@@ -51,7 +51,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
 
     return (
         <div className="flex flex-col container mx-auto mt-8">
-            <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-8">
+            <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-8">
                 {/* Left side - Image and nutrition info */}
                 <div className="relative">
                     <div className="w-full border-primary border-2 relative box-border">
@@ -82,7 +82,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                         <div className="text-xl font-semibold">
                                             {`${value}`}{" "}
                                             {key.toLocaleLowerCase() === "calories"
-                                                ? "kcal"
+                                                ? ""
                                                 : !(
                                                       key.toLocaleLowerCase() ===
                                                       "serving size"
@@ -120,7 +120,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         </div>
 
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-12 flex gap-6 items-center">
+                        <div className="mt-12 flex gap-6 items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <Button
                                     variant="outline"
@@ -143,16 +143,17 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 >
                                     <Plus size={14} />
                                 </Button>
+                                <Button
+                                    onClick={handleAddToCart}
+                                    disabled={loading}
+                                    size={"lg"}
+                                    className="w-fit"
+                                >
+                                    <div className="font-medium">Add To Cart</div>
+                                    <ShoppingBasket size={20} />
+                                </Button>
                             </div>
-                            <Button
-                                onClick={handleAddToCart}
-                                disabled={loading}
-                                size={"lg"}
-                                className="w-fit"
-                            >
-                                <div className="font-medium">Add To Cart</div>
-                                <ShoppingBasket size={20} />
-                            </Button>
+
                             <div className="flex items-center gap-4">
                                 <div
                                     className={`font-bold text-primary text-[23px] ${menuItem.sale_percentage !== 0 ? "line-through decoration-red-500 decoration-[4px]" : ""}`}
