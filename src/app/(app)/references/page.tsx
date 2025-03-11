@@ -125,7 +125,8 @@ export default function ReferencesPage(): React.JSX.Element {
                             href="https://www.fromvalerieskitchen.com/sour-cream-chocolate-chip-banana-bread/"
                             className="text-blue-600 hover:underline"
                         >
-                            Sour Cream Chocolate Chip Banana Bread - From Valerie's Kitchen
+                            Sour Cream Chocolate Chip Banana Bread - From Valerie's
+                            Kitchen
                         </a>
                     </li>
                     <li>
