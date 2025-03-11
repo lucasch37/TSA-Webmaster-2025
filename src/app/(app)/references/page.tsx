@@ -120,6 +120,46 @@ export default function ReferencesPage(): React.JSX.Element {
                             Spinach Balls - Allrecipes
                         </a>
                     </li>
+                    <li>
+                        <a
+                            href="https://www.fromvalerieskitchen.com/sour-cream-chocolate-chip-banana-bread/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Sour Cream Chocolate Chip Banana Bread - From Valerie's Kitchen
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://lmld.org/coconut-ice-cream/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Coconut Ice Cream - Like Mother Like Daughter
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.allrecipes.com/recipe/15093/grandmas-lemon-meringue-pie/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Grandma's Lemon Meringue Pie - Allrecipes
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://cooking.nytimes.com/recipes/1023886-chocolate-souffle-cake"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Chocolate Souffle Cake - New York Times Cooking
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://thedomesticgeek.com/chocolate-avocado-mousse/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Chocolate Avocado Mousse - The Domestic Geek
+                        </a>
+                    </li>
                 </ul>
             </section>
 

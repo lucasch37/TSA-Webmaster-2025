@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { MenuItem } from "@/types";
-import { motion } from "framer-motion";
-import { Minus, Plus, ShoppingBasket } from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {MenuItem} from "@/types";
+import {motion} from "framer-motion";
+import {Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { toast } from "sonner";
+import {toast} from "sonner";
 
 type Props = {
     menuItem: MenuItem;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 // Detailed menu item page component
-const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
+const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
     const [activeOptions, setActivOptions] = React.useState<"Additives" | "Removables">(
         "Additives",
     );
@@ -85,9 +85,9 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                                             {key.toLocaleLowerCase() === "calories"
                                                 ? ""
                                                 : !(
-                                                    key.toLocaleLowerCase() ===
-                                                    "serving size"
-                                                ) && "g"}
+                                                      key.toLocaleLowerCase() ===
+                                                      "serving size"
+                                                  ) && "g"}
                                         </div>
                                     </div>
                                 ),
@@ -189,9 +189,9 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                                 transition={{
                                     type: "tween",
                                     ease: "easeInOut",
-                                    duration: 0.25
+                                    duration: 0.25,
                                 }}
-                                style={{ width: "50%" }}
+                                style={{width: "50%"}}
                             />
                             <div
                                 className={`px-4 py-3 transition duration-300 ease-in-out ${activeOptions === "Additives" ? "text-white" : "text-primary"} font-medium cursor-pointer z-10 relative`}

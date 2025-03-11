@@ -69,10 +69,10 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeSection}
-                                initial={{ y: 10 }}
-                                animate={{ y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.1 }}
+                                initial={{y: 10}}
+                                animate={{y: 0}}
+                                exit={{opacity: 0, y: -10}}
+                                transition={{duration: 0.1}}
                             >
                                 {activeSection}
                             </motion.div>
