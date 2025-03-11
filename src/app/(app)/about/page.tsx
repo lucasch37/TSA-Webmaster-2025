@@ -3,7 +3,8 @@ import {Metadata} from "next";
 import Link from "next/link";
 import React from "react";
 import ImpactChart from "@/features/about/impact-chart";
-import FarmMap from "@/features/about/farm-map";
+import dynamic from "next/dynamic";
+const FarmMap = dynamic(() => import("@/features/about/farm-map"), {ssr: false});
 
 export const metadata: Metadata = {
     title: "About | Sprout & About",

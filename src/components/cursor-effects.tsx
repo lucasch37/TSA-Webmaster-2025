@@ -61,8 +61,9 @@ export function CursorEffects(): React.JSX.Element {
                 setLastPosition(currentPosition);
             }
         };
-
-        window.addEventListener("mousemove", updatePosition);
+        if (typeof window !== "undefined") {
+            window.addEventListener("mousemove", updatePosition);
+        }
 
         return (): void => window.removeEventListener("mousemove", updatePosition);
     }, [counter, lastSpawn, lastPosition]);
