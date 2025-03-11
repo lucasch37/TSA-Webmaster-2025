@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
 import {MenuItem} from "@/types";
 import {motion} from "framer-motion";
-import {Minus, Plus, ShoppingBasket} from "lucide-react";
+import {BadgePercent, Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import {toast} from "sonner";
@@ -51,7 +51,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
     };
 
     return (
-        <div className="flex flex-col container mx-auto mt-8">
+        <div className="flex flex-col container mx-auto mt-12">
             <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-8">
                 {/* Left side - Image and nutrition info */}
                 <div className="relative">
@@ -83,7 +83,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                         <div className="text-xl font-semibold">
                                             {`${value}`}{" "}
                                             {key.toLocaleLowerCase() === "calories"
-                                                ? ""
+                                                ? "kcal"
                                                 : !(
                                                       key.toLocaleLowerCase() ===
                                                       "serving size"
@@ -101,12 +101,36 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                     {/* Item name and description */}
                     <div>
                         <div className="flex gap-6 items-center">
-                            <div className="text-primary font-semibold text-4xl">
+                            <div className="text-primary font-semibold text-4xl flex">
                                 {menuItem.name.toUpperCase()}
                             </div>
                             {menuItem.sale_percentage !== 0 && (
-                                <div className="border text-red-500 rounded-full px-4 py-1 font-medium border-red-500 text-sm">
-                                    {menuItem.sale_percentage}% discount
+                                <div
+                                    className={
+                                        "relative flex items-center px-3 py-1 font-medium text-sm transform "
+                                    }
+                                >
+                                    {/* Tag body */}
+                                    <div
+                                        className={
+                                            "absolute inset-0 rounded-l-xl border border-red-500 shadow-inner bg-red-50"
+                                        }
+                                    ></div>
+
+                                    {/* Hole/eyelet */}
+                                    <div className="absolute w-2.5 h-2.5 rounded-full bg-background border border-red-700 left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10">
+                                        <div className="absolute inset-0.5 rounded-full"></div>
+                                    </div>
+
+                                    {/* Text content */}
+                                    <div
+                                        className={
+                                            "relative z-10 flex items-center ml-3 text-red-800 gap-1"
+                                        }
+                                    >
+                                        <BadgePercent size={14} />
+                                        {menuItem.sale_percentage}% OFF
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -121,7 +145,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         </div>
 
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-12 flex gap-6 items-center justify-between">
+                        <div className="mt-12 flex gap-6 items-center">
                             <div className="flex items-center gap-4">
                                 <Button
                                     variant="outline"

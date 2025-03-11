@@ -189,9 +189,9 @@ const ReserveForm = (): React.ReactNode => {
                             )}
                         />
                     ) : (
-                        <Link href={"/signup"}>
+                        <Link href={"/login"}>
                             <Button variant={"link"} className="p-0">
-                                Sign up to better manage your reservations.
+                                Sign in to better manage your reservations.
                             </Button>
                         </Link>
                     )}

@@ -146,38 +146,80 @@ export default function SeatMap(): React.JSX.Element {
 
     return (
         <div className="rounded-lg border-2 p-8">
-            <div className="grid grid-cols-2 grid-rows-2 border w-[700px] 2xl:w-[800px] h-[500px] mx-auto">
-                <div className="flex flex-col gap-9 justify-center items-center">
-                    <div className="flex items-center justify-center gap-9">
-                        <Table name="A" className="w-20 h-20" />
-                        <Table name="B" className="w-20 h-20" />
-                        <Table name="C" className="w-20 h-20" />
+            <div className="grid md:grid-cols-2 grid-rows-2 border md:w-[600px] lg:w-[700px] 2xl:w-[800px] h-[500px] mx-auto">
+                <div className="flex flex-col gap-4 sm:gap-6 md:gap-9 justify-center items-center">
+                    <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
+                        <Table
+                            name="A"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                        />
+                        <Table
+                            name="B"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                        />
+                        <Table
+                            name="C"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                        />
                     </div>
-                    <div className="flex items-center justify-center gap-9">
-                        <Table name="D" className="w-20 h-10" />
-                        <Table name="E" className="w-20 h-10" />
-                        <Table name="F" className="w-20 h-10" />
+                    <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
+                        <Table
+                            name="D"
+                            className="w-12 h-8 sm:w-16 sm:h-9 md:w-20 md:h-10"
+                        />
+                        <Table
+                            name="E"
+                            className="w-12 h-8 sm:w-16 sm:h-9 md:w-20 md:h-10"
+                        />
+                        <Table
+                            name="F"
+                            className="w-12 h-8 sm:w-16 sm:h-9 md:w-20 md:h-10"
+                        />
                     </div>
                 </div>
-                <div className="w-full h-full bg-[repeating-linear-gradient(45deg,#15803d_0px,#15803d_2px,transparent_2px,transparent_14px)] border"></div>
-                <div className="flex items-center justify-center gap-9">
-                    <Table name="G" className="w-[7.5rem] h-20" />
-                    <Table name="H" className="w-[7.5rem] h-20" />
+                <div className="w-full h-full bg-[repeating-linear-gradient(45deg,#15803d_0px,#15803d_2px,transparent_2px,transparent_14px)] border hidden md:flex"></div>
+                <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
+                    <Table
+                        name="G"
+                        className="w-16 h-12 sm:w-24 sm:h-16 md:w-[7.5rem] md:h-20"
+                    />
+                    <Table
+                        name="H"
+                        className="w-16 h-12 sm:w-24 sm:h-16 md:w-[7.5rem] md:h-20"
+                    />
                 </div>
-                <div className="flex flex-col gap-9 justify-center items-center">
-                    <div className="flex items-center justify-center gap-9">
-                        <Table name="I" className="w-20 h-20" />
-                        <Table name="J" className="w-20 h-20" />
-                        <Table name="K" className="w-10 h-20" />
+                <div className="flex flex-col gap-4 sm:gap-6 md:gap-9 justify-center items-center pb-16 md:pb-0">
+                    <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
+                        <Table
+                            name="I"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                        />
+                        <Table
+                            name="J"
+                            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20"
+                        />
+                        <Table
+                            name="K"
+                            className="w-8 h-12 sm:w-9 sm:h-16 md:w-10 md:h-20"
+                        />
                     </div>
-                    <div className="flex items-center justify-center gap-9">
-                        <Table name="L" className="w-20 h-10" />
-                        <Table name="M" className="w-20 h-10" />
-                        <Table name="N" className="w-10 h-10" />
+                    <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
+                        <Table
+                            name="L"
+                            className="w-12 h-8 sm:w-16 sm:h-9 md:w-20 md:h-10"
+                        />
+                        <Table
+                            name="M"
+                            className="w-12 h-8 sm:w-16 sm:h-9 md:w-20 md:h-10"
+                        />
+                        <Table
+                            name="N"
+                            className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10"
+                        />
                     </div>
                 </div>
             </div>
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:justify-between items-center mt-4">
                 <div className="font-semibold">
                     {tables.reduce((total, table) => {
                         const tableData = tablesData.find((t) => t.name === table.name);
@@ -185,7 +227,7 @@ export default function SeatMap(): React.JSX.Element {
                     }, 0)}{" "}
                     seats selected
                 </div>
-                <div className="w-1/2 flex gap-4 justify-end items-center">
+                <div className="w-1/2 flex gap-4 justify-end items-center md:flex-row flex-col">
                     <div className="flex items-center gap-1.5">
                         <div className="w-4 h-4 border"></div>
                         <div className="text-sm font-medium">Available</div>

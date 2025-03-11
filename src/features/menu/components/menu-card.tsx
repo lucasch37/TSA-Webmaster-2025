@@ -4,6 +4,7 @@ import {Button} from "@/components/ui/button";
 import {Card, CardContent} from "@/components/ui/card";
 import {MenuItem} from "@/types";
 import {InfoCircledIcon} from "@radix-ui/react-icons";
+import {Check, Leaf, WheatOff} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -27,9 +28,66 @@ export default function MenuCard({menu}: {menu: MenuItem[]}): React.JSX.Element 
                         </div>
 
                         {/* Item name and description */}
+                        <div className="flex gap-2 mt-3">
+                            {menuItem.tags.map((tag) => (
+                                <div
+                                    key={tag}
+                                    className={`
+                                  relative flex items-center px-3 py-1
+                                  font-medium text-sm transform
+                                `}
+                                >
+                                    {/* Tag body */}
+                                    <div
+                                        className={`
+                                    absolute inset-0 
+                                    ${tag === "Vegetarian" ? "bg-green-50" : ""}
+                                    ${tag === "Vegan" ? "bg-green-200" : ""}
+                                    ${tag === "Gluten Free" ? "bg-amber-100 border-amber-800" : ""}
+                                    rounded-l-xl
+                                    border shadow-inner
+                                  `}
+                                    ></div>
+
+                                    {/* Hole/eyelet */}
+                                    <div
+                                        className={`absolute w-2.5 h-2.5 rounded-full bg-background border ${tag === "Gluten Free" ? "border-amber-800" : ""} left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10`}
+                                    >
+                                        <div className="absolute inset-0.5 rounded-full"></div>
+                                    </div>
+
+                                    {/* Text content */}
+                                    <div
+                                        className={`
+                                  relative z-10 flex items-center ml-3
+                                  ${tag === "Vegetarian" ? "text-green-800" : ""}
+                                  ${tag === "Vegan" ? "text-green-800" : ""}
+                                  ${tag === "Gluten Free" ? "text-amber-800" : ""}
+                                `}
+                                    >
+                                        {tag === "Vegetarian" && (
+                                            <span className="mr-1">
+                                                <Check size={12} />
+                                            </span>
+                                        )}
+                                        {tag === "Vegan" && (
+                                            <span className="mr-1">
+                                                <Leaf size={12} />
+                                            </span>
+                                        )}
+                                        {tag === "Gluten Free" && (
+                                            <span className="mr-1">
+                                                <WheatOff size={14} />
+                                            </span>
+                                        )}
+                                        {tag}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                         <div className="h-[10rem]">
                             <div className="text-primary font-semibold text-3xl text-[28px] mt-3 line-clamp-2 ">
-                                {menuItem.name.toUpperCase()}
+                                {menuItem.name.toUpperCase()}{" "}
                             </div>
                             <div className="text-primary text-sm mt-3 line-clamp-3">
                                 {menuItem.description}

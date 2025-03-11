@@ -5,7 +5,6 @@ import {Label} from "@/components/ui/label";
 import {createClient} from "@/lib/supabase/client";
 import {cn} from "@/lib/utils";
 import {ArrowRight} from "lucide-react";
-import Link from "next/link";
 import {useSearchParams} from "next/navigation";
 import React from "react";
 import {toast} from "sonner";
@@ -31,8 +30,8 @@ export default function LoginForm(): React.JSX.Element {
     };
 
     return (
-        <div className="max-w-[25rem] mx-auto w-full shadow-input px-8 md:px-0 text-primary">
-            <div className="flex justify-center font-semibold text-4xl text-primary tracking-tight">
+        <div className="max-w-[30rem] mx-auto w-full shadow-input px-8 py-10 text-primary bg-background rounded-[2rem]">
+            <div className="flex justify-center font-semibold text-4xl tracking-tight">
                 Welcome Back
             </div>
             <div className="text-center mt-4 text-base font-medium">
@@ -41,24 +40,34 @@ export default function LoginForm(): React.JSX.Element {
             <form className="mt-6" onSubmit={signIn}>
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="email">EMAIL</Label>
-                    <Input id="email" placeholder="Email" type="email" />
+                    <Input
+                        id="email"
+                        placeholder="Email"
+                        type="email"
+                        className="bg-background "
+                    />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="password">PASSWORD</Label>
-                    <Input id="password" placeholder="Password" type="password" />
+                    <Input
+                        id="password"
+                        placeholder="Password"
+                        type="password"
+                        className="bg-background"
+                    />
                 </LabelInputContainer>
 
                 <Button type="submit" className="w-full mt-4">
                     Continue
                     <ArrowRight size={18} />
                 </Button>
-                <div className="flex mt-8 text-base font-medium text-primary items-center justify-center">
+                {/* <div className="flex mt-8 text-base font-medium text-primary items-center justify-center">
                     Don't have an account?{" "}
                     <span className="underline mx-1 font-semibold">
                         <Link href={"/signup"}>Sign up</Link>
                     </span>{" "}
                     <ArrowRight size={16} />
-                </div>
+                </div> */}
             </form>
         </div>
     );
