@@ -1,13 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { MenuItem } from "@/types";
-import { motion } from "framer-motion";
-import { Minus, Plus, ShoppingBasket } from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import {MenuItem} from "@/types";
+import {motion} from "framer-motion";
+import {BadgePercent, ChefHat, Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { toast } from "sonner";
+import ReactMarkdown from "react-markdown";
+import {toast} from "sonner";
 
 type Props = {
     menuItem: MenuItem;
@@ -15,7 +23,7 @@ type Props = {
 };
 
 // Detailed menu item page component
-const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
+const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
     const [activeOptions, setActivOptions] = React.useState<"Additives" | "Removables">(
         "Additives",
     );
@@ -51,7 +59,7 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
     };
 
     return (
-        <div className="flex flex-col container mx-auto mt-8">
+        <div className="flex flex-col container mx-auto mt-12">
             <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-8">
                 {/* Left side - Image and nutrition info */}
                 <div className="relative">
@@ -83,11 +91,11 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                                         <div className="text-xl font-semibold">
                                             {`${value}`}{" "}
                                             {key.toLocaleLowerCase() === "calories"
-                                                ? ""
+                                                ? "kcal"
                                                 : !(
-                                                    key.toLocaleLowerCase() ===
-                                                    "serving size"
-                                                ) && "g"}
+                                                      key.toLocaleLowerCase() ===
+                                                      "serving size"
+                                                  ) && "g"}
                                         </div>
                                     </div>
                                 ),
@@ -101,17 +109,41 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                     {/* Item name and description */}
                     <div>
                         <div className="flex gap-6 items-center">
-                            <div className="text-primary font-semibold text-4xl">
+                            <div className="text-primary font-semibold text-4xl flex">
                                 {menuItem.name.toUpperCase()}
                             </div>
                             {menuItem.sale_percentage !== 0 && (
-                                <div className="border text-red-500 rounded-full px-4 py-1 font-medium border-red-500 text-sm">
-                                    {menuItem.sale_percentage}% discount
+                                <div
+                                    className={
+                                        "relative flex items-center px-3 py-1 font-medium text-sm transform "
+                                    }
+                                >
+                                    {/* Tag body */}
+                                    <div
+                                        className={
+                                            "absolute inset-0 rounded-l-xl border border-red-500 shadow-inner bg-red-50"
+                                        }
+                                    ></div>
+
+                                    {/* Hole/eyelet */}
+                                    <div className="absolute w-2.5 h-2.5 rounded-full bg-background border border-red-700 left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10">
+                                        <div className="absolute inset-0.5 rounded-full"></div>
+                                    </div>
+
+                                    {/* Text content */}
+                                    <div
+                                        className={
+                                            "relative z-10 flex items-center ml-3 text-red-800 gap-1"
+                                        }
+                                    >
+                                        <BadgePercent size={14} />
+                                        {menuItem.sale_percentage}% OFF
+                                    </div>
                                 </div>
                             )}
                         </div>
                         <hr className="border-t-2 border-primary my-6 w-full" />
-                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8">
+                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8 mb-5">
                             <div>{menuItem.description}</div>
 
                             <div>
@@ -120,8 +152,30 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                             </div>
                         </div>
 
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="w-fit flex border-primary text-primary hover:bg-primary hover:text-white"
+                                >
+                                    <ChefHat size={18} />
+                                    View Recipe
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-[95%] md:max-w-3xl max-h-[80vh] mx-auto overflow-y-auto">
+                                <DialogHeader>
+                                    <DialogTitle className="text-2xl font-bold text-primary">
+                                        {menuItem.name} Recipe
+                                    </DialogTitle>
+                                </DialogHeader>
+                                <div className="prose prose-sm md:prose-base lg:prose-lg max-w-none mt-4 text-primary">
+                                    <ReactMarkdown>{menuItem.recipe}</ReactMarkdown>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-12 flex gap-6 items-center justify-between">
+                        <div className="mt-12 flex gap-6 items-center">
                             <div className="flex items-center gap-4">
                                 <Button
                                     variant="outline"
@@ -189,9 +243,9 @@ const MenuPageCard = ({ menuItem, addToCart }: Props): React.JSX.Element => {
                                 transition={{
                                     type: "tween",
                                     ease: "easeInOut",
-                                    duration: 0.25
+                                    duration: 0.25,
                                 }}
-                                style={{ width: "50%" }}
+                                style={{width: "50%"}}
                             />
                             <div
                                 className={`px-4 py-3 transition duration-300 ease-in-out ${activeOptions === "Additives" ? "text-white" : "text-primary"} font-medium cursor-pointer z-10 relative`}

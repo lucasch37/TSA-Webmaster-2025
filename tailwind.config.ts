@@ -75,8 +75,43 @@ const config: Config = {
                     to: {transform: "translateY(calc(-100% - var(--gap)))"},
                 },
             },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        color: "hsl(var(--primary))",
+                        a: {
+                            color: "hsl(var(--primary))",
+                            "&:hover": {
+                                color: "hsl(var(--primary))",
+                            },
+                        },
+                        h1: {
+                            color: "hsl(var(--primary))",
+                        },
+                        h2: {
+                            color: "hsl(var(--primary))",
+                        },
+                        h3: {
+                            color: "hsl(var(--primary))",
+                        },
+                        h4: {
+                            color: "hsl(var(--primary))",
+                        },
+                        blockquote: {
+                            color: "hsl(var(--primary))",
+                            borderLeftColor: "hsl(var(--primary))",
+                        },
+                        strong: {
+                            color: "hsl(var(--primary))",
+                        },
+                        code: {
+                            color: "hsl(var(--primary))",
+                        },
+                    },
+                },
+            },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };
 export default config;

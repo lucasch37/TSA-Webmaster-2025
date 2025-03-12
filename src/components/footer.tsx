@@ -6,7 +6,7 @@ export function Footer(): React.JSX.Element {
     return (
         <footer className="mt-24 border-t border-primary/40">
             <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-0">
                     {/* Contact section with phone and email */}
                     <div className="flex justify-start">
                         <div className="font-bold text-xl text-center text-primary font-homemade-apple">

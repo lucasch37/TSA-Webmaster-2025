@@ -7,7 +7,8 @@ import {ArrowLeft, CheckCircle, Leaf} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Map from "./map";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/features/checkout/components/map"), {ssr: false});
 
 type Props = {
     details: OrderDetails;

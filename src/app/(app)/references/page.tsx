@@ -120,6 +120,194 @@ export default function ReferencesPage(): React.JSX.Element {
                             Spinach Balls - Allrecipes
                         </a>
                     </li>
+                    <li>
+                        <a
+                            href="https://www.fromvalerieskitchen.com/sour-cream-chocolate-chip-banana-bread/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Sour Cream Chocolate Chip Banana Bread - From Valerie's
+                            Kitchen
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://lmld.org/coconut-ice-cream/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Coconut Ice Cream - Like Mother Like Daughter
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.allrecipes.com/recipe/15093/grandmas-lemon-meringue-pie/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Grandma's Lemon Meringue Pie - Allrecipes
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://cooking.nytimes.com/recipes/1023886-chocolate-souffle-cake"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Chocolate Souffle Cake - New York Times Cooking
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://thedomesticgeek.com/chocolate-avocado-mousse/"
+                            className="text-blue-600 hover:underline"
+                        >
+                            Chocolate Avocado Mousse - The Domestic Geek
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section className="mb-12">
+                <h2 className="text-2xl font-semibold mb-4">Research Sources</h2>
+                <ul className="list-disc pl-5 space-y-2">
+                    <li>
+                        <a
+                            href="https://en.wikipedia.org/wiki/Plant-based_diet"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Wikipedia: Plant-based Diet
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://en.wikipedia.org/wiki/Environmental_vegetarianism"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Wikipedia: Environmental Vegetarianism
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://en.wikipedia.org/wiki/Veganism"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Wikipedia: Veganism
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://en.wikipedia.org/wiki/Low-carbon_diet"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Wikipedia: Low-Carbon Diet
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://e360.yale.edu/digest/vegan-diets-have-one-fourth-the-climate-impact-of-meat-heavy-diets-study-finds"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Yale Environment 360: Vegan Diets and Climate Impact
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9024616/"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            PMC: Plant-Based Dietary Patterns for Human and Planetary
+                            Health
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.medsci.ox.ac.uk/news/vegan-diet-has-just-30-of-the-environmental-impact-of-a-high-meat-diet-major-study-finds"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Oxford Medical Sciences: Vegan Diet Environmental Impact
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.theguardian.com/environment/2025/jan/31/more-carrot-less-stick-how-meat-loving-danes-were-sold-a-plant-led-world-first"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            The Guardian: Danish Plant-Based Plan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.theguardian.com/business/article/2024/aug/28/plant-based-meat-alternatives-environment-nutrition"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            The Guardian: Plant-Based Meat Alternatives
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.verywellhealth.com/whole-food-plant-based-diet-8723867"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            VeryWell Health: Whole Food, Plant-Based Diet
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.verywellhealth.com/plant-protein-vs-animal-protein-8781023"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            VeryWell Health: Animal vs. Plant Proteins
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.un.org/en/climatechange/science/climate-issues/food"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            United Nations: Food and Climate Change
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://blogs.nicholas.duke.edu/env212/do-plant-based-diets-have-a-significant-impact-on-climate-change/"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Duke Blogs: Plant-Based Diets and Climate Change
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://theplanetapp.com/carbon-emissions-and-type-of-diet/?lang=en"
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            The Planet App: Carbon Emissions and Diet
+                        </a>
+                    </li>
                 </ul>
             </section>
 

@@ -115,7 +115,7 @@ export default async function CheckoutSuccessPage(props: {
     };
 
     // Create order in database
-    const order = await createOrder(
+    const {order, exists} = await createOrder(
         sessionId,
         details.items.map((item) => ({
             menuItemId: item.menuItemId,
@@ -141,7 +141,7 @@ export default async function CheckoutSuccessPage(props: {
 
     return (
         <div>
-            <ClearCartOnLoad />
+            {!exists && <ClearCartOnLoad />}
             <Success details={details} menu={menu} order={order} />
         </div>
     );

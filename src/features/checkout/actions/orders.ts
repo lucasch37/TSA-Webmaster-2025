@@ -18,7 +18,7 @@ export async function createOrder(
     totalAmount: number,
     pointsEarned: number,
     menu: MenuItem[],
-): Promise<Order> {
+): Promise<{order: Order; exists: boolean}> {
     const supabase = createClient();
 
     // Verify user authentication
@@ -32,7 +32,7 @@ export async function createOrder(
         .single();
 
     if (existingOrder) {
-        return existingOrder as Order;
+        return {order: existingOrder as Order, exists: true};
     }
 
     const {data: order, error: orderError} = await supabase
@@ -65,7 +65,7 @@ export async function createOrder(
         throw orderError;
     }
 
-    return order as Order;
+    return {order: order as Order, exists: false};
 }
 
 // Get all orders for current user

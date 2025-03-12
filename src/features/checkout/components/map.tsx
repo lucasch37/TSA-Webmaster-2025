@@ -21,10 +21,18 @@ const Map = (): React.JSX.Element => {
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                 />
                 <Marker position={[47.66091605485775, -117.41270019414627]} icon={icon}>
-                    <Popup>Pick up your order at our location!</Popup>
+                    <Popup>
+                        <div className="text-base font-bold text-primary">
+                            Sprout & About
+                        </div>
+                        <div className="mt-2">Pick up your order at our location!</div>
+                        <div className="mt-2 font-medium">
+                            334 W Spokane Falls Blvd Spokane, WA 99201
+                        </div>
+                    </Popup>
                 </Marker>
             </MapContainer>
         </div>

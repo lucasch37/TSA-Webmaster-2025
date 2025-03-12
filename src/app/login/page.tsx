@@ -16,14 +16,14 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
                         </div>
                     </Link>
                 </div>
-                <div className="border-2 rounded-xl p-4 flex flex-col absolute bottom-8 left-8 w-[20rem] text-primary">
+                <div className="border-2 rounded-xl p-4 flex flex-col absolute bottom-8 left-8 w-[20rem] text-primary bg-background">
                     <div className="font-semibold text-base underline">TSA Judges:</div>
-                    <div className="mt-1">Admin Email: </div>
-                    <div>Admin Password: </div>
+                    <div className="mt-1">Email: tsajudge@webmaster.org</div>
+                    <div>Password: TSA2025!</div>
                 </div>
             </div>
-            <div className="h-screen items-center justify-center hidden lg:flex p-6">
-                <div className="w-full h-full overflow-hidden border-2 rounded-2xl flex">
+            <div className="h-screen items-center justify-center hidden lg:flex border-l-4">
+                <div className="w-full h-full overflow-hidden flex">
                     <Image
                         src={"/login-img.jpg"}
                         width={1000}
