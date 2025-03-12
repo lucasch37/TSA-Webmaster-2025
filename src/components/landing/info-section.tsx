@@ -10,16 +10,16 @@ import { motion } from "motion/react";
 // Restaurant info section component
 const InfoSection = (): React.JSX.Element => {
     return (
-        <div className="md:absolute md:centered w-full md:px-10 my-16 md:my-0">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="md:absolute md:centered w-full px-4 sm:px-6 md:px-10 my-16 md:my-0 overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
                 {/* Left side image with decorative dot */}
-                <div className="flex justify-start">
-                    <div className="relative">
+                <div className="flex justify-center md:justify-start">
+                    <div className="relative w-full max-w-[320px] md:max-w-none">
                         <Image
                             src={"/large-dot.svg"}
                             height={100}
                             width={100}
-                            className="w-[35rem] 2xl:w-[40rem] -rotate-[55deg] shrink-0"
+                            className="w-full max-w-[35rem] 2xl:w-[40rem] -rotate-[55deg] shrink-0"
                             alt="dot"
                         />
                         <Image
@@ -40,7 +40,7 @@ const InfoSection = (): React.JSX.Element => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ type: "spring", stiffness: 80 }}
-                        className="text-primary font-bold text-4xl 2xl:text-5xl 2xl:text-[3.25rem] 2xl:leading-tight leading-tight"
+                        className="text-primary font-bold text-3xl md:text-4xl 2xl:text-5xl 2xl:text-[3.25rem] 2xl:leading-tight leading-tight"
                     >
                         A TASTE OF LIFE IN EACH AND EVERY SERVING
                     </motion.div>
@@ -80,7 +80,7 @@ const InfoSection = (): React.JSX.Element => {
                         whileInView={{opacity: 1, scale: 1}}
                         viewport={{ once: true }}
                         transition={{type: "spring", stiffness: 80}}
-                        className="mt-8 md:mt-16"
+                        className="mt-8 mb-2 md:mt-16"
                     >
                         <Link href={"/about"}>
                             <Button size={"lg"}>
