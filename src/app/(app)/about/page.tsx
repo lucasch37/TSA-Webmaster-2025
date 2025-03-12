@@ -481,19 +481,9 @@ export default function AboutPage(): React.JSX.Element {
                                 References
                             </Button>
                         </Link>
-                        <a href={"/pdf/work-log-1.pdf"} rel="noopener noreferrer">
+                        <a href={"/pdf/worklog.pdf"} rel="noopener noreferrer">
                             <Button variant="link" className="underline text-xl">
-                                Work Log 1
-                            </Button>
-                        </a>
-                        <a href={"/pdf/work-log-2.pdf"} rel="noopener noreferrer">
-                            <Button variant="link" className="underline text-xl">
-                                Work Log 2
-                            </Button>
-                        </a>
-                        <a href={"/pdf/work-log-3.pdf"} rel="noopener noreferrer">
-                            <Button variant="link" className="underline text-xl">
-                                Work Log 3
+                                Work Log
                             </Button>
                         </a>
                     </div>
