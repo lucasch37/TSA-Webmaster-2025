@@ -2,11 +2,19 @@
 
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import {MenuItem} from "@/types";
 import {motion} from "framer-motion";
-import {BadgePercent, Minus, Plus, ShoppingBasket} from "lucide-react";
+import {BadgePercent, ChefHat, Minus, Plus, ShoppingBasket} from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import {toast} from "sonner";
 
 type Props = {
@@ -135,7 +143,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                             )}
                         </div>
                         <hr className="border-t-2 border-primary my-6 w-full" />
-                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8">
+                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8 mb-5">
                             <div>{menuItem.description}</div>
 
                             <div>
@@ -143,6 +151,28 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 {menuItem.ingredients.join(", ")}
                             </div>
                         </div>
+
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="w-fit flex border-primary text-primary hover:bg-primary hover:text-white"
+                                >
+                                    <ChefHat size={18} />
+                                    View Recipe
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-[95%] md:max-w-3xl max-h-[80vh] mx-auto overflow-y-auto">
+                                <DialogHeader>
+                                    <DialogTitle className="text-2xl font-bold text-primary">
+                                        {menuItem.name} Recipe
+                                    </DialogTitle>
+                                </DialogHeader>
+                                <div className="prose prose-sm md:prose-base lg:prose-lg max-w-none mt-4 text-primary">
+                                    <ReactMarkdown>{menuItem.recipe}</ReactMarkdown>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
 
                         {/* Quantity selector and add to cart */}
                         <div className="mt-12 flex gap-6 items-center">
