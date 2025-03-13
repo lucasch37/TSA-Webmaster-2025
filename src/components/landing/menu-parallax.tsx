@@ -331,6 +331,7 @@ const MenuParallax = ({
 
 // Menu item preview card with image and details
 const ParallaxCard = ({menuItem}: {menuItem: MenuItem}): React.JSX.Element => {
+    if (!menuItem) return <></>;
     const sanitizeUrl = (url: string): string => url.replace(/([^:]\/)\/+/g, "$1");
     const imageUrl = menuItem.image_url ? sanitizeUrl(menuItem.image_url) : "";
 
