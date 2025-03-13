@@ -61,6 +61,22 @@ export async function createOrder(
         });
     });
 
+    if (user) {
+        // Get current user data to update the sustainability score
+        const {data: userData} = await supabase
+            .from("users")
+            .select("sustainability_score")
+            .eq("id", user.id)
+            .single();
+
+        const currentScore = userData?.sustainability_score || 0;
+
+        await supabase
+            .from("users")
+            .update({sustainability_score: currentScore + pointsEarned})
+            .eq("id", user.id);
+    }
+
     if (orderError) {
         throw orderError;
     }

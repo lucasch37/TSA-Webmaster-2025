@@ -122,10 +122,10 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                         </TooltipTrigger>
                                         <TooltipContent className="max-w-[300px] text-center">
                                             This total was calculated based on our
-                                            in-depth research on carbon missions. To learn
-                                            more about how we calculate this, view our
-                                            sustainability stats listed on each menu item
-                                            page.
+                                            in-depth research on carbon emissions. To
+                                            learn more about how we calculate this, view
+                                            our sustainability stats listed on each menu
+                                            item page.
                                         </TooltipContent>
                                     </Tooltip>
                                 </div>

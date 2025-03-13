@@ -86,8 +86,8 @@ const Success = ({details, menu, order}: Props): React.JSX.Element => {
                                                 {menuItem.name} x{item.quantity}
                                             </h3>
                                             <div>
-                                                <p className="text-sm line-clamp-1 text-primary">
-                                                    {menuItem.description}
+                                                <p className="text-sm line-clamp-1 text-primary md:w-[800px]">
+                                                    {menuItem.description}{" "}
                                                 </p>
                                                 {item.addedItems.length > 0 && (
                                                     <p className="text-sm text-primary">
