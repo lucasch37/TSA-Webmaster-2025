@@ -46,6 +46,26 @@ export function AdminNavbar(): React.JSX.Element {
                         </Button>
                     </Link>
                 </div>
+                <div className="mt-6 mx-auto border border-primary rounded-full py-1 px-4 flex md:hidden gap-3 text-primary justify-center w-fit">
+                    <Link
+                        href={"/admin"}
+                        className="flex gap-1 items-center nav-link text-xs"
+                    >
+                        <CircleGauge size={15} /> DASHBOARD
+                    </Link>
+                    <Link
+                        href={"/admin/menu"}
+                        className="flex gap-1 items-center nav-link text-xs"
+                    >
+                        <Edit size={15} /> MENU EDITOR
+                    </Link>
+                    <Link
+                        href={"/admin/orders"}
+                        className="flex gap-1 items-center nav-link text-xs"
+                    >
+                        <ListCheck size={15} /> ORDERS
+                    </Link>
+                </div>
             </div>
         </header>
     );

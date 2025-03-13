@@ -37,9 +37,11 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
     return (
         <div>
             <div className="container mx-auto mt-8">
-                <div className="flex justify-between mb-8 items-center">
-                    <div className="text-6xl font-bold text-primary">CHECKOUT</div>
-                    <Link href={"/menu"}>
+                <div className="flex justify-center md:justify-between mb-8 items-center">
+                    <div className="text-5xl md:text-6xl font-bold text-primary">
+                        CHECKOUT
+                    </div>
+                    <Link href={"/menu"} className="hidden md:flex">
                         <Button size={"default"} className="h-fit">
                             <ShoppingBasket size={18} />
                             Continue Shopping

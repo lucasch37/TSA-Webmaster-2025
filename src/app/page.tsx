@@ -3,12 +3,30 @@ import Hero from "@/components/landing/hero";
 import InfoSection from "@/components/landing/info-section";
 import MenuParallax from "@/components/landing/menu-parallax";
 import Navbar from "@/components/navbar/navbar";
-import {ArrowBigDown} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {getMenu} from "@/features/menu/actions/getMenu";
+import {ArrowBigDown, Calendar} from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
 
 // Landing page component
-export default function Home(): React.JSX.Element {
+export default async function Home(): Promise<React.JSX.Element> {
+    const menuRes = await getMenu();
+    const menu = menuRes.data || [];
+
+    const appetizers = menu.filter((item) => item.type === "Appetizer");
+    const randomizedAppetizers = appetizers.sort(() => Math.random() - 0.5).slice(0, 4);
+
+    const sides = menu.filter((item) => item.type === "Side");
+    const randomizedSides = sides.sort(() => Math.random() - 0.5).slice(0, 2);
+
+    const entrees = menu.filter((item) => item.type === "Entree");
+    const randomizedEntrees = entrees.sort(() => Math.random() - 0.5).slice(0, 6);
+
+    const desserts = menu.filter((item) => item.type === "Dessert");
+    const randomizedDesserts = desserts.sort(() => Math.random() - 0.5).slice(0, 4);
+
     return (
         <div>
             <div className="flex flex-col min-h-screen">
@@ -36,8 +54,32 @@ export default function Home(): React.JSX.Element {
                 </div>
 
                 {/* Menu parallax section */}
-                <div className="container">
-                    <MenuParallax />
+                {menu && (
+                    <div className="container">
+                        <MenuParallax
+                            randomizedAppetizers={randomizedAppetizers}
+                            randomizedDesserts={randomizedDesserts}
+                            randomizedSides={randomizedSides}
+                            randomizedEntrees={randomizedEntrees}
+                        />
+                    </div>
+                )}
+                <div className="container  px-8">
+                    <div className="rounded-3xl border-2 flex items-center justify-center h-[400px] bg-[url('/about/mission.jpg')] bg-cover bg-center p-0 overflow-hidden">
+                        <div className="flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-60">
+                            <div className="text-4xl md:text-6xl font-bold text-primary font-homemade-apple text-center">
+                                Reserve a<br className="md:hidden flex" /> Spot
+                            </div>
+                            <div className="mt-12">
+                                <Link href={"/reserve"}>
+                                    <Button size={"lg"}>
+                                        Reserve Now
+                                        <Calendar />
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />

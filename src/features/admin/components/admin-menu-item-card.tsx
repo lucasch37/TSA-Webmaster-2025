@@ -11,7 +11,7 @@ import {
 import {Switch} from "@/components/ui/switch";
 import {MenuItem} from "@/types";
 import {IconInfoCircleFilled} from "@tabler/icons-react";
-import {Edit} from "lucide-react";
+import {BadgePercent, Edit} from "lucide-react";
 import Image from "next/image";
 import React, {useState} from "react";
 import EditMenuDialog from "./edit-menu-dialog";
@@ -80,8 +80,32 @@ export function AdminMenuItemCard({
                             ${item.price.toFixed(2)}
                         </p>
                         {item.sale_percentage !== 0 && (
-                            <div className="rounded-full border border-red-500 px-2 py-0.5 text-red-500 text-xs">
-                                Sale: {item.sale_percentage}% off
+                            <div
+                                className={
+                                    "relative flex items-center px-3 py-1 font-medium text-sm transform "
+                                }
+                            >
+                                {/* Tag body */}
+                                <div
+                                    className={
+                                        "absolute inset-0 rounded-l-xl border border-red-500 shadow-inner bg-red-50"
+                                    }
+                                ></div>
+
+                                {/* Hole/eyelet */}
+                                <div className="absolute w-2.5 h-2.5 rounded-full bg-background border border-red-700 left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10">
+                                    <div className="absolute inset-0.5 rounded-full"></div>
+                                </div>
+
+                                {/* Text content */}
+                                <div
+                                    className={
+                                        "relative z-10 flex items-center ml-3 text-red-800 gap-1"
+                                    }
+                                >
+                                    <BadgePercent size={14} />
+                                    {item.sale_percentage}% OFF
+                                </div>
                             </div>
                         )}
                         <Dialog>

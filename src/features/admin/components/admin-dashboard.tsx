@@ -284,14 +284,15 @@ export const AdminDashboard = ({
             : {hour: 0, orders: 0};
 
     return (
-        <div className="w-full max-w-[1600px] mx-auto px-4 space-y-8">
-            <div className="flex items-center justify-between mb-2">
-                <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div className="w-full mx-auto space-y-8">
+            <div className="flex md:flex-row flex-col gap-3 items-center md:justify-between pb-6 border-b-2 mb-6">
+                <h2 className="text-5xl md:text-6xl font-bold uppercase text-primary tracking-tight">
+                    Dashboard
+                </h2>
                 <Button
                     onClick={refreshMetrics}
-                    size="sm"
                     disabled={isRefreshing}
-                    className="ml-auto"
+                    className="md:ml-auto"
                 >
                     {isRefreshing ? (
                         <>
@@ -308,7 +309,7 @@ export const AdminDashboard = ({
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
-                <Card className="w-full">
+                <Card className="w-full rounded-xl">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Total Customers
@@ -321,7 +322,7 @@ export const AdminDashboard = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            className="h-4 w-4 text-muted-foreground"
+                            className="h-4 w-4 text-primary"
                         >
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                             <circle cx="9" cy="7" r="4" />
@@ -329,14 +330,14 @@ export const AdminDashboard = ({
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{metrics.totalCustomers}</div>
-                        <p className="text-xs text-muted-foreground">
-                            Total registered users
-                        </p>
+                        <div className="text-2xl font-bold text-primary">
+                            {metrics.totalCustomers}
+                        </div>
+                        <p className="text-xs text-primary">Total registered users</p>
                     </CardContent>
                 </Card>
 
-                <Card className="w-full">
+                <Card className="w-full rounded-xl">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Average Order Value
@@ -349,21 +350,21 @@ export const AdminDashboard = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            className="h-4 w-4 text-muted-foreground"
+                            className="h-4 w-4 text-primary"
                         >
                             <rect width="20" height="14" x="2" y="5" rx="2" />
                             <path d="M2 10h20" />
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">
+                        <div className="text-2xl font-bold text-primary">
                             ${averageOrderValue.toFixed(2)}
                         </div>
-                        <p className="text-xs text-muted-foreground">Per order</p>
+                        <p className="text-xs text-primary">Per order</p>
                     </CardContent>
                 </Card>
 
-                <Card className="w-full">
+                <Card className="w-full rounded-xl">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Total Revenue
@@ -376,20 +377,20 @@ export const AdminDashboard = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            className="h-4 w-4 text-muted-foreground"
+                            className="h-4 w-4 text-primary"
                         >
                             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">
+                        <div className="text-2xl font-bold text-primary">
                             ${totalRevenue.toFixed(2)}
                         </div>
-                        <p className="text-xs text-muted-foreground">Last 90 days</p>
+                        <p className="text-xs text-primary">Last 90 days</p>
                     </CardContent>
                 </Card>
 
-                <Card className="w-full">
+                <Card className="w-full rounded-xl">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Peak Hour</CardTitle>
                         <svg
@@ -400,16 +401,16 @@ export const AdminDashboard = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            className="h-4 w-4 text-muted-foreground"
+                            className="h-4 w-4 text-primary"
                         >
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{peakHour.hour}:00</div>
-                        <p className="text-xs text-muted-foreground">
-                            {peakHour.orders} orders
-                        </p>
+                        <div className="text-2xl font-bold text-primary">
+                            {peakHour.hour}:00
+                        </div>
+                        <p className="text-xs text-primary">{peakHour.orders} orders</p>
                     </CardContent>
                 </Card>
             </div>

@@ -17,8 +17,8 @@ const CartListItem = ({item, index, getMenuItem}: Props): React.JSX.Element | nu
 
     return (
         <div className="py-6">
-            <div className="flex gap-6 items-center relative">
-                <div className="w-36 h-36 relative border-[1.5px] rounded-lg">
+            <div className="flex gap-4 md:gap-6 items-center relative">
+                <div className="w-24 h-24 md:w-36 md:h-36 relative border-[1.5px] rounded-lg">
                     <Image
                         src={menuItem.image_url}
                         alt={menuItem.name}
@@ -29,23 +29,23 @@ const CartListItem = ({item, index, getMenuItem}: Props): React.JSX.Element | nu
                 <div className="flex-1 justify-between flex flex-col h-[125px]">
                     <div className="h-fit">
                         <div className="flex justify-between items-start">
-                            <h3 className="text-2xl font-semibold text-primary">
+                            <h3 className="text-base md:text-2xl font-semibold text-primary">
                                 {menuItem.name}
                             </h3>
                             <CartItemActions index={index} />
                         </div>
-                        <p className="text-gray-600 mt-1 text-sm text-primary line-clamp-1">
+                        <p className="text-gray-600 mt-1 text-xs md:text-sm text-primary line-clamp-1">
                             {menuItem.description}
                         </p>
                         <div className="space-x-2">
                             {item.addedItems.length > 0 && (
-                                <span className="text-sm text-primary">
+                                <span className="text-xs md:text-sm text-primary">
                                     <span className="font-medium">Added:</span>{" "}
                                     {item.addedItems.join(", ")}
                                 </span>
                             )}
                             {item.removedItems.length > 0 && (
-                                <span className="text-sm text-primary">
+                                <span className="text-xs md:text-sm text-primary">
                                     <span className="font-medium">Removed:</span>{" "}
                                     {item.removedItems.join(", ")}
                                 </span>

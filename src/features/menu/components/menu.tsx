@@ -63,9 +63,9 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
 
     return (
         <div className="mt-8 container">
-            <div className="sticky top-0 w-full z-20 bg-background border-b-2 border-b-primary">
+            <div className="sticky top-0 w-full z-10 bg-background border-b-2 border-b-primary">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-4 gap-4">
-                    <div className="text-primary font-bold text-6xl text-center w-full sm:w-auto min-h-[80px] flex items-center justify-center sm:justify-start">
+                    <div className="text-primary font-bold text-5xl md:text-6xl text-center w-full sm:w-auto min-h-[80px] flex items-center justify-center sm:justify-start">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeSection}
@@ -78,7 +78,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                             </motion.div>
                         </AnimatePresence>
                     </div>
-                    <div className="flex justify-center gap-4 md:gap-8 text-primary text-md sm:text-lg">
+                    <div className="flex justify-center gap-4 md:gap-8 text-primary text-sm md:text-lg">
                         {sections.map((section) => (
                             <button
                                 key={section}

@@ -49,7 +49,7 @@ const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
 }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white p-3 border border-gray-200 rounded-md shadow-sm">
+            <div className="bg-background p-3 border rounded-md shadow-sm">
                 <p className="font-medium text-gray-700 mb-1">{`Month: ${label}`}</p>
                 {payload.map((entry, index) => {
                     const typedEntry = entry as unknown as Payload;
@@ -95,10 +95,10 @@ const ImpactChart: React.FC<ImpactChartProps> = ({data}) => {
     } satisfies ChartConfig;
 
     return (
-        <Card className="w-full">
+        <Card className="w-full rounded-xl">
             <CardHeader>
-                <CardTitle>Environmental Impact</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-2xl">Environmental Impact</CardTitle>
+                <CardDescription className="text-primary">
                     Monthly CO2 and water savings compared to conventional restaurants
                 </CardDescription>
             </CardHeader>

@@ -39,13 +39,17 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="max-w-[800px]">
+            <DialogContent className="max-w-[380px] md:max-w-[800px]">
                 <DialogHeader>
                     <DialogTitle className="text-4xl font-bold text-primary">
                         YOUR CART
                     </DialogTitle>
                     <DialogDescription className="text-primary text-lg font-medium">
-                        {cartCount} item{cartCount !== 1 ? "s" : ""} in your cart
+                        {cart.items.reduce((sum, item) => sum + item.quantity, 0)} Item
+                        {cart.items.reduce((sum, item) => sum + item.quantity, 0) !== 1
+                            ? "s"
+                            : ""}{" "}
+                        in your cart
                     </DialogDescription>
                 </DialogHeader>
                 <div className="w-full h-full border-t-[1.5px] mt-2">

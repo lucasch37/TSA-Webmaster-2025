@@ -63,6 +63,7 @@ export default function CheckoutForm({
 }: CheckoutFormProps): React.JSX.Element {
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [checkoutValues, setCheckoutValues] = React.useState<CheckoutFormValues>();
+    const [loading, setLoading] = React.useState(false);
 
     const form = useForm<CheckoutFormValues>({
         resolver: zodResolver(checkoutFormSchema),
@@ -387,7 +388,11 @@ export default function CheckoutForm({
                             </p>
                             <DialogFooter>
                                 <Button
-                                    onClick={() => handleCheckout(checkoutValues!)}
+                                    disabled={loading}
+                                    onClick={() => {
+                                        setLoading(true);
+                                        handleCheckout(checkoutValues!);
+                                    }}
                                     className="w-full"
                                 >
                                     Continue

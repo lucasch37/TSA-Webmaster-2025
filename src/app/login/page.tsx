@@ -25,7 +25,7 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
             <div className="h-screen items-center justify-center hidden lg:flex border-l-4">
                 <div className="w-full h-full overflow-hidden flex">
                     <Image
-                        src={"/login-img.jpg"}
+                        src={"/login-img.jpeg"}
                         width={1000}
                         height={1000}
                         alt="Restaurant Image"

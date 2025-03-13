@@ -21,7 +21,7 @@ export default async function ReservePage(): Promise<React.JSX.Element> {
     return (
         <ReserveProvider foundReservations={reservations || []} user={user}>
             <div className="flex flex-col container mx-auto min-h-screen text-primary">
-                <div className="font-bold text-6xl mt-12 pb-6 mb-6 border-b-2">
+                <div className="font-bold text-6xl mt-12 pb-6 mb-6 border-b-2 text-center md:text-start">
                     RESERVE
                 </div>
                 <Reserve />

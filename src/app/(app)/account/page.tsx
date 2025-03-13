@@ -1,5 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {getUserData, getUserOrders} from "@/features/checkout/actions/orders";
 import cancelReservation from "@/features/reservations/actions/cancelReservation";
 import CancelReservation from "@/features/reservations/reserve/cancel-reservation";
@@ -7,7 +8,8 @@ import {logoutUser} from "@/features/user/actions/auth";
 import {getUser} from "@/features/user/actions/getUser";
 import {UserCard} from "@/features/user/components/user-card";
 import {createClient} from "@/lib/supabase/server";
-import {Order, Reservation} from "@/types";
+import {MenuItem, Order, Reservation} from "@/types";
+import {IconInfoCircleFilled} from "@tabler/icons-react";
 import {format} from "date-fns";
 import {Leaf, ListCheck, LogOut, UserCog} from "lucide-react";
 import {Metadata} from "next";
@@ -34,6 +36,10 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
         .order("date", {ascending: false})
         .eq("uid", user.id);
 
+    const {data: menuData} = await supabase.from("menu_items").select("*");
+
+    const menu: MenuItem[] = menuData as MenuItem[];
+
     let reservations = userReservations as Reservation[];
 
     if (!userReservations) {
@@ -48,10 +54,22 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
         }
     };
 
+    const calculateEmissionsReduced = (): number => {
+        const allItemsOrder = orders.map((order) => order.order_items).flat();
+        const emissionsReduced = allItemsOrder.reduce((acc, item) => {
+            const menuItem = menu.find((menuItem) => menuItem.id === item.menu_item_id);
+            if (!menuItem) {
+                return acc;
+            }
+            return acc + menuItem.emissions.emissions_saved * item.quantity;
+        }, 0);
+        return emissionsReduced;
+    };
+
     return (
         <div>
             <div className="container mx-auto mt-12">
-                <div className="flex justify-between items-center border-b-2 pb-4">
+                <div className="flex gap-4 md:flex-row flex-col justify-center md:justify-between items-center border-b-2 pb-4">
                     <div className="font-bold text-primary text-6xl">ACCOUNT</div>
                     <div className="flex gap-4">
                         <Link href={"/admin"}>
@@ -68,7 +86,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                         </form>
                     </div>
                 </div>
-                <div className="flex gap-8 relative mt-6">
+                <div className="flex md:flex-row md:items-start items-center flex-col gap-8 relative mt-6">
                     <div className="flex flex-col">
                         <UserCard
                             name={user?.user_metadata.name}
@@ -87,8 +105,30 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                     {userData?.sustainability_score || 0}
                                 </div>
                                 <p className="text-sm">
-                                    Sustainability points earned from your orders
+                                    Sustainability points earned from your orders.
                                 </p>
+                                <div className="text-sm mt-4 border-t pt-4">
+                                    You have saved a total of{" "}
+                                    <span className="font-bold">
+                                        {calculateEmissionsReduced().toFixed(2)} kg CO2e
+                                    </span>{" "}
+                                    by choosing to eat our vegetarian meals rather than a
+                                    traditional non-vegetarian meal.
+                                    <Tooltip delayDuration={0}>
+                                        <TooltipTrigger asChild>
+                                            <span className="mt-4 flex gap-1.5 items-center rounded-full border px-2 py-0.5 w-fit text-xs">
+                                                <IconInfoCircleFilled size={15} /> Info
+                                            </span>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="max-w-[300px] text-center">
+                                            This total was calculated based on our
+                                            in-depth research on carbon missions. To learn
+                                            more about how we calculate this, view our
+                                            sustainability stats listed on each menu item
+                                            page.
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,8 +207,8 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                     </div>
                                 </TabsContent>
                                 <TabsContent value="orders">
-                                    <div className="mt-8">
-                                        <div className="space-y-4">
+                                    <div className="mt-8 w-full">
+                                        <div className="space-y-4 w-[300px] md:w-full">
                                             {orders.length === 0 ? (
                                                 <p className="text-primary">
                                                     No orders yet
@@ -177,10 +217,10 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                 orders.map((order: Order) => (
                                                     <div
                                                         key={order.id}
-                                                        className="p-4 border rounded-lg"
+                                                        className="p-4 border rounded-lg w-full"
                                                     >
                                                         {/* Order header with date and total */}
-                                                        <div className="flex justify-between items-start mb-2">
+                                                        <div className="flex md:flex-row flex-col justify-center md:justify-between items-start mb-2">
                                                             <div>
                                                                 <div className="flex gap-2 items-center">
                                                                     <div className="font-semibold text-lg">
@@ -189,7 +229,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                             order.order_number
                                                                         }
                                                                     </div>
-                                                                    <p className="text-base">
+                                                                    <p className=" text-sm md:text-base">
                                                                         {format(
                                                                             new Date(
                                                                                 order.created_at,
@@ -198,7 +238,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                         )}
                                                                     </p>
                                                                 </div>
-                                                                <p className="text-base font-medium mt-1">
+                                                                <p className="text-base font-medium my-3 md:mt-1">
                                                                     {order.order_items.reduce(
                                                                         (sum, item) =>
                                                                             sum +
@@ -216,7 +256,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                         : ""}
                                                                 </p>
                                                             </div>
-                                                            <div className="text-right">
+                                                            <div className="md:text-right">
                                                                 <p className="font-semibold text-lg">
                                                                     $
                                                                     {(
@@ -224,7 +264,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                         100
                                                                     ).toFixed(2)}
                                                                 </p>
-                                                                <p className="text-sm text-primary flex items-center mt-1">
+                                                                <p className="text-sm text-primary flex items-center my-3 md:mt-1">
                                                                     +{" "}
                                                                     <Leaf
                                                                         size={16}
@@ -264,32 +304,32 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                             </span>
                                                                         </div>
                                                                         {/* Item customizations */}
-                                                                        {(item.addedItems
+                                                                        {(item.added_items
                                                                             ?.length >
                                                                             0 ||
                                                                             item
-                                                                                .removedItems
+                                                                                .removed_items
                                                                                 ?.length >
                                                                                 0) && (
                                                                             <div className="text-xs ml-4">
                                                                                 {item
-                                                                                    .addedItems
+                                                                                    .added_items
                                                                                     ?.length >
                                                                                     0 && (
                                                                                     <div>
                                                                                         Added:{" "}
-                                                                                        {item.addedItems.join(
+                                                                                        {item.added_items.join(
                                                                                             ", ",
                                                                                         )}
                                                                                     </div>
                                                                                 )}
                                                                                 {item
-                                                                                    .removedItems
+                                                                                    .removed_items
                                                                                     ?.length >
                                                                                     0 && (
                                                                                     <div>
                                                                                         Removed:{" "}
-                                                                                        {item.removedItems.join(
+                                                                                        {item.removed_items.join(
                                                                                             ", ",
                                                                                         )}
                                                                                     </div>
@@ -304,7 +344,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                             href={`/checkout/success?session_id=${order.stripe_session_id}`}
                                                             className="flex justify-end"
                                                         >
-                                                            <Button className="mt-4 h-8">
+                                                            <Button className="mt-4 h-8 md:w-fit w-full">
                                                                 <ListCheck size={15} />{" "}
                                                                 View Summary
                                                             </Button>

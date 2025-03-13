@@ -74,7 +74,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
             <div className="flex items-center justify-between">
                 <h1 className="text-primary font-bold text-6xl">ORDERS</h1>
                 {pendingOrders.length > 0 && activeTab === "pending" && (
-                    <div className="rounded-full border px-3 py-1 text-primary text-sm font-medium">
+                    <div className="rounded-full border px-3 py-1 text-primary text-sm font-medium hidden md:flex">
                         {pendingOrders.length} pending{" "}
                         {pendingOrders.length === 1 ? "order" : "orders"}
                     </div>
@@ -87,12 +87,12 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                 onValueChange={(value) => setActiveTab(value as "pending" | "fulfilled")}
             >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 mt-8">
-                    <TabsList className="w-[600px] grid grid-cols-2">
+                    <TabsList className="w-[200px] md:w-[600px] grid grid-cols-2">
                         <TabsTrigger value="pending">Pending</TabsTrigger>
                         <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
                     </TabsList>
 
-                    <div className="relative self-end">
+                    <div className="relative md:self-end">
                         <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
                         <Input
                             type="search"
@@ -110,7 +110,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                             <Table>
                                 <TableHeader className="bg-primary text-white">
                                     <TableRow className="border-b-2">
-                                        <TableHead className="py-4 pl-4 font-semibold">
+                                        <TableHead className="py-4 pl-4 font-semibold whitespace-nowrap">
                                             Order #
                                         </TableHead>
                                         <TableHead className="py-4 font-semibold">
@@ -151,16 +151,16 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                         ? `#${order.order_number}`
                                                         : order.id.slice(0, 8)}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     {formatOrderDate(order.created_at)}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     {order.customer_name}
                                                 </TableCell>
                                                 <TableCell className="py-4">
                                                     {order.customer_email}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     <div className="max-w-[250px]">
                                                         {order.order_items.map(
                                                             (item, index) => (
@@ -262,7 +262,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                             <Table>
                                 <TableHeader className="bg-primary text-white">
                                     <TableRow className="border-b-2">
-                                        <TableHead className="py-4 pl-4 font-semibold">
+                                        <TableHead className="py-4 pl-4 font-semibold whitespace-nowrap">
                                             Order #
                                         </TableHead>
                                         <TableHead className="py-4 font-semibold">
@@ -303,16 +303,16 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                         ? `#${order.order_number}`
                                                         : order.id.slice(0, 8)}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     {formatOrderDate(order.created_at)}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     {order.customer_name}
                                                 </TableCell>
                                                 <TableCell className="py-4">
                                                     {order.customer_email}
                                                 </TableCell>
-                                                <TableCell className="py-4">
+                                                <TableCell className="py-4 whitespace-nowrap">
                                                     <div className="max-w-[250px]">
                                                         {order.order_items.map(
                                                             (item, index) => (

@@ -13,6 +13,17 @@ export interface MenuItem {
     health_stats: object;
     hidden: boolean;
     recipe?: string;
+    sources: {farmName: string; href: string; ingredient: string}[];
+    practices: string[];
+    emissions: {
+        name: string;
+        traditional_emissions: number;
+        vegan_emissions: number;
+        emissions_saved: number;
+        percentage_saved: number;
+        emissions_unit: string;
+        reduction_reason: string;
+    };
 }
 
 export interface MenuResponse {
@@ -55,12 +66,12 @@ export interface Order {
     order_number: number;
     fulfilled: boolean;
     order_items: {
-        menuItemId: number;
+        menu_item_id: number;
         name: string;
         quantity: number;
         price: number;
-        addedItems: string[];
-        removedItems: string[];
+        added_items: string[];
+        removed_items: string[];
     }[];
     customer_name: string;
     customer_email: string;

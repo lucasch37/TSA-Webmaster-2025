@@ -40,7 +40,9 @@ const FarmMap: React.FC<FarmMapProps> = ({locations}) => {
         <MapContainer
             center={[center[0], center[1]]}
             style={{height: "100%", width: "100%", zIndex: 0}}
+            scrollWheelZoom={false}
             zoom={10}
+            className="border-2 rounded-xl"
         >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -55,7 +57,9 @@ const FarmMap: React.FC<FarmMapProps> = ({locations}) => {
                 >
                     <Popup>
                         <div>
-                            <h3 className="font-bold text-lg">{location.name}</h3>
+                            <h3 className="font-bold text-primary text-lg">
+                                {location.name}
+                            </h3>
                             <p className="text-sm">{location.address}</p>
                             <p className="mt-2">{location.description}</p>
                         </div>

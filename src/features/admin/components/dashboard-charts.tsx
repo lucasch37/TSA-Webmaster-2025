@@ -57,10 +57,14 @@ const ChartCard = ({
     className,
 }: ChartCardProps): React.JSX.Element => {
     return (
-        <Card className={`${className} w-full`}>
+        <Card className={`${className} w-full rounded-xl`}>
             <CardHeader className="pb-2">
                 <CardTitle>{title}</CardTitle>
-                {description && <CardDescription>{description}</CardDescription>}
+                {description && (
+                    <CardDescription className="text-primary">
+                        {description}
+                    </CardDescription>
+                )}
             </CardHeader>
             <CardContent className="p-0 pb-4 px-6">{children}</CardContent>
         </Card>

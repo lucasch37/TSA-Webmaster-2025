@@ -14,7 +14,7 @@ const InfoSection = (): React.JSX.Element => {
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
                 {/* Left side image with decorative dot */}
                 <div className="flex justify-center md:justify-start">
-                    <div className="relative w-full max-w-[320px] md:max-w-none">
+                    <div className="relative w-full max-w-[320px] md:max-w-none flex justify-center">
                         <Image
                             src={"/large-dot.svg"}
                             height={100}
@@ -23,7 +23,7 @@ const InfoSection = (): React.JSX.Element => {
                             alt="dot"
                         />
                         <Image
-                            src={"/landing/jalapeno-poppers.png"}
+                            src={"/landing/bruschetta.png"}
                             width={450}
                             height={450}
                             alt="Jalapeno poppers"

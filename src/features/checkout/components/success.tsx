@@ -21,8 +21,8 @@ const Success = ({details, menu, order}: Props): React.JSX.Element => {
         menu.find((item) => item.id === id);
 
     return (
-        <div className="container mx-auto mt-8">
-            <div className="grid grid-cols-2 gap-16">
+        <div className="container mx-auto mt-8 flex justify-center">
+            <div className="grid md:grid-cols-2 gap-16">
                 <div className="flex flex-col">
                     <div className="flex gap-4 items-center">
                         <CheckCircle className="w-20 h-20 text-primary" />

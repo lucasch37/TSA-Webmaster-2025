@@ -9,7 +9,7 @@ const Navbar = async (): Promise<React.JSX.Element> => {
     const menu = menuData.data || [];
 
     return (
-        <div className="inset-x-0 top-0 z-0 h-fit py-6">
+        <div className="inset-x-0 top-0 h-fit py-6 z-[40]">
             <NavLinks cart={cart} menuData={menu} />
         </div>
     );

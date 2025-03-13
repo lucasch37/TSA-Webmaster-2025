@@ -1,27 +1,35 @@
 "use client";
 
 import CartDialog from "@/features/cart/components/cart-dialog";
-import { Cart, MenuItem } from "@/types";
-import { 
-    Calendar, 
-    Home, 
-    MessageCircleQuestion, 
-    SquareMenu, 
-    Menu, 
+import {Cart, MenuItem} from "@/types";
+import {
+    Calendar,
+    Home,
+    MessageCircleQuestion,
+    SquareMenu,
+    Menu,
     User,
-    X
+    X,
 } from "lucide-react";
-import { motion } from "motion/react";
+import {motion} from "motion/react";
 import Link from "next/link";
 import React from "react";
 import {
     Sheet,
     SheetContent,
-    SheetHeader,
     SheetTitle,
     SheetTrigger,
     SheetClose,
 } from "@/components/ui/sheet";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+} from "../ui/navigation-menu";
+import {cn} from "@/lib/utils";
 
 const NavLinks = ({
     cart,
@@ -31,7 +39,7 @@ const NavLinks = ({
     menuData: MenuItem[];
 }): React.JSX.Element => {
     const [isOpen, setIsOpen] = React.useState(false);
-    
+
     return (
         <div className="flex items-center justify-between h-full gap-2 container">
             {/* Logo */}
@@ -44,33 +52,151 @@ const NavLinks = ({
 
             {/* Navigation links */}
             <motion.div
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 80 }}
+                initial={{scale: 0.9}}
+                animate={{scale: 1}}
+                transition={{type: "spring", stiffness: 80}}
                 className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary"
             >
                 <Link href={"/"} className="flex gap-2 items-center nav-link">
                     <Home size={20} /> HOME
                 </Link>
-                <Link href={"/menu"} className="flex gap-2 items-center nav-link">
-                    <SquareMenu size={20} /> MENU
-                </Link>
-                <Link href={"/about"} className="flex gap-2 items-center nav-link">
-                    <MessageCircleQuestion size={20} /> ABOUT
-                </Link>
-                <Link href={"/reserve"} className="flex gap-2 items-center nav-link">
-                    <Calendar size={20} /> RESERVE
-                </Link>
+                <NavigationMenu delayDuration={0}>
+                    <NavigationMenuList className="flex gap-6">
+                        <NavigationMenuItem>
+                            <NavigationMenuTrigger>
+                                <Link
+                                    href={"/menu"}
+                                    className="flex gap-2 items-center nav-link"
+                                >
+                                    <SquareMenu size={20} /> MENU
+                                </Link>
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent className="z-[200]">
+                                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                                    <li className="row-span-3">
+                                        <NavigationMenuLink asChild>
+                                            <a
+                                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-primary p-6 no-underline outline-none focus:shadow-md"
+                                                href="/menu"
+                                            >
+                                                <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
+                                                    Menu
+                                                </div>
+                                                <p className="text-sm leading-tight text-white">
+                                                    Explore our selection of vegetarian
+                                                    dishes.
+                                                </p>
+                                            </a>
+                                        </NavigationMenuLink>
+                                    </li>
+                                    <ListItem
+                                        href="/menu?section=appetizer"
+                                        title="Appetizers"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Light, flavorful, and perfect for sharing, these
+                                        plant-based starters set the stage for a delicious
+                                        meal.
+                                    </ListItem>
+                                    <ListItem
+                                        href="/menu?section=entree"
+                                        title="Entrees"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Wholesome, satisfying, and packed with bold
+                                        flavors, these vegan mains make every bite
+                                        memorable.
+                                    </ListItem>
+                                    <ListItem
+                                        href="/menu?section=dessert"
+                                        title="Desserts"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Sweet, indulgent, and completely dairy-free, these
+                                        treats prove that plant-based can be just as
+                                        decadent.
+                                    </ListItem>
+                                </ul>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <NavigationMenuTrigger>
+                                <Link
+                                    href={"/about"}
+                                    className="flex gap-2 items-center nav-link"
+                                >
+                                    <MessageCircleQuestion size={20} /> ABOUT
+                                </Link>
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent className="z-[200]">
+                                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                                    <li className="row-span-3">
+                                        <NavigationMenuLink asChild>
+                                            <a
+                                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-primary p-6 no-underline outline-none focus:shadow-md"
+                                                href="/about"
+                                            >
+                                                <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
+                                                    About
+                                                </div>
+                                                <p className="text-sm leading-tight text-white">
+                                                    About our restaurant.
+                                                </p>
+                                            </a>
+                                        </NavigationMenuLink>
+                                    </li>
+                                    <div className="row-span-3 h-[250px] text-sm p-2">
+                                        Learn more about our commitment to sustainability,
+                                        our mission, and the impact we're making in our
+                                        community.
+                                    </div>
+                                </ul>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <NavigationMenuTrigger>
+                                <Link
+                                    href={"/reserve"}
+                                    className="flex gap-2 items-center nav-link"
+                                >
+                                    <Calendar size={20} /> RESERVE
+                                </Link>
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent className="z-[200]">
+                                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                                    <li className="row-span-3">
+                                        <NavigationMenuLink asChild>
+                                            <a
+                                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-primary p-6 no-underline outline-none focus:shadow-md"
+                                                href="/reserve"
+                                            >
+                                                <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
+                                                    Reserve
+                                                </div>
+                                                <p className="text-sm leading-tight text-white">
+                                                    Reserve a spot.
+                                                </p>
+                                            </a>
+                                        </NavigationMenuLink>
+                                    </li>
+                                    <div className="row-span-3 h-[250px] text-sm p-2">
+                                        Reserve a table at our restaurant to enjoy a
+                                        delicious meal with friends and family.
+                                    </div>
+                                </ul>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                    </NavigationMenuList>
+                </NavigationMenu>
             </motion.div>
 
             {/* User menu and cart */}
             <div className="flex items-center gap-4">
                 <Link href="/account">
                     <motion.button
-                        initial={{ scale: 0.9 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 80 }}
+                        initial={{scale: 0.9}}
+                        animate={{scale: 1}}
+                        transition={{type: "spring", stiffness: 80}}
                         className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
                     >
                         <User />
@@ -88,7 +214,10 @@ const NavLinks = ({
                                 <Menu size={24} />
                             </motion.button>
                         </SheetTrigger>
-                        <SheetContent side="right" className="w-[250px] sm:w-[300px] [&>button]:hidden">
+                        <SheetContent
+                            side="right"
+                            className="w-[250px] sm:w-[300px] [&>button]:hidden"
+                        >
                             <div className="relative mb-6">
                                 <SheetTitle className="font-homemade-apple text-primary text-left text-xl">
                                     Sprout & About
@@ -99,22 +228,34 @@ const NavLinks = ({
                             </div>
                             <div className="flex flex-col gap-6 text-primary">
                                 <SheetClose asChild>
-                                    <Link href={"/"} className="flex gap-3 items-center nav-link text-lg">
+                                    <Link
+                                        href={"/"}
+                                        className="flex gap-3 items-center nav-link text-lg"
+                                    >
                                         <Home size={20} /> HOME
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>
-                                    <Link href={"/menu"} className="flex gap-3 items-center nav-link text-lg">
+                                    <Link
+                                        href={"/menu"}
+                                        className="flex gap-3 items-center nav-link text-lg"
+                                    >
                                         <SquareMenu size={20} /> MENU
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>
-                                    <Link href={"/about"} className="flex gap-3 items-center nav-link text-lg">
+                                    <Link
+                                        href={"/about"}
+                                        className="flex gap-3 items-center nav-link text-lg"
+                                    >
                                         <MessageCircleQuestion size={20} /> ABOUT
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>
-                                    <Link href={"/reserve"} className="flex gap-3 items-center nav-link text-lg">
+                                    <Link
+                                        href={"/reserve"}
+                                        className="flex gap-3 items-center nav-link text-lg"
+                                    >
                                         <Calendar size={20} /> RESERVE
                                     </Link>
                                 </SheetClose>
@@ -126,5 +267,31 @@ const NavLinks = ({
         </div>
     );
 };
+
+const ListItem = React.forwardRef<
+    React.ElementRef<"a">,
+    React.ComponentPropsWithoutRef<"a">
+>(({className, title, children, ...props}, ref) => {
+    return (
+        <li>
+            <NavigationMenuLink asChild>
+                <a
+                    ref={ref}
+                    className={cn(
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                        className,
+                    )}
+                    {...props}
+                >
+                    <div className="font-medium leading-none text-lg">{title}</div>
+                    <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                        {children}
+                    </p>
+                </a>
+            </NavigationMenuLink>
+        </li>
+    );
+});
+ListItem.displayName = "ListItem";
 
 export default NavLinks;

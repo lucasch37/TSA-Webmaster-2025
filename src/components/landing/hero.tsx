@@ -80,7 +80,7 @@ const Hero = (): React.JSX.Element => {
                     initial={{opacity: 0, scale: 0.9}}
                     animate={{opacity: 1, scale: 1}}
                     transition={{type: "spring", stiffness: 80}}
-                    className="relative h-fit xl:-ml-32 md:-ml-12 md:col-span-2 md:my-0 mt-12"
+                    className="relative h-fit xl:-ml-32 md:-ml-12 md:col-span-2 md:my-0 mt-12 flex items-center justify-center"
                 >
                     {/* Main hero image */}
                     <Image
@@ -88,7 +88,7 @@ const Hero = (): React.JSX.Element => {
                         width={800}
                         src="/landing/hero-img.png"
                         alt=""
-                        className="w-[22rem] md:w-full mx-auto md:mx-0"
+                        className="w-[22rem] max-w-[70vh] object-contain md:w-full mx-auto md:mx-0"
                     />
                     {/* Decorative leaves */}
                     <Image

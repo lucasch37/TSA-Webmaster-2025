@@ -2,20 +2,23 @@
 
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import {MenuItem} from "@/types";
 import {motion} from "framer-motion";
-import {BadgePercent, ChefHat, Minus, Plus, ShoppingBasket} from "lucide-react";
+import {
+    ArrowLeft,
+    BadgePercent,
+    Check,
+    Leaf,
+    Minus,
+    Plus,
+    ShoppingBasket,
+    WheatOff,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import {toast} from "sonner";
+import SustainabilityDialog from "./sustainability-dialog";
 
 type Props = {
     menuItem: MenuItem;
@@ -60,15 +63,21 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
 
     return (
         <div className="flex flex-col container mx-auto mt-12">
-            <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-8">
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
                 {/* Left side - Image and nutrition info */}
                 <div className="relative">
                     <div className="w-full border-primary border-2 relative box-border">
+                        <Link href={"/menu"} className="absolute top-4 left-6">
+                            <Button className="w-fit px-0 text-lg" variant={"link"}>
+                                <ArrowLeft size={18} />
+                                Return to Menu
+                            </Button>
+                        </Link>
                         {/* Item image */}
-                        <div className="flex justify-center items-center h-[35rem]">
+                        <div className="flex justify-center items-center h-[20rem] md:h-[35rem]">
                             <Image
                                 src={menuItem.image_url}
-                                className="w-[25rem]"
+                                className="w-[15rem] md:w-[25rem]"
                                 height={1000}
                                 width={1000}
                                 alt={menuItem?.name}
@@ -77,28 +86,43 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
 
                         {/* Nutrition facts grid */}
                         <div
-                            className={`w-full grid ${Object.keys(menuItem.health_stats).length === 4 ? "grid-cols-4" : "grid-cols-5"} divide-x-2 divide-primary border-t-2 border-primary items-center`}
+                            className={`w-full grid ${
+                                Object.keys(menuItem.health_stats).length === 4
+                                    ? "md:grid-cols-4 grid-cols-2"
+                                    : "md:grid-cols-5 grid-cols-2"
+                            } border-t-2 border-primary items-center`}
                         >
                             {Object.entries(menuItem.health_stats).map(
-                                ([key, value], index) => (
-                                    <div
-                                        key={index}
-                                        className="text-primary flex flex-col p-5"
-                                    >
-                                        <div className="text-xs">
-                                            {`${key}`.toUpperCase()}
+                                ([key, value], index, array) => {
+                                    const isLastColumn = index === array.length - 1;
+                                    const isLastInRow = index % 2 === 1 || isLastColumn;
+                                    const isLastRowMobile = index >= array.length - 2;
+
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={`
+                        text-primary flex flex-col p-5
+                        ${!isLastInRow ? "border-r-2 border-primary" : ""}
+                        ${!isLastRowMobile ? "border-b-2 md:border-b-0 border-primary" : ""}
+                        ${index % 2 === 1 && !isLastColumn ? "md:border-r-2 border-primary" : ""}
+                    `}
+                                        >
+                                            <div className="text-xs">
+                                                {`${key}`.toUpperCase()}
+                                            </div>
+                                            <div className="text-xl font-semibold">
+                                                {`${value}`}{" "}
+                                                {key.toLocaleLowerCase() === "calories"
+                                                    ? "kcal"
+                                                    : !(
+                                                          key.toLocaleLowerCase() ===
+                                                          "serving size"
+                                                      ) && "g"}
+                                            </div>
                                         </div>
-                                        <div className="text-xl font-semibold">
-                                            {`${value}`}{" "}
-                                            {key.toLocaleLowerCase() === "calories"
-                                                ? "kcal"
-                                                : !(
-                                                      key.toLocaleLowerCase() ===
-                                                      "serving size"
-                                                  ) && "g"}
-                                        </div>
-                                    </div>
-                                ),
+                                    );
+                                },
                             )}
                         </div>
                     </div>
@@ -108,7 +132,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                 <div className="flex flex-col justify-between">
                     {/* Item name and description */}
                     <div>
-                        <div className="flex gap-6 items-center">
+                        <div className="flex flex-wrap gap-6 items-center">
                             <div className="text-primary font-semibold text-4xl flex">
                                 {menuItem.name.toUpperCase()}
                             </div>
@@ -141,63 +165,97 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                     </div>
                                 </div>
                             )}
+                            <div className="flex gap-2">
+                                {menuItem.tags.map((tag) => (
+                                    <div
+                                        key={tag}
+                                        className={`
+                                  relative flex items-center px-3 py-1
+                                  font-medium text-sm transform
+                                `}
+                                    >
+                                        {/* Tag body */}
+                                        <div
+                                            className={`
+                                    absolute inset-0 
+                                    ${tag === "Vegetarian" ? "bg-green-50" : ""}
+                                    ${tag === "Vegan" ? "bg-green-200" : ""}
+                                    ${tag === "Gluten Free" ? "bg-amber-100 border-amber-800" : ""}
+                                    rounded-l-xl
+                                    border shadow-inner
+                                  `}
+                                        ></div>
+
+                                        {/* Hole/eyelet */}
+                                        <div
+                                            className={`absolute w-2.5 h-2.5 rounded-full bg-background border ${tag === "Gluten Free" ? "border-amber-800" : ""} left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10`}
+                                        >
+                                            <div className="absolute inset-0.5 rounded-full"></div>
+                                        </div>
+
+                                        {/* Text content */}
+                                        <div
+                                            className={`
+                                  relative z-10 flex items-center ml-3
+                                  ${tag === "Vegetarian" ? "text-green-800" : ""}
+                                  ${tag === "Vegan" ? "text-green-800" : ""}
+                                  ${tag === "Gluten Free" ? "text-amber-800" : ""}
+                                `}
+                                        >
+                                            {tag === "Vegetarian" && (
+                                                <span className="mr-1">
+                                                    <Check size={12} />
+                                                </span>
+                                            )}
+                                            {tag === "Vegan" && (
+                                                <span className="mr-1">
+                                                    <Leaf size={12} />
+                                                </span>
+                                            )}
+                                            {tag === "Gluten Free" && (
+                                                <span className="mr-1">
+                                                    <WheatOff size={14} />
+                                                </span>
+                                            )}
+                                            {tag}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <hr className="border-t-2 border-primary my-6 w-full" />
                         <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8 mb-5">
                             <div>{menuItem.description}</div>
-
-                            <div>
-                                <span className="font-bold underline">Ingredients:</span>{" "}
-                                {menuItem.ingredients.join(", ")}
-                            </div>
                         </div>
 
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="w-fit flex border-primary text-primary hover:bg-primary hover:text-white"
-                                >
-                                    <ChefHat size={18} />
-                                    View Recipe
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-[95%] md:max-w-3xl max-h-[80vh] mx-auto overflow-y-auto">
-                                <DialogHeader>
-                                    <DialogTitle className="text-2xl font-bold text-primary">
-                                        {menuItem.name} Recipe
-                                    </DialogTitle>
-                                </DialogHeader>
-                                <div className="prose prose-sm md:prose-base lg:prose-lg max-w-none mt-4 text-primary">
-                                    <ReactMarkdown>{menuItem.recipe}</ReactMarkdown>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                        <SustainabilityDialog menuItem={menuItem} />
 
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-12 flex gap-6 items-center">
-                            <div className="flex items-center gap-4">
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="hover:bg-primary hover:text-white"
-                                    onClick={() =>
-                                        setQuantity((prev) => Math.max(1, prev - 1))
-                                    }
-                                >
-                                    <Minus size={14} />
-                                </Button>
-                                <span className="text-primary font-medium">
-                                    {quantity}
-                                </span>
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="hover:bg-primary hover:text-white"
-                                    onClick={() => setQuantity((prev) => prev + 1)}
-                                >
-                                    <Plus size={14} />
-                                </Button>
+                        <div className="mt-12 flex flex-col md:flex-row gap-6 md:items-center">
+                            <div className="flex flex-col md:flex-row md:items-center gap-6">
+                                <div className="flex items-center gap-4">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        className="hover:bg-primary hover:text-white"
+                                        onClick={() =>
+                                            setQuantity((prev) => Math.max(1, prev - 1))
+                                        }
+                                    >
+                                        <Minus size={14} />
+                                    </Button>
+                                    <span className="text-primary font-medium">
+                                        {quantity}
+                                    </span>
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        className="hover:bg-primary hover:text-white"
+                                        onClick={() => setQuantity((prev) => prev + 1)}
+                                    >
+                                        <Plus size={14} />
+                                    </Button>
+                                </div>
                                 <Button
                                     onClick={handleAddToCart}
                                     disabled={loading}
@@ -262,14 +320,14 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         </div>
 
                         {/* Options checkboxes */}
-                        <div className="p-8 min-h-[10rem]">
+                        <div className="p-4 md:p-8 min-h-[10rem]">
                             <div className="grid grid-cols-3 gap-4 text-">
                                 {(activeOptions === "Additives"
                                     ? menuItem.items_to_add
                                     : menuItem.items_to_remove
                                 ).map((item, index) => (
                                     <div
-                                        className="flex gap-2 items-center text-primary"
+                                        className="flex gap-2 items-center text-primary w-fit"
                                         key={index}
                                     >
                                         <Checkbox
@@ -287,7 +345,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                                 )
                                             }
                                         />
-                                        <div>{item}</div>
+                                        <div className="text-sm md:text-base">{item}</div>
                                     </div>
                                 ))}
                             </div>
