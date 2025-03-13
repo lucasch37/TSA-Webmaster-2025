@@ -176,10 +176,10 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                                             × {item.name}
                                                                         </span>
                                                                     </div>
-                                                                    {item.addedItems
+                                                                    {item.added_items
                                                                         ?.length > 0 && (
                                                                         <div className="pl-4 text-xs text-green-600 mt-1">
-                                                                            {item.addedItems.map(
+                                                                            {item.added_items.map(
                                                                                 (
                                                                                     added,
                                                                                     idx,
@@ -197,10 +197,10 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                                             )}
                                                                         </div>
                                                                     )}
-                                                                    {item.removedItems
+                                                                    {item.removed_items
                                                                         ?.length > 0 && (
                                                                         <div className="pl-4 text-xs text-red-600 mt-1">
-                                                                            {item.removedItems.map(
+                                                                            {item.removed_items.map(
                                                                                 (
                                                                                     removed,
                                                                                     idx,
@@ -328,10 +328,10 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                                             × {item.name}
                                                                         </span>
                                                                     </div>
-                                                                    {item.addedItems
+                                                                    {item.added_items
                                                                         ?.length > 0 && (
                                                                         <div className="pl-4 text-xs text-green-600 mt-1">
-                                                                            {item.addedItems.map(
+                                                                            {item.added_items.map(
                                                                                 (
                                                                                     added,
                                                                                     idx,
@@ -349,10 +349,10 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                                                             )}
                                                                         </div>
                                                                     )}
-                                                                    {item.removedItems
+                                                                    {item.removed_items
                                                                         ?.length > 0 && (
                                                                         <div className="pl-4 text-xs text-red-600 mt-1">
-                                                                            {item.removedItems.map(
+                                                                            {item.removed_items.map(
                                                                                 (
                                                                                     removed,
                                                                                     idx,
