@@ -51,7 +51,7 @@ export function EmissionBarChart({menuItem}: {menuItem: MenuItem}): React.ReactN
             <CardHeader>
                 <CardTitle>Traditional vs. Vegetarian Emissions</CardTitle>
                 <CardDescription className="text-primary text-xs mt-2">
-                    Comparison of emissions from traditional and vegertarian options of
+                    Comparison of emissions from traditional and vegetarian options of
                     this dish.
                 </CardDescription>
             </CardHeader>

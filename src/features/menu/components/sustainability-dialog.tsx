@@ -59,7 +59,7 @@ const farmLocations = [
 ];
 
 const SustainabilityDialog = ({menuItem}: Props): React.JSX.Element => {
-    const [tab, setTab] = React.useState<string>("recipe");
+    const [tab, setTab] = React.useState<string>("process");
     const locations = menuItem.sources.map((source) => ({
         name: source.farmName,
         address:
