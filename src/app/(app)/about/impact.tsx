@@ -43,7 +43,7 @@ const Impact = (): React.ReactNode => {
                 <div className="flex grow flex-row items-center justify-between px-3 py-3 border-t">
                     <div>
                         <MorphingDialogTitle className="text-xl font-semibold text-primary">
-                            IMPACT
+                            OUR IMPACT
                         </MorphingDialogTitle>
                     </div>
                     <button

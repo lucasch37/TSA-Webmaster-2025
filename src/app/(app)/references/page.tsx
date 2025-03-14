@@ -1,12 +1,25 @@
+import {Button} from "@/components/ui/button";
 import React from "react";
 
 export default function ReferencesPage(): React.JSX.Element {
     return (
         <div className="container mx-auto px-4 py-8 break-words md:break-normal text-primary">
             <h1 className="text-5xl text-center md:text-start md:text-6xl uppercase text-primary font-bold mb-6 border-b-2 pb-6">
-                References
+                Reference Page
             </h1>
-            <section className="border-2 p-6 rounded-xl mt-4">
+            <div className="flex flex-col gap-3">
+                <a href={"/pdf/worklog.pdf"} target="_blank" rel="noopener noreferrer">
+                    <Button variant="link" className="underline text-xl p-0">
+                        Work Log
+                    </Button>
+                </a>
+                <a href={"/pdf/copyright.pdf"} target="_blank" rel="noopener noreferrer">
+                    <Button variant="link" className="underline text-xl p-0">
+                        Copyright Checklist
+                    </Button>
+                </a>
+            </div>
+            <section className="border-2 p-6 rounded-xl mt-8">
                 <h2 className="text-2xl font-semibold mb-4 text-primary">Images</h2>
                 <div className="space-y-2">
                     <p>

@@ -95,29 +95,41 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                         />
                         <div className="rounded-lg border p-4 w-[300px] mt-8 text-primary">
                             <div>
-                                <div className="font-semibold text-lg">
-                                    Your Sustainability Impact
+                                <div className="font-semibold text-xl">Your Rewards</div>
+                            </div>
+                            <div className="text-3xl font-bold flex gap-2 items-center my-3">
+                                <Leaf size={24} />
+                                {userData?.sustainability_score || 0}{" "}
+                                <Tooltip delayDuration={0}>
+                                    <TooltipTrigger asChild>
+                                        <span className="flex gap-1.5 items-center">
+                                            <IconInfoCircleFilled size={19} />{" "}
+                                        </span>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-[300px] text-center">
+                                        Sustainability points are earned from your orders.
+                                        You can redeem these points for discounts on your
+                                        next order in multiples of 25, for one cent each.
+                                    </TooltipContent>
+                                </Tooltip>
+                            </div>
+                            <p className="text-sm">
+                                Sustainability points earned from your orders.
+                            </p>
+                        </div>
+                        <div className="rounded-lg border p-4 w-[300px] mt-8 text-primary">
+                            <div>
+                                <div className="font-medium text-lg">
+                                    Sustainability Impact
                                 </div>
                             </div>
-                            <div>
-                                <div className="text-4xl font-bold flex gap-2 items-center text-primary my-3">
-                                    <Leaf size={30} />
-                                    {userData?.sustainability_score || 0}
-                                </div>
-                                <p className="text-sm">
-                                    Sustainability points earned from your orders.
-                                </p>
-                                <div className="text-sm mt-4 border-t pt-4">
-                                    You have saved a total of{" "}
-                                    <span className="font-bold">
-                                        {calculateEmissionsReduced().toFixed(2)} kg CO2e
-                                    </span>{" "}
-                                    by choosing to eat our vegetarian meals rather than a
-                                    traditional non-vegetarian meal.
+                            <div className="text-sm mt-2">
+                                <div className="font-bold text-2xl my-3 flex gap-1.5 items-center">
+                                    {calculateEmissionsReduced().toFixed(2)} kg CO₂e{" "}
                                     <Tooltip delayDuration={0}>
                                         <TooltipTrigger asChild>
-                                            <span className="mt-4 flex gap-1.5 items-center rounded-full border px-2 py-0.5 w-fit text-xs">
-                                                <IconInfoCircleFilled size={15} /> Info
+                                            <span className="flex gap-1.5 items-center">
+                                                <IconInfoCircleFilled size={19} />{" "}
                                             </span>
                                         </TooltipTrigger>
                                         <TooltipContent className="max-w-[300px] text-center">
@@ -128,6 +140,14 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                             item page.
                                         </TooltipContent>
                                     </Tooltip>
+                                </div>{" "}
+                                Saved by choosing our vegetarian options.
+                            </div>
+                            <div className="flex flex-col items-center border rounded-lg px-2 justify-center py-2 mt-4">
+                                <div className="text-sm">That's equivalent to:</div>
+                                <div className="font-bold text-lg">
+                                    {(calculateEmissionsReduced() / 0.404).toFixed(1)}{" "}
+                                    miles not driven
                                 </div>
                             </div>
                         </div>
@@ -238,7 +258,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                         )}
                                                                     </p>
                                                                 </div>
-                                                                <p className="text-base font-medium my-3 md:mt-1">
+                                                                <p className="text-base font-medium my-3 md:my-0 md:mt-1">
                                                                     {order.order_items.reduce(
                                                                         (sum, item) =>
                                                                             sum +
@@ -264,7 +284,7 @@ export default async function AccountPage(): Promise<React.JSX.Element> {
                                                                         100
                                                                     ).toFixed(2)}
                                                                 </p>
-                                                                <p className="text-sm text-primary flex items-center my-3 md:mt-1">
+                                                                <p className="text-sm text-primary flex items-center my-3 md:my-0 md:mt-1">
                                                                     +{" "}
                                                                     <Leaf
                                                                         size={16}

@@ -5,8 +5,8 @@ import {Metadata} from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Admin Dashboard | Sprout & About",
-    description: "Manage menu items and view customer feedback",
+    title: "Menu Editor| Admin Dashboard",
+    description: "Edit the menu items",
 };
 
 const sections = ["appetizer", "entree", "side", "dessert"];
