@@ -2,6 +2,7 @@ import Footer from "@/components/footer";
 import Hero from "@/components/landing/hero";
 import InfoSection from "@/components/landing/info-section";
 import MenuParallax from "@/components/landing/menu-parallax";
+import Testimonials from "@/components/landing/testimonials";
 import Navbar from "@/components/navbar/navbar";
 import {Button} from "@/components/ui/button";
 import {getMenu} from "@/features/menu/actions/getMenu";
@@ -9,6 +10,8 @@ import {ArrowBigDown, Calendar} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
+import Image from "next/image";
+import {motion} from "motion/react";
 
 // Landing page component
 export default async function Home(): Promise<React.JSX.Element> {
@@ -53,6 +56,8 @@ export default async function Home(): Promise<React.JSX.Element> {
                     </div>
                 </div>
 
+                <Testimonials />
+
                 {/* Menu parallax section */}
                 {menu && (
                     <div className="container">
@@ -64,7 +69,8 @@ export default async function Home(): Promise<React.JSX.Element> {
                         />
                     </div>
                 )}
-                <div className="container  px-8">
+
+                <div className="container px-8">
                     <div className="rounded-3xl border-2 flex items-center justify-center h-[400px] bg-[url('/about/mission.jpg')] bg-cover bg-center p-0 overflow-hidden">
                         <div className="flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-60">
                             <div className="text-4xl md:text-6xl font-bold text-primary font-homemade-apple text-center">

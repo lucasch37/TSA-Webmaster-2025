@@ -1,4 +1,4 @@
-import {Calendar, SquareMenu} from "lucide-react";
+import {Calendar, SquareMenu, Link as Lucide_Link} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -93,6 +93,15 @@ export function Footer(): React.JSX.Element {
                                 >
                                     <Calendar className="w-4 h-4" />
                                     Reserve
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/references"
+                                    className="text-primary hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                                >
+                                    <Lucide_Link className="w-4 h-4" />
+                                    References
                                 </Link>
                             </li>
                         </ul>

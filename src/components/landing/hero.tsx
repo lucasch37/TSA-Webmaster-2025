@@ -49,7 +49,7 @@ const Hero = (): React.JSX.Element => {
                         className="text-primary lg:text-base xl:text-lg md:text-sm text-sm font-medium lg:max-w-lg max-w-xs mt-6"
                     >
                         Indulge in a culinary journey that celebrates sustainability and
-                        health, without compromising on taste. Join us for an dining
+                        health, without compromising on taste. Join us for a dining
                         experience that nourishes both body and soul.
                     </motion.div>
 

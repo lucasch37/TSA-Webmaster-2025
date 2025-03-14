@@ -146,6 +146,54 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . License varies.
                     </p>
+
+                    <p>
+                        "File:NewYorkTimes.Svg - Wikipedia."{" "}
+                        <a href="https://commons.wikimedia.org/wiki/File:NewYorkTimes.svg">
+                            https://commons.wikimedia.org/wiki/File:NewYorkTimes.svg
+                        </a>
+                        . Accessed 14 Mar. 2025.
+                    </p>
+
+                    <p>
+                        "File:The Guardian 2018.Svg - Wikipedia." 14 Jan. 2018,{" "}
+                        <a href="https://commons.wikimedia.org/wiki/File:The_Guardian_2018.svg">
+                            https://commons.wikimedia.org/wiki/File:The_Guardian_2018.svg
+                        </a>
+                        .
+                    </p>
+
+                    <p>
+                        "Forbes." Wikipedia, 9 Mar. 2025. Wikipedia,{" "}
+                        <a href="https://en.wikipedia.org/w/index.php?title=Forbes&oldid=1279515933">
+                            https://en.wikipedia.org/w/index.php?title=Forbes&oldid=1279515933
+                        </a>
+                        .
+                    </p>
+
+                    <p>
+                        "Los Angeles Times." Wikipedia, 9 Mar. 2025. Wikipedia,{" "}
+                        <a href="https://en.wikipedia.org/w/index.php?title=Los_Angeles_Times&oldid=1279533901">
+                            https://en.wikipedia.org/w/index.php?title=Los_Angeles_Times&oldid=1279533901
+                        </a>
+                        .
+                    </p>
+
+                    <p>
+                        "The Washington Post." Wikipedia, 12 Mar. 2025. Wikipedia,{" "}
+                        <a href="https://en.wikipedia.org/w/index.php?title=The_Washington_Post&oldid=1280126128">
+                            https://en.wikipedia.org/w/index.php?title=The_Washington_Post&oldid=1280126128
+                        </a>
+                        .
+                    </p>
+
+                    <p>
+                        "Today (American TV Program)." Wikipedia, 12 Mar. 2025. Wikipedia,{" "}
+                        <a href="https://en.wikipedia.org/w/index.php?title=Today_(American_TV_program)&oldid=1280045088">
+                            https://en.wikipedia.org/w/index.php?title=Today_(American_TV_program)&oldid=1280045088
+                        </a>
+                        .
+                    </p>
                 </div>
             </section>
             <section className="border-2 p-6 rounded-xl mt-4">
@@ -187,7 +235,7 @@ export default function ReferencesPage(): React.JSX.Element {
                     </p>
 
                     <p>
-                        Carrington, Damian. “‘Insanely Tasty Green Food’: How the Meaty
+                        Carrington, Damian. “'Insanely Tasty Green Food': How the Meaty
                         Danes Embraced a World-First Plant-Based Plan.” The Guardian, 31
                         Jan. 2025. The Guardian,{" "}
                         <a href="https://www.theguardian.com/environment/2025/jan/31/more-carrot-less-stick-how-meat-loving-danes-were-sold-a-plant-led-world-first">
@@ -361,7 +409,7 @@ export default function ReferencesPage(): React.JSX.Element {
                     </p>
 
                     <p>
-                        Brunmeier, Valerie. “Chocolate Chip Banana Bread.” Valerie’s
+                        Brunmeier, Valerie. “Chocolate Chip Banana Bread.” Valerie's
                         Kitchen, 14 Sept. 2023,{" "}
                         <a href="https://www.fromvalerieskitchen.com/sour-cream-chocolate-chip-banana-bread/">
                             https://www.fromvalerieskitchen.com/sour-cream-chocolate-chip-banana-bread/
@@ -396,7 +444,7 @@ export default function ReferencesPage(): React.JSX.Element {
                     </p>
 
                     <p>
-                        “Grandma’s Lemon Meringue Pie.” Allrecipes,{" "}
+                        “Grandma's Lemon Meringue Pie.” Allrecipes,{" "}
                         <a href="https://www.allrecipes.com/recipe/15093/grandmas-lemon-meringue-pie/">
                             https://www.allrecipes.com/recipe/15093/grandmas-lemon-meringue-pie/
                         </a>
@@ -497,6 +545,36 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Accessed 13 Mar. 2025.
                     </p>
+                </div>
+            </section>
+            <section className="border-2 p-6 rounded-xl mt-4">
+                <h2 className="text-2xl font-semibold mb-4 text-primary">Technology Stack</h2>
+                <div className="space-y-2">
+                    <p>
+                        This website utilizes Next.js 14, a modern React framework optimized for efficiency and fast render times. 
+                        The application is built with TypeScript for type safety and improved developer experience. For styling, 
+                        we use TailwindCSS, a utility-first CSS framework allowing for shorthand CSS to be written directly in components, 
+                        along with the shadcn/ui component library which provides accessible and responsive UI components.
+                    </p>
+                    
+                    <p>
+                        For data storage and authentication, we leverage Supabase, an open-source Firebase alternative providing 
+                        a PostgreSQL database, authentication services, and storage solutions. Payment processing is handled through 
+                        Stripe's secure payment infrastructure.
+                    </p>
+                    
+                    <p>
+                        Additional libraries enhancing our application include:
+                    </p>
+                    
+                    <ul className="list-disc pl-6 space-y-1">
+                        <li>Framer Motion and Motion for smooth animations and transitions</li>
+                        <li>React Hook Form with Zod for form validation</li>
+                        <li>React Leaflet for interactive maps</li>
+                        <li>Recharts for data visualization</li>
+                        <li>React Markdown for rendering markdown content</li>
+                        <li>Sonner for toast notifications</li>
+                    </ul>
                 </div>
             </section>
         </div>
