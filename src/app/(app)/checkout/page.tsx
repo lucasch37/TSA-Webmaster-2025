@@ -37,7 +37,7 @@ export default async function CheckoutPage(): Promise<React.JSX.Element> {
     return (
         <div>
             <div className="container mx-auto mt-8">
-                <div className="flex justify-center md:justify-between mb-8 items-center">
+                <div className="flex justify-center md:justify-between mb-6 border-b-2 pb-6 items-center">
                     <div className="text-5xl md:text-6xl font-bold text-primary">
                         CHECKOUT
                     </div>
