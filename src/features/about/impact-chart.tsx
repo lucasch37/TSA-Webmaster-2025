@@ -30,10 +30,6 @@ type ImpactData = {
     water: number;
 };
 
-interface ImpactChartProps {
-    data: ImpactData[];
-}
-
 type Payload = {
     dataKey: string;
     name: string;
@@ -41,6 +37,21 @@ type Payload = {
     payload: ImpactData;
     color: string;
 };
+
+const data = [
+    {month: "Jan", co2: 1250, water: 45000},
+    {month: "Feb", co2: 1320, water: 47500},
+    {month: "Mar", co2: 1400, water: 50000},
+    {month: "Apr", co2: 1550, water: 52000},
+    {month: "May", co2: 1680, water: 55000},
+    {month: "Jun", co2: 1800, water: 58000},
+    {month: "Jul", co2: 1950, water: 62000},
+    {month: "Aug", co2: 2100, water: 65000},
+    {month: "Sep", co2: 1950, water: 61000},
+    {month: "Oct", co2: 1800, water: 57000},
+    {month: "Nov", co2: 1650, water: 53000},
+    {month: "Dec", co2: 1500, water: 49000},
+];
 
 const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
     active,
@@ -82,7 +93,7 @@ const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
     return null;
 };
 
-const ImpactChart: React.FC<ImpactChartProps> = ({data}) => {
+const ImpactChart = (): React.ReactNode => {
     const chartConfig = {
         co2: {
             label: "CO2 Savings (kg)",
@@ -95,7 +106,7 @@ const ImpactChart: React.FC<ImpactChartProps> = ({data}) => {
     } satisfies ChartConfig;
 
     return (
-        <Card className="w-full rounded-xl">
+        <Card className="w-full rounded-xl bg-background/40 shadow-md">
             <CardHeader>
                 <CardTitle className="text-2xl">Environmental Impact</CardTitle>
                 <CardDescription className="text-primary">

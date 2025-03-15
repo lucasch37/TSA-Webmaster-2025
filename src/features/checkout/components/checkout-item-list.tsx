@@ -3,6 +3,7 @@
 import {Cart, MenuItem} from "@/types";
 import Image from "next/image";
 import React from "react";
+import {motion} from "motion/react";
 
 type Props = {
     cart: Cart;
@@ -23,7 +24,12 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
     }, 0);
 
     return (
-        <div>
+        <motion.div
+            initial={{opacity: 0, y: 30}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true}}
+            transition={{type: "spring", stiffness: 70}}
+        >
             <div className="flex justify-between items-center text-primary">
                 <div className="font-semibold text-2xl">Order Details</div>
                 <div className="font-bold text-xl">
@@ -33,7 +39,7 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
                         : ""}
                 </div>
             </div>
-            <div className="flex flex-col h-fit p-4 px-6 border-2 rounded-lg mt-4">
+            <div className="flex flex-col h-fit p-4 px-6 border-2 rounded-xl bg-background/40 shadow-md mt-4">
                 {cart.items.map((item, index) => {
                     const menuItem = getMenuItem(item.menuItemId);
                     if (!menuItem) {
@@ -42,7 +48,7 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
 
                     return (
                         <div key={index} className="flex gap-4 py-2">
-                            <div className="w-32 h-32 relative flex-shrink-0 border-[1.5px] rounded-lg">
+                            <div className="w-32 h-32 relative flex-shrink-0 border-[1.5px] rounded-lg shadow-md">
                                 <Image
                                     src={menuItem.image_url}
                                     alt={menuItem.name}
@@ -95,7 +101,7 @@ const CheckoutItemList = ({cart, menu}: Props): React.JSX.Element => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -34,8 +34,9 @@ export default function LoginForm(): React.JSX.Element {
             <div className="flex justify-center font-semibold text-4xl tracking-tight">
                 Welcome Back
             </div>
-            <div className="text-center mt-4 text-base font-medium">
-                Enter your details to sign in.
+            <div className="text-center mt-6 text-base font-medium">
+                Log in to view summaries of past orders, gain reward points, and track
+                your reservations.
             </div>
             <form className="mt-6" onSubmit={signIn}>
                 <LabelInputContainer className="mb-4">

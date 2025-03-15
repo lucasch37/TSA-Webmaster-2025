@@ -18,7 +18,7 @@ const CartListItem = ({item, index, getMenuItem}: Props): React.JSX.Element | nu
     return (
         <div className="py-6">
             <div className="flex gap-4 md:gap-6 items-center relative">
-                <div className="w-24 h-24 md:w-36 md:h-36 relative border-[1.5px] rounded-lg">
+                <div className="w-24 h-24 md:w-36 md:h-36 relative border-[1.5px] rounded-lg shadow-md">
                     <Image
                         src={menuItem.image_url}
                         alt={menuItem.name}

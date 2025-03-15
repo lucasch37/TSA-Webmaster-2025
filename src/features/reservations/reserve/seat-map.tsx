@@ -7,6 +7,7 @@ import {format} from "date-fns";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {PopoverClose} from "@radix-ui/react-popover";
+import {motion} from "motion/react";
 
 const tablesData: Table[] = [
     {name: "A", seats: 4},
@@ -145,7 +146,13 @@ export default function SeatMap(): React.JSX.Element {
     };
 
     return (
-        <div className="rounded-lg border-2 p-8">
+        <motion.div
+            initial={{opacity: 0, y: 30}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true}}
+            transition={{type: "spring", stiffness: 70}}
+            className="rounded-lg border-2 p-8 bg-background/40 shadow-md"
+        >
             <div className="grid md:grid-cols-2 grid-rows-2 border md:w-[600px] lg:w-[700px] 2xl:w-[800px] h-[500px] mx-auto">
                 <div className="flex flex-col gap-4 sm:gap-6 md:gap-9 justify-center items-center">
                     <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-9">
@@ -242,6 +249,6 @@ export default function SeatMap(): React.JSX.Element {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

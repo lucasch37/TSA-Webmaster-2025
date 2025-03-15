@@ -13,7 +13,7 @@ const icon = L.icon({
 
 const Map = (): React.JSX.Element => {
     return (
-        <div className="rounded-lg overflow-hidden border-2 my-4">
+        <div className="rounded-lg overflow-hidden border-2 my-4 shadow-md">
             <MapContainer
                 center={[47.66091605485775, -117.41270019414627]}
                 style={{height: "450px", width: "100%", zIndex: 0}}

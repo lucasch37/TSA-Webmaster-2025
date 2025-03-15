@@ -70,7 +70,7 @@ const MenuParallax = ({
     };
 
     return (
-        <div className="flex flex-col relative">
+        <div className="md:flex flex-col relative hidden">
             {/* Animated section title */}
             <div>
                 <motion.div

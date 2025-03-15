@@ -15,10 +15,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
             return NextResponse.rewrite(new URL("/account", request.url));
         }
     }
+    if (request.nextUrl.pathname.startsWith("/admin")) {
+        if (!user) {
+            return NextResponse.rewrite(new URL("/login", request.url));
+        }
+    }
     return NextResponse.next();
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ["/login", "/account"],
+    matcher: ["/login", "/account", "/admin/:path"],
 };

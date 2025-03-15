@@ -62,12 +62,18 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
     };
 
     return (
-        <div className="flex flex-col container mx-auto mt-12">
-            <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
+        <div className="flex flex-col container mx-auto mt-4 md:mt-12">
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-12 md:gap-8">
                 {/* Left side - Image and nutrition info */}
-                <div className="relative">
-                    <div className="w-full border-primary border-2 relative box-border">
-                        <Link href={"/menu"} className="absolute top-4 left-6">
+                <motion.div
+                    initial={{opacity: 0, y: 30}}
+                    whileInView={{opacity: 1, y: 0}}
+                    viewport={{once: true}}
+                    transition={{type: "spring", stiffness: 70}}
+                    className="relative"
+                >
+                    <div className="w-full border-primary border-2 relative box-border bg-background/40 rounded-xl shadow-md">
+                        <Link href={"/menu"} className="absolute top-1.5 left-5">
                             <Button className="w-fit px-0 text-lg" variant={"link"}>
                                 <ArrowLeft size={18} />
                                 Return to Menu
@@ -126,46 +132,52 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                             )}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Right side - Item details and customization */}
-                <div className="flex flex-col justify-between">
+                <motion.div
+                    initial={{opacity: 0, y: 30}}
+                    whileInView={{opacity: 1, y: 0}}
+                    viewport={{once: true}}
+                    transition={{type: "spring", stiffness: 70, delay: 0.1}}
+                    className="flex flex-col justify-between"
+                >
                     {/* Item name and description */}
                     <div>
-                        <div className="flex flex-wrap gap-6 items-center">
+                        <div className="flex flex-wrap gap-4 items-center">
                             <div className="text-primary font-semibold text-4xl flex">
                                 {menuItem.name.toUpperCase()}
                             </div>
-                            {menuItem.sale_percentage !== 0 && (
-                                <div
-                                    className={
-                                        "relative flex items-center px-3 py-1 font-medium text-sm transform "
-                                    }
-                                >
-                                    {/* Tag body */}
+                            <div className="flex gap-3">
+                                {menuItem.sale_percentage !== 0 && (
                                     <div
                                         className={
-                                            "absolute inset-0 rounded-l-xl border border-red-500 shadow-inner bg-red-50"
-                                        }
-                                    ></div>
-
-                                    {/* Hole/eyelet */}
-                                    <div className="absolute w-2.5 h-2.5 rounded-full bg-background border border-red-700 left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10">
-                                        <div className="absolute inset-0.5 rounded-full"></div>
-                                    </div>
-
-                                    {/* Text content */}
-                                    <div
-                                        className={
-                                            "relative z-10 flex items-center ml-3 text-red-800 gap-1"
+                                            "relative flex items-center px-3 py-1 font-medium text-sm transform "
                                         }
                                     >
-                                        <BadgePercent size={14} />
-                                        {menuItem.sale_percentage}% OFF
+                                        {/* Tag body */}
+                                        <div
+                                            className={
+                                                "absolute inset-0 rounded-l-xl border border-red-500 shadow-inner bg-red-50"
+                                            }
+                                        ></div>
+
+                                        {/* Hole/eyelet */}
+                                        <div className="absolute w-2.5 h-2.5 rounded-full bg-background border border-red-700 left-1.5 top-1/2 -translate-y-1/2 shadow-inner z-10">
+                                            <div className="absolute inset-0.5 rounded-full"></div>
+                                        </div>
+
+                                        {/* Text content */}
+                                        <div
+                                            className={
+                                                "relative z-10 flex items-center ml-3 text-red-800 gap-1"
+                                            }
+                                        >
+                                            <BadgePercent size={14} />
+                                            {menuItem.sale_percentage}% OFF
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                            <div className="flex gap-2">
+                                )}
                                 {menuItem.tags.map((tag) => (
                                     <div
                                         key={tag}
@@ -224,71 +236,72 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                             </div>
                         </div>
                         <hr className="border-t-2 border-primary my-6 w-full" />
-                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8 mb-5">
+                        <div className="flex items-center gap-2.5">
+                            <div
+                                className={`font-bold text-primary text-2xl ${menuItem.sale_percentage !== 0 ? "line-through decoration-red-500 decoration-[4px]" : ""}`}
+                            >
+                                ${(menuItem.price * quantity).toFixed(2)}
+                            </div>
+                            {menuItem.sale_percentage !== 0 && (
+                                <div className="text-primary font-bold text-2xl">
+                                    $
+                                    {(
+                                        menuItem.price *
+                                        (1 - menuItem.sale_percentage / 100) *
+                                        quantity
+                                    ).toFixed(2)}
+                                </div>
+                            )}
+                            <div className="ml-2">
+                                <SustainabilityDialog menuItem={menuItem} />
+                            </div>
+                        </div>
+                        <div className="text-primary text-base font-medium max-w-full flex flex-col gap-8 my-6">
                             <div>{menuItem.description}</div>
                         </div>
 
-                        <SustainabilityDialog menuItem={menuItem} />
-
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-12 flex flex-col md:flex-row gap-6 md:items-center">
+                        <div className="mt-8 flex flex-col md:flex-row gap-6 md:items-center">
                             <div className="flex flex-col md:flex-row md:items-center gap-6">
-                                <div className="flex items-center gap-4">
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        className="hover:bg-primary hover:text-white"
-                                        onClick={() =>
-                                            setQuantity((prev) => Math.max(1, prev - 1))
-                                        }
-                                    >
-                                        <Minus size={14} />
-                                    </Button>
-                                    <span className="text-primary font-medium">
-                                        {quantity}
-                                    </span>
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        className="hover:bg-primary hover:text-white"
-                                        onClick={() => setQuantity((prev) => prev + 1)}
-                                    >
-                                        <Plus size={14} />
-                                    </Button>
-                                </div>
                                 <Button
                                     onClick={handleAddToCart}
                                     disabled={loading}
                                     size={"lg"}
                                     className="w-fit"
                                 >
-                                    <div className="font-medium">Add To Cart</div>
+                                    <div>Add To Cart</div>
                                     <ShoppingBasket size={20} />
                                 </Button>
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <div
-                                    className={`font-bold text-primary text-[23px] ${menuItem.sale_percentage !== 0 ? "line-through decoration-red-500 decoration-[4px]" : ""}`}
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="hover:bg-primary/10 shadow-md"
+                                    onClick={() =>
+                                        setQuantity((prev) => Math.max(1, prev - 1))
+                                    }
                                 >
-                                    ${(menuItem.price * quantity).toFixed(2)}
-                                </div>
-                                {menuItem.sale_percentage !== 0 && (
-                                    <div className="text-primary font-bold text-[23px]">
-                                        $
-                                        {(
-                                            menuItem.price *
-                                            (1 - menuItem.sale_percentage / 100) *
-                                            quantity
-                                        ).toFixed(2)}
-                                    </div>
-                                )}
+                                    <Minus size={14} />
+                                </Button>
+                                <span className="text-primary font-medium shadow-md">
+                                    {quantity}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="hover:bg-primary/10"
+                                    onClick={() => setQuantity((prev) => prev + 1)}
+                                >
+                                    <Plus size={14} />
+                                </Button>
                             </div>
                         </div>
                     </div>
 
                     {/* Customization options */}
-                    <div className="border-2 mt-12">
+                    <div className="border-2 mt-12 bg-background/40 rounded-xl shadow-md">
                         {/* Tab switcher */}
                         <div className="grid grid-cols-2 border-b-2 border-primary relative overflow-hidden">
                             {/* Animated background element */}
@@ -327,7 +340,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                     : menuItem.items_to_remove
                                 ).map((item, index) => (
                                     <div
-                                        className="flex gap-2 items-center text-primary w-fit"
+                                        className="flex gap-2.5 items-center text-primary w-fit"
                                         key={index}
                                     >
                                         <Checkbox
@@ -351,7 +364,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

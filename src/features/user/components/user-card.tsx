@@ -12,13 +12,13 @@ export function UserCard({
     createdAt: Date;
 }): React.JSX.Element {
     return (
-        <div className="w-[300px] relative ">
-            <Tilt rotationFactor={8} isRevese>
+        <div className="w-[300px] relative rounded-lg">
+            <Tilt rotationFactor={15} isRevese>
                 <div
                     style={{
                         borderRadius: "12px",
                     }}
-                    className="flex w-full flex-col overflow-hidden bg-background relative border"
+                    className="flex w-full flex-col overflow-hidden bg-background/40 relative border"
                 >
                     <div className="p-2 m-2">
                         <div className="relative pb-4">

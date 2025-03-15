@@ -47,7 +47,7 @@ export function EmissionBarChart({menuItem}: {menuItem: MenuItem}): React.ReactN
     } satisfies ChartConfig;
 
     return (
-        <Card className="rounded-xl border">
+        <Card className="rounded-xl border shadow-md">
             <CardHeader>
                 <CardTitle>Traditional vs. Vegetarian Emissions</CardTitle>
                 <CardDescription className="text-primary text-xs mt-2">

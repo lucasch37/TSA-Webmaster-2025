@@ -35,6 +35,7 @@ import {Reservation} from "@/types";
 import {Checkbox} from "@/components/ui/checkbox";
 import type * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import Link from "next/link";
+import {motion} from "motion/react";
 
 const reserveSchema = z.object({
     date: z.date({
@@ -146,7 +147,13 @@ const ReserveForm = (): React.ReactNode => {
     }, [user]);
 
     return (
-        <div className="rounded-lg shadow-sm">
+        <motion.div
+            initial={{opacity: 0, y: 30}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true}}
+            transition={{type: "spring", stiffness: 70, delay: 0.1}}
+            className="flex flex-col flex-1 border-2 shadow-md bg-background/40 rounded-lg h-fit p-6"
+        >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     {user ? (
@@ -327,6 +334,12 @@ const ReserveForm = (): React.ReactNode => {
                                         </FormControl>
                                         <SelectContent>
                                             {[
+                                                "11:00 AM",
+                                                "12:00 PM",
+                                                "1:00 PM",
+                                                "2:00 PM",
+                                                "3:00 PM",
+                                                "4:00 PM",
                                                 "5:00 PM",
                                                 "6:00 PM",
                                                 "7:00 PM",
@@ -354,7 +367,7 @@ const ReserveForm = (): React.ReactNode => {
                 setDialogOpen={setDialogOpen}
                 reservation={successfulReservation || null}
             />
-        </div>
+        </motion.div>
     );
 };
 

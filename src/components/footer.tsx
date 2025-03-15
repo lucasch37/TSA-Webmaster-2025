@@ -4,7 +4,7 @@ import React from "react";
 
 export function Footer(): React.JSX.Element {
     return (
-        <footer className="mt-24 border-t border-primary/40">
+        <footer className="mt-24 border-t border-primary bg-background/40">
             <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-0">
                     {/* Contact section with phone and email */}
@@ -113,9 +113,8 @@ export function Footer(): React.JSX.Element {
                             Our Mission
                         </h3>
                         <p className="text-primary">
-                            To cultivate a sustainable and delightful dining experience
-                            that nourishes both our community and the environment, one
-                            fresh, locally-sourced meal at a time.
+                            To cultivate a sustainable and delightful dining experience,
+                            while allowing sustainable food to be accessible to all.
                         </p>
                     </div>
                 </div>

@@ -2,7 +2,6 @@ import Footer from "@/components/footer";
 import Hero from "@/components/landing/hero";
 import InfoSection from "@/components/landing/info-section";
 import MenuParallax from "@/components/landing/menu-parallax";
-import Testimonials from "@/components/landing/testimonials";
 import Navbar from "@/components/navbar/navbar";
 import {Button} from "@/components/ui/button";
 import {getMenu} from "@/features/menu/actions/getMenu";
@@ -10,8 +9,6 @@ import {ArrowBigDown, Calendar} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
-import Image from "next/image";
-import {motion} from "motion/react";
 
 // Landing page component
 export default async function Home(): Promise<React.JSX.Element> {
@@ -40,13 +37,13 @@ export default async function Home(): Promise<React.JSX.Element> {
                 </div>
 
                 {/* Restaurant info section */}
-                <div className="flex flex-col container md:h-screen relative">
+                <div className="flex flex-col container relative">
                     <InfoSection />
                 </div>
 
                 {/* Menu preview marquee */}
                 <div className="mb-24">
-                    <div className="border-y flex items-center justify-center py-2 text-primary">
+                    <div className="border-y hidden md:flex items-center justify-center py-2 text-primary bg-background/40 shadow-md">
                         <Marquee autoFill>
                             <div className="text-lg font-medium px-4">
                                 PREVIEW OUR POPULAR DISHES
@@ -55,8 +52,6 @@ export default async function Home(): Promise<React.JSX.Element> {
                         </Marquee>
                     </div>
                 </div>
-
-                <Testimonials />
 
                 {/* Menu parallax section */}
                 {menu && (
@@ -71,9 +66,9 @@ export default async function Home(): Promise<React.JSX.Element> {
                 )}
 
                 <div className="container px-8">
-                    <div className="rounded-3xl border-2 flex items-center justify-center h-[400px] bg-[url('/about/mission.jpg')] bg-cover bg-center p-0 overflow-hidden">
-                        <div className="flex flex-col items-center justify-center w-full h-full bg-black bg-opacity-60">
-                            <div className="text-4xl md:text-6xl font-bold text-primary font-homemade-apple text-center">
+                    <div className="rounded-3xl border-2 flex items-center justify-center h-[400px] bg-background/40 shadow-md bg-center p-0 overflow-hidden">
+                        <div className="flex flex-col items-center justify-center w-full h-full">
+                            <div className="text-4xl md:text-6xl font-bold text-primary text-center">
                                 Reserve a<br className="md:hidden flex" /> Spot
                             </div>
                             <div className="mt-12">

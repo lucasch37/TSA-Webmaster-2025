@@ -122,7 +122,7 @@ const Hero = (): React.JSX.Element => {
                 transition={{ease: "linear", duration: 0.5, delay: 0.35}}
                 className="w-full md:absolute md:bottom-12 mt-8 md:mt-0"
             >
-                <div className="border-y border-primary text-primary text-lg py-2">
+                <div className="border-y border-primary text-primary text-lg py-2 bg-background/40 shadow-md">
                     <Marquee autoFill>
                         <div className="font-medium px-4">100% VEGETARIAN</div>
                         <div>🌿</div>

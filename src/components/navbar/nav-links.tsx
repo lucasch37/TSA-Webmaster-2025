@@ -1,26 +1,19 @@
 "use client";
 
-import CartDialog from "@/features/cart/components/cart-dialog";
-import {Cart, MenuItem} from "@/types";
-import {
-    Calendar,
-    Home,
-    MessageCircleQuestion,
-    SquareMenu,
-    Menu,
-    User,
-    X,
-} from "lucide-react";
-import {motion} from "motion/react";
-import Link from "next/link";
-import React from "react";
 import {
     Sheet,
+    SheetClose,
     SheetContent,
     SheetTitle,
     SheetTrigger,
-    SheetClose,
 } from "@/components/ui/sheet";
+import CartDialog from "@/features/cart/components/cart-dialog";
+import {cn} from "@/lib/utils";
+import {Cart, MenuItem} from "@/types";
+import {Calendar, Home, InfoIcon, Menu, SquareMenu, User, X} from "lucide-react";
+import {motion} from "motion/react";
+import Link from "next/link";
+import React from "react";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -29,7 +22,6 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "../ui/navigation-menu";
-import {cn} from "@/lib/utils";
 
 const NavLinks = ({
     cart,
@@ -55,7 +47,7 @@ const NavLinks = ({
                 initial={{scale: 0.9}}
                 animate={{scale: 1}}
                 transition={{type: "spring", stiffness: 80}}
-                className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary"
+                className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary bg-background/40 shadow-md"
             >
                 <Link href={"/"} className="flex gap-2 items-center nav-link">
                     <Home size={20} /> HOME
@@ -125,7 +117,7 @@ const NavLinks = ({
                                     href={"/about"}
                                     className="flex gap-2 items-center nav-link"
                                 >
-                                    <MessageCircleQuestion size={20} /> ABOUT
+                                    <InfoIcon size={20} /> ABOUT
                                 </Link>
                             </NavigationMenuTrigger>
                             <NavigationMenuContent className="z-[200]">
@@ -145,11 +137,28 @@ const NavLinks = ({
                                             </a>
                                         </NavigationMenuLink>
                                     </li>
-                                    <div className="row-span-3 h-[250px] text-sm p-2">
-                                        Learn more about our commitment to sustainability,
-                                        our mission, and the impact we're making in our
-                                        community.
-                                    </div>
+                                    <ListItem
+                                        href="/about"
+                                        title="Our Story"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Learn about our history, mission, and values.
+                                    </ListItem>
+                                    <ListItem
+                                        href="/about?section=farm-table"
+                                        title="Farm to Table"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Discover how we source our ingredients, support
+                                        local farmers, and transport our ingredients.
+                                    </ListItem>
+                                    <ListItem
+                                        href="/about?section=preparation"
+                                        title="Preparation"
+                                        className="hover:bg-primary/10 transition-all"
+                                    >
+                                        Our process for preparing and cooking our dishes.
+                                    </ListItem>
                                 </ul>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
@@ -248,7 +257,7 @@ const NavLinks = ({
                                         href={"/about"}
                                         className="flex gap-3 items-center nav-link text-lg"
                                     >
-                                        <MessageCircleQuestion size={20} /> ABOUT
+                                        <InfoIcon size={20} /> ABOUT
                                     </Link>
                                 </SheetClose>
                                 <SheetClose asChild>

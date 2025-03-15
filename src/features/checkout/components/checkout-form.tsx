@@ -24,12 +24,13 @@ import {Cart, MenuItem} from "@/types";
 import {zodResolver} from "@hookform/resolvers/zod";
 import type * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import {User} from "@supabase/supabase-js";
-import {ArrowRight} from "lucide-react";
+import {ArrowRight, LoaderCircle} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import {useForm} from "react-hook-form";
 import {toast} from "sonner";
 import {z} from "zod";
+import {motion} from "motion/react";
 
 // Validation schemas
 const customerSchema = z.object({
@@ -151,7 +152,13 @@ export default function CheckoutForm({
     };
 
     return (
-        <div className="border-2 p-4 px-6 rounded-lg">
+        <motion.div
+            initial={{opacity: 0, y: 30}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true}}
+            transition={{type: "spring", stiffness: 70, delay: 0.1}}
+            className="border-2 p-4 px-6 rounded-xl bg-background/40 shadow-md"
+        >
             <div className="mb-4">
                 {!user && (
                     <Link href={"/login?redirect=/checkout"}>
@@ -395,6 +402,12 @@ export default function CheckoutForm({
                                     }}
                                     className="w-full"
                                 >
+                                    {loading && (
+                                        <LoaderCircle
+                                            size={18}
+                                            className="animate-spin"
+                                        />
+                                    )}
                                     Continue
                                 </Button>
                             </DialogFooter>
@@ -402,6 +415,6 @@ export default function CheckoutForm({
                     </Dialog>
                 </form>
             </Form>
-        </div>
+        </motion.div>
     );
 }

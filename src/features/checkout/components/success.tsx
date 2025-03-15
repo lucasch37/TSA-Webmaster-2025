@@ -40,7 +40,7 @@ const Success = ({details, menu, order}: Props): React.JSX.Element => {
                         You earned {details.pointsEarned} points!
                     </div>
                     <Map />
-                    <div className="flex flex-col divide-y-2 border-2 mt-4 rounded-lg">
+                    <div className="flex flex-col divide-y-2 border-2 mt-4 rounded-lg bg-background/40 shadow-md">
                         <div className="py-4 px-6 flex">
                             <div className="font-bold text-primary w-[80px]">Name</div>
                             <div className="text-primary">{details.customerName}</div>
@@ -63,7 +63,7 @@ const Success = ({details, menu, order}: Props): React.JSX.Element => {
                     <div className="font-semibold text-3xl text-primary pb-4">
                         Your Order
                     </div>
-                    <div className="p-4 border-2 rounded-lg">
+                    <div className="p-4 border-2 rounded-lg bg-background/40 shadow-md">
                         <div>
                             {details.items.map((item, index) => {
                                 const menuItem = getMenuItem(item.menuItemId);

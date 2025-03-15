@@ -5,9 +5,9 @@ export default function ReferencesPage(): React.JSX.Element {
     return (
         <div className="container mx-auto px-4 py-8 break-words md:break-normal text-primary">
             <h1 className="text-5xl text-center md:text-start md:text-6xl uppercase text-primary font-bold mb-6 border-b-2 pb-6">
-                Reference Page
+                References
             </h1>
-            <div className="flex flex-col gap-3">
+            <div className="border-2 rounded-xl bg-background/40 shadow-md p-8 font-medium text-lg flex flex-col gap-2">
                 <a href={"/pdf/worklog.pdf"} target="_blank" rel="noopener noreferrer">
                     <Button variant="link" className="underline text-xl p-0">
                         Work Log
@@ -19,7 +19,43 @@ export default function ReferencesPage(): React.JSX.Element {
                     </Button>
                 </a>
             </div>
-            <section className="border-2 p-6 rounded-xl mt-8">
+            <section className="border-2 p-8 rounded-xl mt-8 bg-background/40 shadow-md">
+                <h2 className="text-2xl font-semibold mb-4 text-primary">
+                    Technology Stack
+                </h2>
+                <div className="space-y-2">
+                    <p>
+                        This website utilizes Next.js 14, a modern React framework
+                        optimized for efficiency and fast render times. The application is
+                        built with TypeScript for type safety and improved developer
+                        experience. For styling, we use TailwindCSS, a utility-first CSS
+                        framework allowing for shorthand CSS to be written directly in
+                        components, along with the shadcn/ui component library which
+                        provides accessible and responsive UI components.
+                    </p>
+
+                    <p>
+                        For data storage and authentication, we leverage Supabase, an
+                        open-source Firebase alternative providing a PostgreSQL database,
+                        authentication services, and storage solutions. Payment processing
+                        is handled through Stripe's secure payment infrastructure.
+                    </p>
+
+                    <p>Additional libraries enhancing our application include:</p>
+
+                    <ul className="list-disc pl-6 space-y-1">
+                        <li>
+                            Framer Motion and Motion for smooth animations and transitions
+                        </li>
+                        <li>React Hook Form with Zod for form validation</li>
+                        <li>React Leaflet for interactive maps</li>
+                        <li>Recharts for data visualization</li>
+                        <li>React Markdown for rendering markdown content</li>
+                        <li>Sonner for toast notifications</li>
+                    </ul>
+                </div>
+            </section>
+            <section className="border-2 p-8 rounded-xl mt-8 bg-background/40 shadow-md">
                 <h2 className="text-2xl font-semibold mb-4 text-primary">Images</h2>
                 <div className="space-y-2">
                     <p>
@@ -30,7 +66,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Public Domain.
                     </p>
-
                     <p>
                         Bonda, Max. “Baked Cauliflower on Plate on Table.” Pexels,{" "}
                         <a href="https://www.pexels.com/photo/baked-cauliflower-on-plate-on-table-16311286/">
@@ -38,7 +73,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Free to use.
                     </p>
-
                     <p>
                         “Download Free Image of Chocolate Dessert on an Open Book with a
                         Tea Pot and Tea Cup in the Background.” Rawpixel,{" "}
@@ -47,7 +81,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Public Domain.
                     </p>
-
                     <p>
                         “Golden Pasta Perfection.” Stockcake,{" "}
                         <a href="https://stockcake.com/i/golden-pasta-perfection_1546435_1180626">
@@ -55,7 +88,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . License varies.
                     </p>
-
                     <p>
                         “Healthy Salad Plate.” Stockcake,{" "}
                         <a href="https://stockcake.com/i/healthy-salad-plate_609558_950481">
@@ -63,7 +95,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . License varies.
                     </p>
-
                     <p>
                         makafood. “Spinach Appetizer in Asian Style.” Pexels,{" "}
                         <a href="https://www.pexels.com/photo/spinach-appetizer-in-asian-style-8954279/">
@@ -71,7 +102,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Free to use.
                     </p>
-
                     <p>
                         Sh, Nadin. “Baked Bell Pepper.” Pexels,{" "}
                         <a href="https://www.pexels.com/photo/baked-bell-pepper-15747862/">
@@ -79,7 +109,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Free to use.
                     </p>
-
                     <p>
                         ---. “Eggplant Served in a Restaurant.” Pexels,{" "}
                         <a href="https://www.pexels.com/photo/eggplant-served-in-a-restaurant-19674153/">
@@ -87,12 +116,10 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Free to use.
                     </p>
-
                     <p>
                         Bruschetta Image (Openverse): Citation: "Bruschetta." Openverse,
                         Public Domain.
                     </p>
-
                     <p>
                         Jalapeno Poppers (Flickr): Citation: haydn. "Jalapeno Poppers -
                         Rossi's Fish Bar - Swansea." Flickr,{" "}
@@ -101,7 +128,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . CC BY 2.0.
                     </p>
-
                     <p>
                         Coconut Ice Cream (Flickr): Citation: Michelle Peters - Jones.
                         "Coconut Ice Cream." Flickr,{" "}
@@ -110,7 +136,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . CC BY 2.0.
                     </p>
-
                     <p>
                         Banana Bread (Wikimedia Commons): Citation: "Two slices of banana
                         bread on a blue plate, August 2008." Wikimedia Commons,{" "}
@@ -119,7 +144,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Public Domain.
                     </p>
-
                     <p>
                         Melanzane alla Parmigiana (Wikimedia Commons): Citation:
                         "Melanzane alla Parmigiana." Wikimedia Commons,{" "}
@@ -128,7 +152,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Public Domain.
                     </p>
-
                     <p>
                         Onion Rings (Wikimedia Commons): Citation: "Onion Rings."
                         Wikimedia Commons,{" "}
@@ -137,7 +160,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . CC BY 2.0.
                     </p>
-
                     <p>
                         Jewish Food Arrangement (Freepik): Citation: Freepik. "Flat-Lay
                         Delicious Jewish Food Arrangement." Freepik,{" "}
@@ -146,7 +168,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . License varies.
                     </p>
-
                     <p>
                         "File:NewYorkTimes.Svg - Wikipedia."{" "}
                         <a href="https://commons.wikimedia.org/wiki/File:NewYorkTimes.svg">
@@ -154,7 +175,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Accessed 14 Mar. 2025.
                     </p>
-
                     <p>
                         "File:The Guardian 2018.Svg - Wikipedia." 14 Jan. 2018,{" "}
                         <a href="https://commons.wikimedia.org/wiki/File:The_Guardian_2018.svg">
@@ -162,7 +182,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         .
                     </p>
-
                     <p>
                         "Forbes." Wikipedia, 9 Mar. 2025. Wikipedia,{" "}
                         <a href="https://en.wikipedia.org/w/index.php?title=Forbes&oldid=1279515933">
@@ -170,7 +189,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         .
                     </p>
-
                     <p>
                         "Los Angeles Times." Wikipedia, 9 Mar. 2025. Wikipedia,{" "}
                         <a href="https://en.wikipedia.org/w/index.php?title=Los_Angeles_Times&oldid=1279533901">
@@ -178,7 +196,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         .
                     </p>
-
                     <p>
                         "The Washington Post." Wikipedia, 12 Mar. 2025. Wikipedia,{" "}
                         <a href="https://en.wikipedia.org/w/index.php?title=The_Washington_Post&oldid=1280126128">
@@ -186,7 +203,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         .
                     </p>
-
                     <p>
                         "Today (American TV Program)." Wikipedia, 12 Mar. 2025. Wikipedia,{" "}
                         <a href="https://en.wikipedia.org/w/index.php?title=Today_(American_TV_program)&oldid=1280045088">
@@ -194,9 +210,65 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         .
                     </p>
+                    <p>
+                        “Doodle Freehand Sketch Drawing of Carrot” Vecteezy,
+                        https://www.vecteezy.com/png/15714978-doodle-freehand-sketch-drawing-of-carrot.
+                        Accessed 15 Mar. 2025.{" "}
+                        <a href="https://www.vecteezy.com/free-png/carrot">
+                            Carrot PNGs by Vecteezy
+                        </a>
+                    </p>
+                    <p>
+                        ---. Photo by Anne Nygård on Unsplash. 26 Jan. 2020,
+                        https://unsplash.com/photos/white-clouds-in-blue-sky-vc-vPgGqAr4.
+                    </p>{" "}
+                    <p>
+                        ---. Photo by Arisa Chattasa on Unsplash. 9 July 2019,
+                        https://unsplash.com/photos/white-printer-paper-close-up-photography-0LaBRkmH4fM.
+                    </p>
+                    <p>
+                        ---. Photo by Chris Johnson on Unsplash. 27 May 2019,
+                        https://unsplash.com/photos/city-buildings-during-daytime-0qNDaCqKXNo.
+                    </p>
+                    <p>
+                        ---. Photo by Frances Gunn on Unsplash. 14 Oct. 2015,
+                        https://unsplash.com/photos/barn-surrounded-by-trees-QcBAZ7VREHQ.
+                    </p>{" "}
+                    <p>
+                        ---. Photo by Jonathan Borba on Unsplash. 26 Feb. 2019,
+                        https://unsplash.com/photos/person-slicing-vegetable-uB7q7aipU2o.
+                    </p>{" "}
+                    <p>
+                        ---. Photo by Kevin Doran on Unsplash. 5 Aug. 2020,
+                        https://unsplash.com/photos/sliced-cucumber-and-green-vegetable-on-brown-wooden-chopping-board-PBt7ok7ygt0.
+                    </p>
+                    <p>
+                        ---. Photo by Noah Buscher on Unsplash. 19 Nov. 2018,
+                        https://unsplash.com/photos/green-plant-x8ZStukS2PM.
+                    </p>
+                    <p>
+                        ---. Photo by Michael Bourgault on Unsplash. 12 Aug. 2018,
+                        https://unsplash.com/photos/barn-on-green-field-YvvHEQNgMcU.
+                    </p>
+                    <p>
+                        ---. Photo by Sparks Johnson on Unsplash. 2 Dec. 2017,
+                        https://unsplash.com/photos/shed-in-the-middle-of-field-b2PAEIr4NK8.
+                    </p>
+                    <p>
+                        ---. Photo by Benjamin Davies on Unsplash. 18 May 2017,
+                        https://unsplash.com/photos/landscape-photography-of-field-Zm2n2O7Fph4.
+                    </p>
+                    <p>
+                        Coconut Ice Cream (Freepik): Citation: Freepik. "Coconut Ice Cream
+                        Foo" Freepik,{" "}
+                        <a href="https://www.freepik.com/free-photo/summer-dessert-ice-cream-ice-cream-with-coconut_41131096.htm">
+                            https://www.freepik.com/free-photo/summer-dessert-ice-cream-ice-cream-with-coconut_41131096.htm
+                        </a>
+                        . License varies.
+                    </p>
                 </div>
             </section>
-            <section className="border-2 p-6 rounded-xl mt-4">
+            <section className="border-2 p-8 rounded-xl mt-4 bg-background/40 shadow-md">
                 <h2 className="text-2xl font-semibold mb-4 text-primary">Research</h2>
                 <div className="space-y-2">
                     <p>
@@ -378,18 +450,9 @@ export default function ReferencesPage(): React.JSX.Element {
                     </p>
                 </div>
             </section>
-            <section className="border-2 p-6 rounded-xl mt-4">
+            <section className="border-2 p-8 rounded-xl mt-4 bg-background/40 shadow-md">
                 <h2 className="text-2xl font-semibold mb-4 text-primary">Recipes</h2>
                 <div className="space-y-2">
-                    <p>
-                        Aimee. “Coconut Ice Cream.” Like Mother, Like Daughter, 6 May
-                        2019,{" "}
-                        <a href="https://lmld.org/coconut-ice-cream/">
-                            https://lmld.org/coconut-ice-cream/
-                        </a>
-                        .
-                    </p>
-
                     <p>
                         Andrews, Alison. “The Best Vegan Mac and Cheese (Classic, Baked).”
                         Loving It Vegan, 12 Feb. 2019,{" "}
@@ -545,36 +608,6 @@ export default function ReferencesPage(): React.JSX.Element {
                         </a>
                         . Accessed 13 Mar. 2025.
                     </p>
-                </div>
-            </section>
-            <section className="border-2 p-6 rounded-xl mt-4">
-                <h2 className="text-2xl font-semibold mb-4 text-primary">Technology Stack</h2>
-                <div className="space-y-2">
-                    <p>
-                        This website utilizes Next.js 14, a modern React framework optimized for efficiency and fast render times. 
-                        The application is built with TypeScript for type safety and improved developer experience. For styling, 
-                        we use TailwindCSS, a utility-first CSS framework allowing for shorthand CSS to be written directly in components, 
-                        along with the shadcn/ui component library which provides accessible and responsive UI components.
-                    </p>
-                    
-                    <p>
-                        For data storage and authentication, we leverage Supabase, an open-source Firebase alternative providing 
-                        a PostgreSQL database, authentication services, and storage solutions. Payment processing is handled through 
-                        Stripe's secure payment infrastructure.
-                    </p>
-                    
-                    <p>
-                        Additional libraries enhancing our application include:
-                    </p>
-                    
-                    <ul className="list-disc pl-6 space-y-1">
-                        <li>Framer Motion and Motion for smooth animations and transitions</li>
-                        <li>React Hook Form with Zod for form validation</li>
-                        <li>React Leaflet for interactive maps</li>
-                        <li>Recharts for data visualization</li>
-                        <li>React Markdown for rendering markdown content</li>
-                        <li>Sonner for toast notifications</li>
-                    </ul>
                 </div>
             </section>
         </div>

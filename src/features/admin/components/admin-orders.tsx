@@ -104,9 +104,9 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                     </div>
                 </div>
 
-                <TabsContent value="pending" className="border-none p-0 mt-4">
+                <TabsContent value="pending" className="border-none p-0 mt-4 ">
                     <div className="p-0">
-                        <div className="overflow-auto pb-2 border rounded-xl">
+                        <div className="overflow-auto border rounded-xl shadow-lg">
                             <Table>
                                 <TableHeader className="bg-primary text-white">
                                     <TableRow className="border-b-2">
@@ -133,7 +133,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                         </TableHead>
                                     </TableRow>
                                 </TableHeader>
-                                <TableBody className="text-primary font-medium">
+                                <TableBody className="text-primary font-medium bg-background/40 shadow-md">
                                     {pendingOrders.length === 0 ? (
                                         <TableRow>
                                             <TableCell
@@ -258,7 +258,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
 
                 <TabsContent value="fulfilled" className="border-none p-0 mt-4">
                     <div className="p-0">
-                        <div className="border rounded-xl overflow-hidden">
+                        <div className="border rounded-xl overflow-hidden shadow-lg">
                             <Table>
                                 <TableHeader className="bg-primary text-white">
                                     <TableRow className="border-b-2">
@@ -285,7 +285,7 @@ export function AdminOrders({initialOrders}: AdminOrdersProps): React.JSX.Elemen
                                         </TableHead>
                                     </TableRow>
                                 </TableHeader>
-                                <TableBody className="text-primary">
+                                <TableBody className="text-primary bg-background/40 shadow-md">
                                     {fulfilledOrders.length === 0 ? (
                                         <TableRow>
                                             <TableCell

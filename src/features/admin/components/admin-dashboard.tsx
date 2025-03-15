@@ -309,7 +309,7 @@ export const AdminDashboard = ({
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
-                <Card className="w-full rounded-xl">
+                <Card className="w-full rounded-xl bg-background/40 shadow-md">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Total Customers
@@ -337,7 +337,7 @@ export const AdminDashboard = ({
                     </CardContent>
                 </Card>
 
-                <Card className="w-full rounded-xl">
+                <Card className="w-full rounded-xl bg-background/40 shadow-md">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Average Order Value
@@ -364,7 +364,7 @@ export const AdminDashboard = ({
                     </CardContent>
                 </Card>
 
-                <Card className="w-full rounded-xl">
+                <Card className="w-full rounded-xl bg-background/40 shadow-md">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
                             Total Revenue
@@ -390,7 +390,7 @@ export const AdminDashboard = ({
                     </CardContent>
                 </Card>
 
-                <Card className="w-full rounded-xl">
+                <Card className="w-full rounded-xl bg-background/40 shadow-md">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Peak Hour</CardTitle>
                         <svg

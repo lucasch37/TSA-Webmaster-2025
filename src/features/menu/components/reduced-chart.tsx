@@ -32,7 +32,7 @@ export function ReducedChart({menuItem}: {menuItem: MenuItem}): React.JSX.Elemen
     } satisfies ChartConfig;
 
     return (
-        <Card className="flex flex-col rounded-xl border">
+        <Card className="flex flex-col rounded-xl border shadow-md">
             <CardHeader className="">
                 <CardTitle>Carbon Emissions Reduced</CardTitle>
                 <CardDescription className="text-xs text-primary">

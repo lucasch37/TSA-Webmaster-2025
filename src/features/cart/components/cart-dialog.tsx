@@ -39,7 +39,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent className="max-w-[380px] md:max-w-[800px]">
+            <DialogContent className="max-w-[95%] md:max-w-[800px]">
                 <DialogHeader>
                     <DialogTitle className="text-4xl font-bold text-primary">
                         YOUR CART

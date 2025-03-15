@@ -77,7 +77,7 @@ const SustainabilityDialog = ({menuItem}: Props): React.JSX.Element => {
             <DialogTrigger asChild>
                 <Button
                     variant="outline"
-                    className="w-fit flex border-primary text-primary hover:bg-primary hover:text-white"
+                    className="w-fit flex border-primary text-primary"
                 >
                     <Sprout size={18} />
                     Sustainability Info
@@ -109,7 +109,7 @@ const SustainabilityDialog = ({menuItem}: Props): React.JSX.Element => {
                                 <AccordionItem value="item-1">
                                     <AccordionTrigger>Ingredients</AccordionTrigger>
                                     <AccordionContent>
-                                        <ul className="list-disc border rounded-lg p-4 flex flex-col gap-2">
+                                        <ul className="list-disc border rounded-lg p-4 flex flex-col gap-2 shadow-md">
                                             {menuItem.ingredients.map(
                                                 (ingredient, index) => (
                                                     <li
@@ -166,7 +166,7 @@ const SustainabilityDialog = ({menuItem}: Props): React.JSX.Element => {
                                             To prepare {menuItem.name} in a sustainable
                                             way, we:
                                         </div>
-                                        <ul className="border rounded-lg p-4 mt-4 flex flex-col gap-4">
+                                        <ul className="border rounded-lg p-4 mt-4 flex flex-col gap-4 shadow-md">
                                             {menuItem.practices.map((practice, i) => (
                                                 <li
                                                     key={i}
@@ -188,7 +188,7 @@ const SustainabilityDialog = ({menuItem}: Props): React.JSX.Element => {
                                             Emissions saved by choosing this dish rather
                                             than a traditional option:
                                         </div>
-                                        <div className="text-primary my-4 text-base flex gap-1 flex-col border rounded-lg p-4">
+                                        <div className="text-primary my-4 text-base flex gap-1 flex-col border rounded-lg p-4 shadow-md">
                                             Main source of reduction:{" "}
                                             <span className="font-medium text-lg">
                                                 {menuItem.emissions.reduction_reason}.

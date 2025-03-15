@@ -44,7 +44,9 @@ export function AdminMenuItemCard({
     };
 
     return (
-        <div className={`${isHidden ? "opacity-60" : ""} border-2 p-6`}>
+        <div
+            className={`${isHidden ? "opacity-60" : ""} border-2 p-6 bg-background/40 shadow-md rounded-xl`}
+        >
             {/* Card header with item name and visibility toggle */}
             <div>
                 <div className="flex justify-between items-center">

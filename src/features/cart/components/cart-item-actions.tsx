@@ -58,7 +58,7 @@ export default function CartItemActions({
             <Button
                 variant="outline"
                 size="icon"
-                className="w-7 h-7 hover:bg-primary hover:text-white"
+                className="w-7 h-7 hover:bg-primary/10 shadow-md"
                 onClick={() => handleUpdateQuantity(quantity - 1)}
             >
                 <Minus size={12} />
@@ -67,7 +67,7 @@ export default function CartItemActions({
             <Button
                 variant="outline"
                 size="icon"
-                className="w-7 h-7 hover:bg-primary hover:text-white"
+                className="w-7 h-7 hover:bg-primary/10 shadow-md"
                 onClick={() => handleUpdateQuantity(quantity + 1)}
             >
                 <Plus size={12} />

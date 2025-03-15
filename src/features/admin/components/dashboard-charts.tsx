@@ -57,7 +57,7 @@ const ChartCard = ({
     className,
 }: ChartCardProps): React.JSX.Element => {
     return (
-        <Card className={`${className} w-full rounded-xl`}>
+        <Card className={`${className} w-full rounded-xl bg-background/40 shadow-md`}>
             <CardHeader className="pb-2">
                 <CardTitle>{title}</CardTitle>
                 {description && (
