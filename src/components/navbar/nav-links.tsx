@@ -10,7 +10,7 @@ import {
 import CartDialog from "@/features/cart/components/cart-dialog";
 import {cn} from "@/lib/utils";
 import {Cart, MenuItem} from "@/types";
-import {Calendar, Home, InfoIcon, Menu, SquareMenu, User, X} from "lucide-react";
+import {Calendar, Home, InfoIcon, Menu, SquareMenu, X} from "lucide-react";
 import {motion} from "motion/react";
 import Link from "next/link";
 import React from "react";
@@ -22,6 +22,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "../ui/navigation-menu";
+import {UserIcon} from "../ui/user";
 
 const NavLinks = ({
     cart,
@@ -206,9 +207,9 @@ const NavLinks = ({
                         initial={{scale: 0.9}}
                         animate={{scale: 1}}
                         transition={{type: "spring", stiffness: 80}}
-                        className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3"
+                        className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary bg-background/40 shadow-md"
                     >
-                        <User />
+                        <UserIcon />
                     </motion.button>
                 </Link>
 

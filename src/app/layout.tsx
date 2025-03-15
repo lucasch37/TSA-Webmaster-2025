@@ -1,4 +1,3 @@
-import {CursorEffects} from "@/components/cursor-effects";
 import {Toaster} from "@/components/ui/sonner";
 import type {Metadata} from "next";
 import {Ubuntu} from "next/font/google";
@@ -43,7 +42,7 @@ export default function RootLayout({
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.05)_1px,transparent_0)] bg-[length:32px_32px] opacity-30" />
                 </div>
                 <Toaster richColors />
-                <CursorEffects />
+                {/* <CursorEffects /> */}
                 <main className="flex-grow">{children}</main>
             </body>
         </html>

@@ -109,7 +109,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                     initial={{scale: 0.9}}
                     animate={{scale: 1}}
                     transition={{type: "spring", stiffness: 80}}
-                    className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative"
+                    className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative bg-background/40 shadow-md"
                 >
                     <ShoppingBasket />
                     {cartCount > 0 && (

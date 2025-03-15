@@ -74,7 +74,15 @@ export default function SeatMap(): React.JSX.Element {
                             </div>
                             <div className="text-sm font-semibold">
                                 {tablesData.find((table) => table.name === name)?.seats}{" "}
-                                seats
+                                seat
+                                {tables.reduce((total, table) => {
+                                    const tableData = tablesData.find(
+                                        (t) => t.name === table.name,
+                                    );
+                                    return total + (tableData?.seats || 0);
+                                }, 0) === 1
+                                    ? ""
+                                    : "s"}
                             </div>
                             <div className="mt-3">
                                 <PopoverClose asChild>
@@ -232,7 +240,14 @@ export default function SeatMap(): React.JSX.Element {
                         const tableData = tablesData.find((t) => t.name === table.name);
                         return total + (tableData?.seats || 0);
                     }, 0)}{" "}
-                    seats selected
+                    seat
+                    {tables.reduce((total, table) => {
+                        const tableData = tablesData.find((t) => t.name === table.name);
+                        return total + (tableData?.seats || 0);
+                    }, 0) === 1
+                        ? ""
+                        : "s"}{" "}
+                    selected
                 </div>
                 <div className="w-1/2 flex gap-4 justify-end items-center md:flex-row flex-col">
                     <div className="flex items-center gap-1.5">

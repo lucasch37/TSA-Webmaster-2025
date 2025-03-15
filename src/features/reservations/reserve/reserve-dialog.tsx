@@ -10,6 +10,7 @@ import {Reservation} from "@/types";
 import {format} from "date-fns";
 import {Check} from "lucide-react";
 import React from "react";
+import {revalidateReservations} from "../actions/createReservation";
 
 const ReserveDialog = ({
     dialogOpen,
@@ -20,6 +21,7 @@ const ReserveDialog = ({
     setDialogOpen: Function;
     reservation: Reservation | null;
 }): React.ReactNode => {
+    const [loading, setLoading] = React.useState(false);
     return (
         <Dialog open={dialogOpen} onOpenChange={() => setDialogOpen(false)}>
             {reservation && (
@@ -35,7 +37,14 @@ const ReserveDialog = ({
                         has been confirmed. See you soon!
                     </p>
                     <DialogFooter>
-                        <Button onClick={() => setDialogOpen(false)} className="w-full">
+                        <Button
+                            disabled={loading}
+                            onClick={async () => {
+                                setLoading(true);
+                                await revalidateReservations();
+                            }}
+                            className="w-full"
+                        >
                             Got it! <Check size={18} />
                         </Button>
                     </DialogFooter>
