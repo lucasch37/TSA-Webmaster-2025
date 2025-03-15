@@ -30,7 +30,7 @@ export default function LoginForm(): React.JSX.Element {
     };
 
     return (
-        <div className="max-w-[30rem] mx-auto w-full shadow-input px-8 py-10 text-primary bg-background rounded-[2rem]">
+        <div className="max-w-[30rem] mx-auto w-full shadow-input px-8 py-10 text-primary rounded-[2rem]">
             <div className="flex justify-center font-semibold text-4xl tracking-tight">
                 Welcome Back
             </div>
