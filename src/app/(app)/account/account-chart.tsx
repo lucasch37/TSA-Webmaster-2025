@@ -34,7 +34,7 @@ export function AccountChart({
         >
             <RadialBarChart
                 data={chartData}
-                endAngle={emissionsSaved * 3.6}
+                endAngle={(emissionsSaved / 100) * 360}
                 innerRadius={80}
                 outerRadius={140}
             >

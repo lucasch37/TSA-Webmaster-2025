@@ -126,6 +126,10 @@ const Account = ({
                         <div className="mt-8">
                             <AccountChart emissionsSaved={calculateEmissionsReduced()} />
                         </div>
+                        <div className="text-primary text-sm flex justify-center text-center gap-1">
+                            <span className="underline font-medium">Goal:</span> 200 kg
+                            CO2e reduced
+                        </div>
                         <div className="flex flex-col items-center border rounded-lg px-2 justify-center py-2 mt-4">
                             <div className="text-sm">That's equivalent to:</div>
                             <div className="font-bold text-lg">

@@ -29,9 +29,6 @@ export async function createReservation(
     if (error) {
         return null;
     }
-    return reservation as Reservation;
-}
-
-export async function revalidateReservations(): Promise<void> {
     revalidatePath("/");
+    return reservation as Reservation;
 }

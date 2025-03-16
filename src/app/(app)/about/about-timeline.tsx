@@ -222,7 +222,7 @@ export function AboutTimeline({
         {
             title: "Our Impact",
             content: (
-                <div className="mb-32">
+                <div className="mb-24">
                     <motion.div
                         initial={{opacity: 0, y: 30}}
                         whileInView={{opacity: 1, y: 0}}
@@ -319,7 +319,7 @@ export function AboutTimeline({
         {
             title: "Farm to Table",
             content: (
-                <div className="mb-32" ref={farmTableRef}>
+                <div className="mb-24 pt-8" ref={farmTableRef}>
                     <motion.h3
                         className="text-3xl font-semibold text-primary mb-8 text-center flex md:flex-row flex-col items-center gap-3 justify-center"
                         initial={{opacity: 0, y: 30}}
@@ -511,7 +511,7 @@ export function AboutTimeline({
         {
             title: "Preparation",
             content: (
-                <div className="mb-32" ref={preparationRef}>
+                <div className="mb-32 pt-8" ref={preparationRef}>
                     <motion.div
                         initial={{opacity: 0, y: 30}}
                         whileInView={{opacity: 1, y: 0}}

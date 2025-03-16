@@ -35,14 +35,6 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
     const [quantity, setQuantity] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
 
-    const hasAnimated = React.useRef(false);
-
-    React.useEffect(() => {
-        if (!hasAnimated.current) {
-            hasAnimated.current = true;
-        }
-    }, []);
-
     // Add item to cart with selected options
     const handleAddToCart = async (): Promise<void> => {
         try {
@@ -74,7 +66,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-12 md:gap-8">
                 {/* Left side - Image and nutrition info */}
                 <motion.div
-                    initial={{opacity: hasAnimated ? 1 : 0, y: hasAnimated ? 0 : 30}}
+                    initial={{opacity: 0, y: 30}}
                     whileInView={{opacity: 1, y: 0}}
                     viewport={{once: true}}
                     transition={{type: "spring", stiffness: 70}}
@@ -144,7 +136,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
 
                 {/* Right side - Item details and customization */}
                 <motion.div
-                    initial={{opacity: hasAnimated ? 1 : 0, y: hasAnimated ? 0 : 30}}
+                    initial={{opacity: 0, y: 30}}
                     whileInView={{opacity: 1, y: 0}}
                     viewport={{once: true}}
                     transition={{type: "spring", stiffness: 70, delay: 0.1}}

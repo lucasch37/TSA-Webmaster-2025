@@ -44,12 +44,7 @@ const NavLinks = ({
             </Link>
 
             {/* Navigation links */}
-            <motion.div
-                initial={{scale: 0.9}}
-                animate={{scale: 1}}
-                transition={{type: "spring", stiffness: 80}}
-                className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary bg-background/40 shadow-md"
-            >
+            <motion.div className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary bg-background/40 shadow-md">
                 <Link href={"/"} className="flex gap-2 items-center nav-link">
                     <Home size={20} /> HOME
                 </Link>
@@ -64,7 +59,7 @@ const NavLinks = ({
                                     <SquareMenu size={20} /> MENU
                                 </Link>
                             </NavigationMenuTrigger>
-                            <NavigationMenuContent className="z-[200]">
+                            <NavigationMenuContent>
                                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                                     <li className="row-span-3">
                                         <NavigationMenuLink asChild>
@@ -203,14 +198,9 @@ const NavLinks = ({
             {/* User menu and cart */}
             <div className="flex items-center gap-4">
                 <Link href="/account">
-                    <motion.button
-                        initial={{scale: 0.9}}
-                        animate={{scale: 1}}
-                        transition={{type: "spring", stiffness: 80}}
-                        className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary bg-background/40 shadow-md"
-                    >
+                    <button className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary bg-background/40 shadow-md">
                         <UserIcon />
-                    </motion.button>
+                    </button>
                 </Link>
 
                 {/* Cart button with count */}

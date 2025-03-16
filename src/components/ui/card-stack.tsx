@@ -1,7 +1,7 @@
 "use client";
 import {useEffect, useState} from "react";
 import {motion} from "motion/react";
-import {IconStarFilled} from "@tabler/icons-react";
+import {IconStarFilled, IconStarHalfFilled} from "@tabler/icons-react";
 
 let interval: any;
 
@@ -73,7 +73,11 @@ export const CardStack = ({
                                 <IconStarFilled />
                                 <IconStarFilled />
                                 <IconStarFilled />
-                                <IconStarFilled />
+                                {card.id === 2 || card.id === 4 ? (
+                                    <IconStarHalfFilled />
+                                ) : (
+                                    <IconStarFilled />
+                                )}
                             </div>
                         </div>
                     </motion.div>

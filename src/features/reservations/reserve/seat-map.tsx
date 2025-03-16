@@ -134,10 +134,16 @@ export default function SeatMap(): React.JSX.Element {
                             <div className="text-sm italic">
                                 Reserved by{" "}
                                 {
-                                    reservations.find((reservation) =>
-                                        reservation.tables.some(
-                                            (table) => table === name,
-                                        ),
+                                    reservations.find(
+                                        (reservation) =>
+                                            reservation.tables.some(
+                                                (table) => table === name,
+                                            ) &&
+                                            format(
+                                                new Date(reservation.date),
+                                                "MM dd yyyy",
+                                            ) === format(date, "MM dd yyyy") &&
+                                            reservation.time === time,
                                     )?.name
                                 }
                             </div>

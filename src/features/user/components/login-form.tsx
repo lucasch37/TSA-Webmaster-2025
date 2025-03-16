@@ -45,7 +45,7 @@ export default function LoginForm(): React.JSX.Element {
                         id="email"
                         placeholder="Email"
                         type="email"
-                        className="bg-background "
+                        className="bg-background shadow-md"
                     />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
@@ -54,7 +54,7 @@ export default function LoginForm(): React.JSX.Element {
                         id="password"
                         placeholder="Password"
                         type="password"
-                        className="bg-background"
+                        className="bg-background shadow-md"
                     />
                 </LabelInputContainer>
 

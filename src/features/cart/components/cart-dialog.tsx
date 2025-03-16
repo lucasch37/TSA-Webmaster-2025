@@ -1,14 +1,13 @@
 "use client";
 
+import {Button} from "@/components/ui/button";
+import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "@/components/ui/dialog";
 import {Cart, MenuItem} from "@/types";
 import {DialogDescription, DialogTitle} from "@radix-ui/react-dialog";
 import {ArrowRight, MenuSquare, ShoppingBasket} from "lucide-react";
-import {motion} from "motion/react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import React from "react";
-import {Button} from "@/components/ui/button";
-import {Dialog, DialogContent, DialogHeader, DialogTrigger} from "@/components/ui/dialog";
 import CartListItem from "./cart-list-item";
 
 const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Element => {
@@ -62,7 +61,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                                 Add some items to get started!
                             </p>
                             <Link href="/menu">
-                                <Button>
+                                <Button onClick={() => setIsOpen(false)}>
                                     <MenuSquare />
                                     Browse Menu
                                 </Button>
@@ -105,19 +104,14 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                 </div>
             </DialogContent>
             <DialogTrigger>
-                <motion.div
-                    initial={{scale: 0.9}}
-                    animate={{scale: 1}}
-                    transition={{type: "spring", stiffness: 80}}
-                    className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative bg-background/40 shadow-md"
-                >
+                <div className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative bg-background/40 shadow-md">
                     <ShoppingBasket />
                     {cartCount > 0 && (
                         <div className="absolute -top-2 -right-2 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                             {cart.items.reduce((sum, item) => sum + item.quantity, 0)}
                         </div>
                     )}
-                </motion.div>
+                </div>
             </DialogTrigger>
         </Dialog>
     );

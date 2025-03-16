@@ -89,6 +89,7 @@ const Hero = (): React.JSX.Element => {
                         src="/landing/hero-img.png"
                         alt=""
                         className="w-[22rem] max-w-[70vh] object-contain md:w-full mx-auto md:mx-0"
+                        priority
                     />
                     {/* Decorative leaves */}
                     <Image
