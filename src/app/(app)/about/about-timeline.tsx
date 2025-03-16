@@ -328,7 +328,7 @@ export function AboutTimeline({
                         transition={{type: "spring", stiffness: 70, delay: 0.1}}
                     >
                         <span className="rounded-xl px-4 py-1 bg-primary text-white">
-                            Step 1:
+                            Part 1:
                         </span>
                         Sourcing Ingredients
                     </motion.h3>
@@ -445,7 +445,7 @@ export function AboutTimeline({
                         transition={{type: "spring", stiffness: 70, delay: 0.1}}
                     >
                         <span className="rounded-xl px-4 py-1 bg-primary text-white">
-                            Step 2:
+                            Part 2:
                         </span>
                         Transporation
                     </motion.h3>

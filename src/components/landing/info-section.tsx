@@ -73,7 +73,7 @@ const InfoSection = (): React.JSX.Element => {
                             taste incredible but also support your well-being. We source
                             our ingredients from local, organic farms whenever possible,
                             ensuring that each bite is packed with the highest quality
-                            nutrients. Whether you are a lifelong vegatarian or simply
+                            nutrients. Whether you are a lifelong vegetarian or simply
                             looking to explore new culinary horizons, our menu offers
                             something for everyone.
                         </div>

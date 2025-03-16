@@ -25,33 +25,170 @@ export default function ReferencesPage(): React.JSX.Element {
                 </h2>
                 <div className="space-y-2">
                     <p>
-                        This website utilizes Next.js 14, a modern React framework
-                        optimized for efficiency and fast render times. The application is
-                        built with TypeScript for type safety and improved developer
-                        experience. For styling, we use TailwindCSS, a utility-first CSS
-                        framework allowing for shorthand CSS to be written directly in
-                        components, along with the shadcn/ui component library which
-                        provides accessible and responsive UI components.
+                        This website utilizes{" "}
+                        <a
+                            href="https://nextjs.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            Next.js 14
+                        </a>
+                        , a modern React framework optimized for efficiency and fast
+                        render times. The application is built with{" "}
+                        <a
+                            href="https://www.typescriptlang.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            TypeScript
+                        </a>{" "}
+                        for type safety and improved developer experience. For styling, we
+                        use{" "}
+                        <a
+                            href="https://tailwindcss.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            TailwindCSS
+                        </a>
+                        , a utility-first CSS framework allowing for shorthand CSS to be
+                        written directly in components, along with the{" "}
+                        <a
+                            href="https://ui.shadcn.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            shadcn/ui
+                        </a>{" "}
+                        component library which provides accessible and responsive UI
+                        components.
                     </p>
 
                     <p>
-                        For data storage and authentication, we leverage Supabase, an
-                        open-source Firebase alternative providing a PostgreSQL database,
-                        authentication services, and storage solutions. Payment processing
-                        is handled through Stripe's secure payment infrastructure.
+                        For data storage and authentication, we leverage{" "}
+                        <a
+                            href="https://supabase.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            Supabase
+                        </a>
+                        , an open-source Firebase alternative providing a PostgreSQL
+                        database, authentication services, and storage solutions. Payment
+                        processing is handled through{" "}
+                        <a
+                            href="https://stripe.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            Stripe's
+                        </a>{" "}
+                        secure payment infrastructure. The website is deployed on{" "}
+                        <a
+                            href="https://vercel.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold underline"
+                        >
+                            Vercel
+                        </a>
+                        , a platform optimized for Next.js applications.
                     </p>
 
                     <p>Additional libraries enhancing our application include:</p>
 
                     <ul className="list-disc pl-6 space-y-1">
                         <li>
-                            Framer Motion and Motion for smooth animations and transitions
+                            <a
+                                href="https://www.framer.com/motion/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                Framer Motion
+                            </a>{" "}
+                            for smooth animations and transitions
                         </li>
-                        <li>React Hook Form with Zod for form validation</li>
-                        <li>React Leaflet for interactive maps</li>
-                        <li>Recharts for data visualization</li>
-                        <li>React Markdown for rendering markdown content</li>
-                        <li>Sonner for toast notifications</li>
+                        <li>
+                            <a
+                                href="https://react-hook-form.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                React Hook Form
+                            </a>{" "}
+                            with{" "}
+                            <a
+                                href="https://zod.dev/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Zod
+                            </a>{" "}
+                            for form validation
+                        </li>
+                        <li>
+                            <a
+                                href="https://react-leaflet.js.org/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                React Leaflet
+                            </a>{" "}
+                            for interactive maps
+                        </li>
+                        <li>
+                            <a
+                                href="https://recharts.org/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                Recharts
+                            </a>{" "}
+                            for data visualization
+                        </li>
+                        <li>
+                            <a
+                                href="https://remarkjs.github.io/react-markdown/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                React Markdown
+                            </a>{" "}
+                            for rendering markdown content
+                        </li>
+                        <li>
+                            <a
+                                href="https://sonner.emilkowal.ski/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                Sonner
+                            </a>{" "}
+                            for toast notifications
+                        </li>
+                        <li>
+                            <a
+                                href="https://lucide.dev/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold underline"
+                            >
+                                Lucide
+                            </a>{" "}
+                            for SVG icons
+                        </li>
                     </ul>
                 </div>
             </section>

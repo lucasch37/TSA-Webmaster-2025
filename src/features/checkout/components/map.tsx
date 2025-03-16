@@ -25,12 +25,14 @@ const Map = (): React.JSX.Element => {
                 />
                 <Marker position={[47.66091605485775, -117.41270019414627]} icon={icon}>
                     <Popup>
-                        <div className="text-base font-bold text-primary">
-                            Sprout & About
-                        </div>
-                        <div className="mt-2">Pick up your order at our location!</div>
-                        <div className="mt-2 font-medium">
-                            334 W Spokane Falls Blvd Spokane, WA 99201
+                        <div className="flex flex-col text-center p-4">
+                            <div className="text-3xl font-bold text-primary font-homemade-apple">
+                                Sprout &<br /> About
+                            </div>
+                            <div className="mt-4 text-sm">Pick up your order at:</div>
+                            <div className="mt-2 font-medium text-base">
+                                334 W Spokane Falls Blvd Spokane, WA 99201
+                            </div>
                         </div>
                     </Popup>
                 </Marker>

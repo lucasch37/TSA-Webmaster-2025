@@ -73,7 +73,7 @@ export const CardStack = ({
                                 <IconStarFilled />
                                 <IconStarFilled />
                                 <IconStarFilled />
-                                {card.id === 2 || card.id === 4 ? (
+                                {card.id === 2 || card.id === 0 ? (
                                     <IconStarHalfFilled />
                                 ) : (
                                     <IconStarFilled />

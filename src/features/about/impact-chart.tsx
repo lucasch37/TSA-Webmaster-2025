@@ -97,7 +97,7 @@ const ImpactChart = (): React.ReactNode => {
     const chartConfig = {
         co2: {
             label: "CO2 Savings (kg)",
-            color: "hsl(143, 85%, 40%)",
+            color: "#15803d",
         },
         water: {
             label: "Water Savings (gallons)",

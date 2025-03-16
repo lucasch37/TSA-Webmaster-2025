@@ -37,7 +37,7 @@ const NavLinks = ({
         <div className="flex items-center justify-between h-full gap-2 container">
             {/* Logo */}
             <Link href={"/"} className="flex items-center gap-2 w-32">
-                <div className="font-bold text-2xl text-center text-primary font-homemade-apple">
+                <div className="font-bold text-xl md:text-2xl text-center text-primary font-homemade-apple">
                     Sprout &<br />
                     About
                 </div>
@@ -210,7 +210,7 @@ const NavLinks = ({
                 <div className="md:hidden">
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild>
-                            <motion.button className="text-primary border border-primary rounded-full p-3 hover:bg-primary hover:text-white transition ease-in-out duration-150">
+                            <motion.button className="text-primary border border-primary rounded-full p-3 hover:bg-primary hover:text-white transition ease-in-out duration-150 bg-background/40 shadow-md">
                                 <Menu size={24} />
                             </motion.button>
                         </SheetTrigger>
