@@ -433,7 +433,7 @@ export function AboutTimeline({
                         transition={{type: "spring", stiffness: 70, delay: 0.2}}
                         className="mt-4 font-medium italic text-lg mb-12"
                     >
-                        Souces for main ingredients for each dish can be viewed on our
+                        Sources for main ingredients for each dish can be viewed on our
                         website!
                     </motion.div>
 
@@ -447,7 +447,7 @@ export function AboutTimeline({
                         <span className="rounded-xl px-4 py-1 bg-primary text-white">
                             Part 2:
                         </span>
-                        Transporation
+                        Transportation
                     </motion.h3>
 
                     <motion.p
@@ -480,7 +480,7 @@ export function AboutTimeline({
                             <p className="text-sm">
                                 Our delivery fleet is 100% electric, reducing our carbon
                                 emissions by over 50% compared to conventional vehicles,
-                                according to the IEA,. We're proud to be part of the
+                                according to the IEA. We're proud to be part of the
                                 movement toward sustainable transportation.
                             </p>
                         </motion.div>
@@ -573,7 +573,7 @@ export function AboutTimeline({
                                 Efficient Cooking
                             </h3>
                             <p className="text-center text-sm">
-                                We use several methods to be more efficient with out
+                                We use several methods to be more efficient with our
                                 cooking, such as using induction cooktops, always cooking
                                 with lids on, and cooking meals in batches.
                             </p>
