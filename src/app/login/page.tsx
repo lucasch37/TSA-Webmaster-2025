@@ -29,7 +29,7 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
                         width={1000}
                         height={1000}
                         alt="Restaurant Image"
-                        className="object-cover"
+                        className="object-cover w-full"
                         priority
                     />
                 </div>

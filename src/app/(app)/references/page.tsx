@@ -223,14 +223,14 @@ export default function ReferencesPage(): React.JSX.Element {
                         <a href="https://stockcake.com/i/golden-pasta-perfection_1546435_1180626">
                             https://stockcake.com/i/golden-pasta-perfection_1546435_1180626
                         </a>
-                        . License varies.
+                        .
                     </p>
                     <p>
                         “Healthy Salad Plate.” Stockcake,{" "}
                         <a href="https://stockcake.com/i/healthy-salad-plate_609558_950481">
                             https://stockcake.com/i/healthy-salad-plate_609558_950481
                         </a>
-                        . License varies.
+                        .
                     </p>
                     <p>
                         makafood. “Spinach Appetizer in Asian Style.” Pexels,{" "}
@@ -303,7 +303,7 @@ export default function ReferencesPage(): React.JSX.Element {
                         <a href="https://www.freepik.com/free-photo/flat-lay-delicious-jewish-food-arrangement_12060497.htm">
                             https://www.freepik.com/free-photo/flat-lay-delicious-jewish-food-arrangement_12060497.htm
                         </a>
-                        . License varies.
+                        .
                     </p>
                     <p>
                         "File:NewYorkTimes.Svg - Wikipedia."{" "}
@@ -401,7 +401,11 @@ export default function ReferencesPage(): React.JSX.Element {
                         <a href="https://www.freepik.com/free-photo/summer-dessert-ice-cream-ice-cream-with-coconut_41131096.htm">
                             https://www.freepik.com/free-photo/summer-dessert-ice-cream-ice-cream-with-coconut_41131096.htm
                         </a>
-                        . License varies.
+                        .
+                    </p>
+                    <p>
+                        “PNG Vegan Food Salad Lunch Plate” Rawpixel,
+                        https://www.rawpixel.com/image/12871300/png-vegan-food-salad-lunch-plate-generated-image-rawpixel.
                     </p>
                 </div>
             </section>
