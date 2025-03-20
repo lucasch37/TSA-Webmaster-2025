@@ -1,4 +1,5 @@
 import {Toaster} from "@/components/ui/sonner";
+import {Analytics} from "@vercel/analytics/next";
 import type {Metadata} from "next";
 import {Ubuntu} from "next/font/google";
 import localFont from "next/font/local";
@@ -16,7 +17,7 @@ const homemadeApple = localFont({
 });
 
 const ubuntu = Ubuntu({
-    weight: ["400", "700"],
+    weight: ["300", "400", "500", "700"],
     subsets: ["latin"],
     variable: "--font-ubuntu",
 });
@@ -44,6 +45,7 @@ export default function RootLayout({
                 <Toaster richColors />
                 {/* <CursorEffects /> */}
                 <main className="flex-grow">{children}</main>
+                <Analytics />
             </body>
         </html>
     );
