@@ -93,13 +93,24 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         {/* Nutrition facts grid */}
                         <div
                             className={`w-full grid ${
-                                Object.keys(menuItem.health_stats).length === 4
+                                Object.keys(menuItem.health_stats).filter(
+                                    (key) =>
+                                        key.toLowerCase() !== "saturated fat" &&
+                                        key.toLowerCase() !== "serving size" &&
+                                        key.toLowerCase() !== "fiber",
+                                ).length === 4
                                     ? "md:grid-cols-4 grid-cols-2"
                                     : "md:grid-cols-5 grid-cols-2"
                             } border-t-2 border-primary items-center`}
                         >
-                            {Object.entries(menuItem.health_stats).map(
-                                ([key, value], index, array) => {
+                            {Object.entries(menuItem.health_stats)
+                                .filter(
+                                    ([key]) =>
+                                        key.toLowerCase() !== "saturated fat" &&
+                                        key.toLowerCase() !== "serving size" &&
+                                        key.toLowerCase() !== "fiber",
+                                )
+                                .map(([key, value], index, array) => {
                                     const isLastColumn = index === array.length - 1;
                                     const isLastInRow = index % 2 === 1 || isLastColumn;
                                     const isLastRowMobile = index >= array.length - 2;
@@ -128,8 +139,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                             </div>
                                         </div>
                                     );
-                                },
-                            )}
+                                })}
                         </div>
                     </div>
                 </motion.div>

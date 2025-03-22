@@ -5,7 +5,7 @@ import {Metadata} from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Menu Editor| Admin Dashboard",
+    title: "Menu Editor | Admin Dashboard",
     description: "Edit the menu items",
 };
 
