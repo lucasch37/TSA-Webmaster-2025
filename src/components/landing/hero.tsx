@@ -14,9 +14,9 @@ const Hero = (): React.JSX.Element => {
         <div>
             <div className="container grid grid-cols-1 md:grid-cols-5 mt-2 md:centered md:absolute">
                 {/* Left side content */}
-                <div className="flex flex-col justify-center md:col-span-3">
+                <div className="flex flex-col justify-center md:col-span-3 md:items-start items-center">
                     {/* Animated title */}
-                    <motion.div
+                    {/* <motion.div
                         initial={{opacity: 0, scale: 0.9}}
                         animate={{opacity: 1, scale: 1}}
                         transition={{type: "spring", stiffness: 80}}
@@ -39,6 +39,27 @@ const Hero = (): React.JSX.Element => {
                                 <br className="flex md:hidden" /> FLAVORS
                             </div>
                         ))}
+                    </motion.div> */}
+                    <motion.div
+                        initial={{opacity: 0, scale: 0.9}}
+                        animate={{opacity: 1, scale: 1}}
+                        transition={{type: "spring", stiffness: 80}}
+                        className={`title font-bold leading-tight text-green-700 tracking-tighter
+                                    text-8xl 2xl:text-[5.5rem] xl:text-[4.5rem] text-[4rem]`}
+                    >
+                        {/* TODO: Add title-content animation here */}
+                        <div key={0}>
+                            <div className="flex gap-4 md:gap-8 items-center items-center text-center">
+                                NATURE'S{" "}
+                                <img
+                                    src="/small-dot.svg"
+                                    alt=""
+                                    className="rotate-45 rounded-full overflow-hidden w-[3rem] lg:w-[5rem] lg:h-[5rem] pointer-events-none hidden md:block"
+                                />
+                            </div>{" "}
+                            <p>FINEST</p>
+                            <p>FLAVORS</p>
+                        </div>
                     </motion.div>
 
                     {/* Description text */}
@@ -46,7 +67,7 @@ const Hero = (): React.JSX.Element => {
                         initial={{opacity: 0, scale: 0.9}}
                         animate={{opacity: 1, scale: 1}}
                         transition={{type: "spring", stiffness: 80, delay: 0.15}}
-                        className="text-primary lg:text-base xl:text-lg md:text-sm text-sm font-medium lg:max-w-lg max-w-xs mt-6"
+                        className="text-primary lg:text-base xl:text-lg md:text-sm text-sm max-md:text-center font-medium lg:max-w-lg max-w-xs mt-6"
                     >
                         Indulge in a culinary journey that celebrates sustainability and
                         health, without compromising on taste. Join us for a dining
