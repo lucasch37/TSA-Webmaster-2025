@@ -311,7 +311,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                     </div>
 
                     {/* Customization options */}
-                    <div className="border-2 mt-12 bg-background/40 rounded-xl shadow-md">
+                    <div className="border-2 mt-12 bg-background/40 rounded-xl shadow-md overflow-hidden">
                         {/* Tab switcher */}
                         <div className="grid grid-cols-2 border-b-2 border-primary relative overflow-hidden">
                             {/* Animated background element */}

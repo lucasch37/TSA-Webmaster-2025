@@ -49,7 +49,7 @@ const Hero = (): React.JSX.Element => {
                     >
                         {/* TODO: Add title-content animation here */}
                         <div key={0}>
-                            <div className="flex gap-4 md:gap-8 items-center items-center text-center">
+                            <div className="flex gap-4 md:gap-8 items-center text-center">
                                 NATURE'S{" "}
                                 <img
                                     src="/small-dot.svg"
@@ -57,8 +57,7 @@ const Hero = (): React.JSX.Element => {
                                     className="rotate-45 rounded-full overflow-hidden w-[3rem] lg:w-[5rem] lg:h-[5rem] pointer-events-none hidden md:block"
                                 />
                             </div>{" "}
-                            <p>FINEST</p>
-                            <p>FLAVORS</p>
+                            <span>FINEST</span> <span>FLAVORS</span>
                         </div>
                     </motion.div>
 

@@ -10,7 +10,9 @@ export interface MenuItem {
     items_to_add: string[];
     image_url: string;
     sale_percentage: number;
-    health_stats: object;
+    health_stats: {
+        Calories: string;
+    };
     hidden: boolean;
     recipe?: string;
     sources: {farmName: string; href: string; ingredient: string}[];

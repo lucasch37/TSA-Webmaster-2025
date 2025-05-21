@@ -1,8 +1,7 @@
-import * as React from "react";
+import {cn} from "@/lib/utils";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import {cva} from "class-variance-authority";
-import {cn} from "@/lib/utils";
-import {ChevronDownIcon} from "@radix-ui/react-icons";
+import * as React from "react";
 
 const NavigationMenu = React.forwardRef<
     React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -87,7 +86,7 @@ const NavigationMenuViewport = React.forwardRef<
     >
         <NavigationMenuPrimitive.Viewport
             className={cn(
-                "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-background/40 backdrop-blur-2xl text-primary shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
+                "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-background/40 backdrop-blur-md text-primary shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
                 className,
             )}
             ref={ref}
@@ -115,13 +114,13 @@ const NavigationMenuIndicator = React.forwardRef<
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
 export {
-    navigationMenuTriggerStyle,
     NavigationMenu,
-    NavigationMenuList,
-    NavigationMenuItem,
     NavigationMenuContent,
-    NavigationMenuTrigger,
-    NavigationMenuLink,
     NavigationMenuIndicator,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    navigationMenuTriggerStyle,
     NavigationMenuViewport,
 };

@@ -122,7 +122,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
         };
         window.addEventListener("scroll", handleScroll, {passive: true});
         handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
+        return (): void => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     useEffect(() => {
@@ -206,7 +206,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
         );
     };
 
-    const resetFilters = () => {
+    const resetFilters = (): void => {
         setFilters({vegan: false, glutenFree: false});
         setSortOption("none");
         if (minPrice < maxPrice) {
@@ -254,9 +254,9 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                                 transition={{duration: 0.3}}
                             >
                                 {isFilterOpen ? (
-                                    <X size={20} />
+                                    <X size={28} />
                                 ) : (
-                                    <SlidersHorizontal size={20} />
+                                    <SlidersHorizontal size={28} />
                                 )}
                             </motion.div>
                         </button>
