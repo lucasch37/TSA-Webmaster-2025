@@ -8,7 +8,7 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
         <div className="min-h-screen grid lg:grid-cols-2">
             <div className="h-full flex flex-col items-center justify-center p-6 space-y-6 lg:space-y-0 lg:relative">
                 <div className="lg:absolute lg:top-10 lg:left-12">
-                    <Link href={"/"} className="flex items-center gap-2">
+                    <Link href={"/public"} className="flex items-center gap-2">
                         <div className="font-bold text-2xl text-center text-primary font-homemade-apple">
                             Sprout &<br />
                             About

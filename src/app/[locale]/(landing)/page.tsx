@@ -6,12 +6,15 @@ import Navbar from "@/components/navbar/navbar";
 import {Button} from "@/components/ui/button";
 import {getMenu} from "@/features/menu/actions/getMenu";
 import {ArrowBigDown, Calendar} from "lucide-react";
-import Link from "next/link";
+import {Link} from "@/il8n/navigation";
 import React from "react";
 import Marquee from "react-fast-marquee";
+import {getTranslations} from "next-intl/server";
 
 // Landing page component
 export default async function Home(): Promise<React.JSX.Element> {
+    const t = await getTranslations("landingPage");
+
     const menuRes = await getMenu();
     const menu = menuRes.data || [];
 
@@ -46,7 +49,7 @@ export default async function Home(): Promise<React.JSX.Element> {
                     <div className="border-y hidden md:flex items-center justify-center py-2 text-primary bg-background/40 shadow-md">
                         <Marquee autoFill>
                             <div className="text-lg font-medium px-4">
-                                PREVIEW OUR POPULAR DISHES
+                                <p>{t("menuPreviewMarquee")}</p>
                             </div>
                             <ArrowBigDown />
                         </Marquee>
@@ -69,12 +72,12 @@ export default async function Home(): Promise<React.JSX.Element> {
                     <div className="rounded-3xl border-2 flex items-center justify-center h-[400px] bg-background/40 shadow-md bg-center p-0 overflow-hidden">
                         <div className="flex flex-col items-center justify-center w-full h-full">
                             <div className="text-4xl md:text-6xl font-bold text-primary text-center">
-                                Reserve a<br className="md:hidden flex" /> Spot
+                                {t("reserve")}
                             </div>
                             <div className="mt-12">
                                 <Link href={"/reserve"}>
                                     <Button size={"lg"}>
-                                        Reserve Now
+                                        {t("reserveCTA")}
                                         <Calendar />
                                     </Button>
                                 </Link>

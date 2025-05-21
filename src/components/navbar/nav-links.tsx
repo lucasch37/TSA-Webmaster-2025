@@ -5,7 +5,7 @@ import {cn} from "@/lib/utils";
 import {Cart, MenuItem} from "@/types";
 import {Calendar, Home, InfoIcon, SquareMenu} from "lucide-react"; // Menu and X removed, Sheet related imports also removed
 import {motion} from "motion/react";
-import Link from "next/link";
+import {Link} from "@/il8n/navigation";
 import React from "react";
 import {
     NavigationMenu,
@@ -16,6 +16,7 @@ import {
     NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import {UserIcon} from "../ui/user";
+import {useTranslations} from "next-intl";
 
 const NavLinks = ({
     cart,
@@ -24,6 +25,8 @@ const NavLinks = ({
     cart: Cart;
     menuData: MenuItem[];
 }): React.JSX.Element => {
+    const t = useTranslations("navbar");
+
     return (
         <>
             <div className="flex items-center justify-between h-full gap-2 container">
@@ -38,7 +41,7 @@ const NavLinks = ({
                 {/* Navigation links */}
                 <motion.div className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary bg-background/40 shadow-md">
                     <Link href={"/"} className="flex gap-2 items-center nav-link">
-                        <Home size={20} /> HOME
+                        <Home size={20} /> {t("home.header")}
                     </Link>
                     <NavigationMenu delayDuration={0}>
                         <NavigationMenuList className="flex gap-6">
@@ -48,7 +51,7 @@ const NavLinks = ({
                                         href={"/menu"}
                                         className="flex gap-2 items-center nav-link"
                                     >
-                                        <SquareMenu size={20} /> MENU
+                                        <SquareMenu size={20} /> {t("menu.header")}
                                     </Link>
                                 </NavigationMenuTrigger>
                                 <NavigationMenuContent>
@@ -60,41 +63,34 @@ const NavLinks = ({
                                                     href="/menu"
                                                 >
                                                     <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
-                                                        Menu
+                                                        {t("menu.popupHeader")}
                                                     </div>
                                                     <p className="text-sm leading-tight text-white">
-                                                        Explore our selection of
-                                                        vegetarian dishes.
+                                                        {t("menu.popupSubheader")}
                                                     </p>
                                                 </a>
                                             </NavigationMenuLink>
                                         </li>
                                         <ListItem
                                             href="/menu?section=appetizer"
-                                            title="Appetizers"
+                                            title={t("menu.appetizers.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Light, flavorful, and perfect for sharing,
-                                            these plant-based starters set the stage for a
-                                            delicious meal.
+                                            {t("menu.appetizers.subtitle")}
                                         </ListItem>
                                         <ListItem
                                             href="/menu?section=entree"
-                                            title="Entrees"
+                                            title={t("menu.entrees.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Wholesome, satisfying, and packed with bold
-                                            flavors, these vegan mains make every bite
-                                            memorable.
+                                            {t("menu.entrees.subtitle")}
                                         </ListItem>
                                         <ListItem
                                             href="/menu?section=dessert"
-                                            title="Desserts"
+                                            title={t("menu.desserts.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Sweet, indulgent, and completely dairy-free,
-                                            these treats prove that plant-based can be
-                                            just as decadent.
+                                            {t("menu.desserts.subtitle")}
                                         </ListItem>
                                     </ul>
                                 </NavigationMenuContent>
@@ -105,7 +101,7 @@ const NavLinks = ({
                                         href={"/about"}
                                         className="flex gap-2 items-center nav-link"
                                     >
-                                        <InfoIcon size={20} /> ABOUT
+                                        <InfoIcon size={20} /> {t("about.header")}
                                     </Link>
                                 </NavigationMenuTrigger>
                                 <NavigationMenuContent className="z-[200]">
@@ -117,37 +113,34 @@ const NavLinks = ({
                                                     href="/about"
                                                 >
                                                     <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
-                                                        About
+                                                        {t("about.popupHeader")}
                                                     </div>
                                                     <p className="text-sm leading-tight text-white">
-                                                        About our restaurant.
+                                                        {t("about.popupSubheader")}
                                                     </p>
                                                 </a>
                                             </NavigationMenuLink>
                                         </li>
                                         <ListItem
                                             href="/about"
-                                            title="Our Story"
+                                            title={t("about.ourStory.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Learn about our history, mission, and values.
+                                            {t("about.ourStory.subtitle")}
                                         </ListItem>
                                         <ListItem
                                             href="/about?section=farm-table"
-                                            title="Farm to Table"
+                                            title={t("about.farmToTable.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Discover how we source our ingredients,
-                                            support local farmers, and transport our
-                                            ingredients.
+                                            {t("about.farmToTable.subtitle")}
                                         </ListItem>
                                         <ListItem
                                             href="/about?section=preparation"
-                                            title="Preparation"
+                                            title={t("about.preparation.title")}
                                             className="hover:bg-primary/10 transition-all"
                                         >
-                                            Our process for preparing and cooking our
-                                            dishes.
+                                            {t("about.preparation.subtitle")}
                                         </ListItem>
                                     </ul>
                                 </NavigationMenuContent>
@@ -158,7 +151,7 @@ const NavLinks = ({
                                         href={"/reserve"}
                                         className="flex gap-2 items-center nav-link"
                                     >
-                                        <Calendar size={20} /> RESERVE
+                                        <Calendar size={20} /> {t("reserve.header")}
                                     </Link>
                                 </NavigationMenuTrigger>
                                 <NavigationMenuContent className="z-[200]">
@@ -170,17 +163,16 @@ const NavLinks = ({
                                                     href="/reserve"
                                                 >
                                                     <div className="mb-2 mt-4 text-3xl font-medium text-white font-homemade-apple">
-                                                        Reserve
+                                                        {t("reserve.popupHeader")}
                                                     </div>
                                                     <p className="text-sm leading-tight text-white">
-                                                        Reserve a spot.
+                                                        {t("reserve.popupSubheader")}
                                                     </p>
                                                 </a>
                                             </NavigationMenuLink>
                                         </li>
                                         <div className="row-span-3 h-[250px] text-sm p-2">
-                                            Reserve a table at our restaurant to enjoy a
-                                            delicious meal with friends and family.
+                                            {t("reserve.popupContent")}
                                         </div>
                                     </ul>
                                 </NavigationMenuContent>
