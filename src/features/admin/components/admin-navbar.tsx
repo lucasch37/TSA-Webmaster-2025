@@ -19,7 +19,7 @@ export function AdminNavbar(): React.JSX.Element {
                         </div>
                     </Link>
 
-                    <div className="border border-primary rounded-full py-2 px-6 hidden md:flex gap-8 text-primary justify-center w-fit">
+                    <div className="border border-primary rounded-full py-2 px-6 hidden lg:flex gap-8 text-primary justify-center w-fit">
                         <Link
                             href={"/admin"}
                             className="flex gap-2 items-center nav-link"
@@ -46,24 +46,30 @@ export function AdminNavbar(): React.JSX.Element {
                         </Button>
                     </Link>
                 </div>
-                <div className="mt-6 mx-auto border border-primary rounded-full py-1 px-4 flex md:hidden gap-3 text-primary justify-center w-fit">
+            </div>
+            {/* Bottom navbar for mobile */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-primary shadow-lg p-2 z-50">
+                <div className="flex justify-around items-center text-primary">
                     <Link
-                        href={"/admin"}
-                        className="flex gap-1 items-center nav-link text-xs"
+                        href="/admin"
+                        className="flex flex-col items-center nav-link text-xs p-1 hover:bg-primary/10 rounded-md"
                     >
-                        <CircleGauge size={15} /> DASHBOARD
+                        <CircleGauge size={20} />
+                        <span className="mt-1">DASHBOARD</span>
                     </Link>
                     <Link
-                        href={"/admin/menu"}
-                        className="flex gap-1 items-center nav-link text-xs"
+                        href="/admin/menu"
+                        className="flex flex-col items-center nav-link text-xs p-1 hover:bg-primary/10 rounded-md"
                     >
-                        <Edit size={15} /> MENU EDITOR
+                        <Edit size={20} />
+                        <span className="mt-1">MENU EDITOR</span>
                     </Link>
                     <Link
-                        href={"/admin/orders"}
-                        className="flex gap-1 items-center nav-link text-xs"
+                        href="/admin/orders"
+                        className="flex flex-col items-center nav-link text-xs p-1 hover:bg-primary/10 rounded-md"
                     >
-                        <ListCheck size={15} /> ORDERS
+                        <ListCheck size={20} />
+                        <span className="mt-1">ORDERS</span>
                     </Link>
                 </div>
             </div>
