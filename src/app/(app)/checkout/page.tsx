@@ -8,7 +8,7 @@ import {ShoppingBasket} from "lucide-react";
 import {Metadata} from "next";
 import Link from "next/link";
 import React from "react";
-import CheckoutForm from "../../../../features/checkout/components/checkout-form";
+import CheckoutForm from "../../../features/checkout/components/checkout-form";
 
 export const metadata: Metadata = {
     title: "Checkout | Sprout & About",

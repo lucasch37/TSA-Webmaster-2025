@@ -5,9 +5,6 @@ import {Ubuntu} from "next/font/google";
 import localFont from "next/font/local";
 import React from "react";
 import "./globals.css";
-import {hasLocale, NextIntlClientProvider} from "next-intl";
-import {notFound} from "next/navigation";
-import {routing} from "@/il8n/routing";
 
 export const metadata: Metadata = {
     title: "Sprout & About",
@@ -25,21 +22,13 @@ const ubuntu = Ubuntu({
     variable: "--font-ubuntu",
 });
 
-export default async function RootLayout({
+export default function RootLayout({
     children,
-    params,
 }: Readonly<{
     children: React.ReactNode;
-    params: Promise<{locale: string}>;
-}>): Promise<React.JSX.Element> {
-    // Ensure that the incoming `locale` is valid
-    const {locale} = await params;
-    if (!hasLocale(routing.locales, locale)) {
-        notFound();
-    }
-
+}>): React.JSX.Element {
     return (
-        <html lang={locale}>
+        <html lang="en">
             <body
                 className={`${ubuntu.className} ${homemadeApple.variable} antialiased min-h-screen flex flex-col`}
                 suppressHydrationWarning
@@ -55,9 +44,7 @@ export default async function RootLayout({
                 </div>
                 <Toaster richColors />
                 {/* <CursorEffects /> */}
-                <main className="flex-grow">
-                    <NextIntlClientProvider>{children}</NextIntlClientProvider>
-                </main>
+                <main className="flex-grow">{children}</main>
                 <Analytics />
             </body>
         </html>

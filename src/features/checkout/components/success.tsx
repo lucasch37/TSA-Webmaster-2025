@@ -1,6 +1,6 @@
 "use client";
 
-import {OrderDetails} from "@/app/[locale]/(app)/checkout/success/page";
+import {OrderDetails} from "@/app/(app)/checkout/success/page";
 import {Button} from "@/components/ui/button";
 import {MenuItem, Order} from "@/types";
 import {ArrowLeft, CheckCircle, Leaf} from "lucide-react";
