@@ -1,11 +1,11 @@
-import {Calendar, SquareMenu, Link as Lucide_Link} from "lucide-react";
+import {Calendar, SquareMenu, Link as LucideLink, MapPin} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 export function Footer(): React.JSX.Element {
     return (
         <footer className="mt-24 border-t border-primary bg-background/40">
-            <div className="hidden sm:block container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div className="hidden sm:block container mx-auto px-4 py-8 max-lg:pb-24 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 px-4 md:px-0 md:grid-cols-4">
                     <div className="flex justify-center md:justify-start">
                         <div className="font-bold text-xl text-center text-primary font-homemade-apple">
@@ -18,27 +18,8 @@ export function Footer(): React.JSX.Element {
                         <h3 className="text-sm font-bold text-primary tracking-wider uppercase">
                             Visit Us
                         </h3>
-                        <div className="text-primary flex flex-col items-center md:items-start gap-2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4 mt-1 flex-shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                />
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                            </svg>
+                        <div className="text-primary flex md:flex-row flex-col items-center md:items-start gap-2">
+                            <MapPin size={18} className="md:mt-0.5 flex-shrink-0" />
                             <span className="text-center md:text-left">
                                 334 W Spokane Falls Blvd
                                 <br />
@@ -97,7 +78,7 @@ export function Footer(): React.JSX.Element {
                                     href="/references"
                                     className="text-primary hover:text-primary transition-colors duration-200 flex justify-center md:justify-start items-center gap-2"
                                 >
-                                    <Lucide_Link className="w-4 h-4" />
+                                    <LucideLink className="w-4 h-4" />
                                     References
                                 </Link>
                             </li>
