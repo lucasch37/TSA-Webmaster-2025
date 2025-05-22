@@ -9,6 +9,7 @@ import {ArrowBigDown, Calendar} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
+import LandingPageClientFeatures from "@/components/landing/LandingPageClientFeatures";
 
 // Landing page component
 export default async function Home(): Promise<React.JSX.Element> {
@@ -29,6 +30,7 @@ export default async function Home(): Promise<React.JSX.Element> {
 
     return (
         <div>
+            <LandingPageClientFeatures />
             <div className="flex flex-col min-h-screen">
                 {/* Hero section with navigation */}
                 <div className="md:h-screen relative">

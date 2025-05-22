@@ -103,7 +103,7 @@ const CartDialog = ({cart, menu}: {cart: Cart; menu: MenuItem[]}): React.JSX.Ele
                     )}
                 </div>
             </DialogContent>
-            <DialogTrigger>
+            <DialogTrigger id="cart-navbar">
                 <div className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary p-3 relative bg-background/40 shadow-md">
                     <ShoppingBasket />
                     {cartCount > 0 && (

@@ -5,6 +5,7 @@ import {Ubuntu} from "next/font/google";
 import localFont from "next/font/local";
 import React from "react";
 import "./globals.css";
+import "shepherd.js/dist/css/shepherd.css";
 
 export const metadata: Metadata = {
     title: "Sprout & About",

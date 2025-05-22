@@ -26,7 +26,10 @@ const NavLinks = ({
 }): React.JSX.Element => {
     return (
         <>
-            <div className="flex items-center justify-between h-full gap-2 container">
+            <div
+                id="main-navbar"
+                className="flex items-center justify-between h-full gap-2 container"
+            >
                 {/* Logo */}
                 <Link href={"/"} className="flex items-center gap-2 w-32">
                     <div className="font-bold text-xl md:text-2xl text-center text-primary font-homemade-apple">
@@ -191,7 +194,7 @@ const NavLinks = ({
 
                 {/* User menu and cart */}
                 <div className="flex items-center gap-4">
-                    <Link href="/account">
+                    <Link id="account-navbar" href="/account">
                         <button className="rounded-full border border-primary hover:bg-primary hover:text-white transition ease-in-out duration-150 text-primary bg-background/40 shadow-md">
                             <UserIcon />
                         </button>
