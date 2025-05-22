@@ -396,6 +396,26 @@ export default function ReferencesPage(): React.JSX.Element {
                         https://unsplash.com/photos/landscape-photography-of-field-Zm2n2O7Fph4.
                     </p>
                     <p>
+                        ---. Photo by Brooke Lark on Unsplash,
+                        https://unsplash.com/photos/a-bowl-of-hummus-with-carrots-and-crackers-bwx0vZdnw7U.
+                    </p>
+                    <p>
+                        ---. Photo by Brooke Lark on Unsplash,
+                        https://unsplash.com/photos/a-white-plate-topped-with-onion-rings-next-to-a-bowl-of-ketchup-uu3yWi0XVcQ.
+                    </p>
+                    <p>
+                        ---. Photo by Brooke Lark on Unsplash,
+                        https://unsplash.com/photos/sliced-bread-on-plate-YrEylIW5PDc.
+                    </p>
+                    <p>
+                        ---. Photo by Brooke Lark on Pexels,
+                        https://www.pexels.com/photo/ice-cream-on-a-wooden-bowl-8451297/.
+                    </p>
+                    <p>
+                        ---. Photo by Brooke Lark on Unsplash,
+                        https://unsplash.com/photos/a-plate-with-a-slice-of-lemon-cake-on-it-pFb4BxlY3eY.
+                    </p>
+                    <p>
                         Coconut Ice Cream (Freepik): Citation: Freepik. "Coconut Ice Cream
                         Foo" Freepik,{" "}
                         <a href="https://www.freepik.com/free-photo/summer-dessert-ice-cream-ice-cream-with-coconut_41131096.htm">
