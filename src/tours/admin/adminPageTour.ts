@@ -60,7 +60,7 @@ tour.addStep({
             action(): void {
                 return tour.next();
             },
-            text: "Next",
+            text: "Finish",
         },
     ],
 });
