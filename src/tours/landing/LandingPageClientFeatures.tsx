@@ -31,7 +31,7 @@ export default function LandingPageClientFeatures(): React.JSX.Element | null {
     }
 
     return (
-        <div className="fixed bottom-5 right-5 bg-background border border-border shadow-lg rounded-lg p-6 z-[100] max-w-sm">
+        <div className="fixed bottom-20 md:bottom-5 md:right-5 bg-background border border-border shadow-lg rounded-lg p-6 z-[100] max-w-xs md:max-w-sm">
             <h3 className="text-lg font-semibold mb-2 text-primary">
                 First time visiting?
             </h3>

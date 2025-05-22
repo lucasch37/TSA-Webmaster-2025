@@ -98,7 +98,6 @@ tour.addStep({
             action() {
                 return tour.complete();
             },
-            classes: "shepherd-button-secondary",
             text: "Jump In!",
         },
     ],
