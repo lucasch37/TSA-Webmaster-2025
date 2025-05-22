@@ -9,7 +9,7 @@ export default function AdminPageClientFeatures(): React.JSX.Element | null {
     const [showTourPrompt, setShowTourPrompt] = useState(false);
 
     useEffect(() => {
-        const hasTakenTour = localStorage.getItem("hasTakenAccountTour");
+        const hasTakenTour = localStorage.getItem("hasTakenAdminTour");
         if (!hasTakenTour) {
             setShowTourPrompt(true);
         }
@@ -17,13 +17,13 @@ export default function AdminPageClientFeatures(): React.JSX.Element | null {
 
     const handleStartTour = (): void => {
         setShowTourPrompt(false);
-        localStorage.setItem("hasTakenAccountTour", "true"); // Mark tour as taken
+        localStorage.setItem("hasTakenAdminTour", "true"); // Mark tour as taken
         tour.start();
     };
 
     const handleDismissPrompt = (): void => {
         setShowTourPrompt(false);
-        localStorage.setItem("hasTakenAccountTour", "true"); // Also mark as taken/dismissed to not show again
+        localStorage.setItem("hasTakenAdminTour", "true"); // Also mark as taken/dismissed to not show again
     };
 
     if (!showTourPrompt) {

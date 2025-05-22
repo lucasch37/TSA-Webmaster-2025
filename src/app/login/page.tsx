@@ -16,7 +16,7 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
                     </Link>
                 </div>
 
-                <div className="w-full max-w-sm">
+                <div className="w-full">
                     <LoginForm />
                 </div>
 
