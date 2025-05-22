@@ -1,6 +1,7 @@
 import React from "react";
 import {AdminDashboard} from "@/features/admin/components/admin-dashboard";
 import {Metadata} from "next";
+import AdminPageClientFeatures from "@/tours/admin/AdminPageClientFeatures";
 
 export const metadata: Metadata = {
     title: "Admin Dashboard",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 const AdminDashboardPage = (): React.JSX.Element => {
     return (
         <div className="container py-10">
+            <AdminPageClientFeatures />
             <AdminDashboard />
         </div>
     );

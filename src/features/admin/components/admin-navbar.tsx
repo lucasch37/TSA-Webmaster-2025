@@ -19,7 +19,10 @@ export function AdminNavbar(): React.JSX.Element {
                         </div>
                     </Link>
 
-                    <div className="border border-primary rounded-full py-2 px-6 hidden lg:flex gap-8 text-primary justify-center w-fit">
+                    <div
+                        id="navbar"
+                        className="border border-primary rounded-full py-2 px-6 hidden lg:flex gap-8 text-primary justify-center w-fit"
+                    >
                         <Link
                             href={"/admin"}
                             className="flex gap-2 items-center nav-link"
@@ -40,7 +43,7 @@ export function AdminNavbar(): React.JSX.Element {
                         </Link>
                     </div>
 
-                    <Link href={"/account"} className="w-32">
+                    <Link href={"/account"} className="w-32" id="return">
                         <Button>
                             <ArrowLeft size={20} className="" /> RETURN
                         </Button>

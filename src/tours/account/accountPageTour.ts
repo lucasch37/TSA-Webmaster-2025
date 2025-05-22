@@ -10,28 +10,29 @@ const tour = new Shepherd.Tour({
         modalOverlayOpeningRadius: 20,
         modalOverlayOpeningPadding: 10,
         highlightClass: "shepherd-highlight",
+        canClickTarget: false,
     },
     useModalOverlay: true,
 });
 
 tour.addStep({
-    id: "navbar-step",
-    title: "Navigation Bar",
-    text: "This is our main navigation bar. You can find links to other pages here.",
+    id: "rewards_step",
+    title: "Rewards",
+    text: "This is where you can see the rewards points you've collected. Hover over the i to see more details.",
     attachTo: {
-        element: "#main-navbar",
+        element: "#rewards",
         on: "bottom",
     },
     buttons: [
         {
-            action() {
+            action(): void {
                 return tour.back();
             },
             classes: "shepherd-button-secondary",
             text: "Back",
         },
         {
-            action() {
+            action(): void {
                 return tour.next();
             },
             text: "Next",
@@ -40,23 +41,23 @@ tour.addStep({
 });
 
 tour.addStep({
-    id: "account-navbar",
-    title: "Account Access",
-    text: "This icon leads to the account page. You can find details or login here.",
+    id: "sustainability",
+    title: "Sustainability",
+    text: "Here, you can see sustainability info, specifically the impact you've made with your orders.",
     attachTo: {
-        element: "#account-navbar",
+        element: "#sustainability",
         on: "bottom",
     },
     buttons: [
         {
-            action() {
+            action(): void {
                 return tour.back();
             },
             classes: "shepherd-button-secondary",
             text: "Back",
         },
         {
-            action() {
+            action(): void {
                 return tour.next();
             },
             text: "Next",
@@ -65,44 +66,28 @@ tour.addStep({
 });
 
 tour.addStep({
-    id: "cart-navbar",
-    title: "Shopping Cart",
-    text: "This icon opens your cart. You can place an order or go to the menu from here.",
+    id: "Admin",
+    title: "Admin Portal",
+    text: "When clicked, this button allows you to enter the admin portal. We encourage you to check it out",
     attachTo: {
-        element: "#cart-navbar",
+        element: "#admin",
         on: "bottom",
     },
     buttons: [
         {
-            action() {
+            action(): void {
                 return tour.back();
             },
             classes: "shepherd-button-secondary",
             text: "Back",
         },
         {
-            action() {
-                return tour.next();
-            },
-            text: "Next",
-        },
-    ],
-});
-
-tour.addStep({
-    title: "Welcome to Sprout & About!",
-    text: "Begin your journey by scrolling down and viewing our home page!",
-    buttons: [
-        {
-            action() {
+            action(): void {
                 return tour.complete();
             },
-            classes: "shepherd-button-secondary",
-            text: "Jump In!",
+            text: "Finish",
         },
     ],
 });
-
-// Add more steps here
 
 export default tour;
