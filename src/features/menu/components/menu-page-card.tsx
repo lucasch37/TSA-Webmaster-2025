@@ -102,6 +102,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                     ? "md:grid-cols-4 grid-cols-2"
                                     : "md:grid-cols-5 grid-cols-2"
                             } border-t-2 border-primary items-center`}
+                            id="health-stats"
                         >
                             {Object.entries(menuItem.health_stats)
                                 .filter(
@@ -262,7 +263,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                     ).toFixed(2)}
                                 </div>
                             )}
-                            <div className="ml-2">
+                            <div id="sustainability" className="ml-2 ">
                                 <SustainabilityDialog menuItem={menuItem} />
                             </div>
                         </div>
@@ -271,7 +272,10 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                         </div>
 
                         {/* Quantity selector and add to cart */}
-                        <div className="mt-8 flex flex-col md:flex-row gap-6 md:items-center">
+                        <div
+                            className="mt-8 flex flex-col md:flex-row gap-6 md:items-center"
+                            id="add-cart"
+                        >
                             <div className="flex flex-col md:flex-row md:items-center gap-6">
                                 <Button
                                     onClick={handleAddToCart}
@@ -295,7 +299,7 @@ const MenuPageCard = ({menuItem, addToCart}: Props): React.JSX.Element => {
                                 >
                                     <Minus size={14} />
                                 </Button>
-                                <span className="text-primary font-medium shadow-md">
+                                <span className="text-primary font-medium">
                                     {quantity}
                                 </span>
                                 <Button

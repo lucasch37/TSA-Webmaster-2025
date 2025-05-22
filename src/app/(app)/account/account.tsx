@@ -5,15 +5,16 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import cancelReservation from "@/features/reservations/actions/cancelReservation";
 import CancelReservation from "@/features/reservations/reserve/cancel-reservation";
 import {UserCard} from "@/features/user/components/user-card";
-import {MenuItem, Order, Reservation} from "@/types";
+import {MenuItem, Order, Reservation, User as UserData} from "@/types";
 import {User} from "@supabase/supabase-js";
-import {User as UserData} from "@/types";
 import {IconInfoCircleFilled} from "@tabler/icons-react";
 import {format} from "date-fns";
 import {Leaf, ListCheck, LogOut, UserCog} from "lucide-react";
 import Link from "next/link";
 import {motion} from "motion/react";
 import {AccountChart} from "./account-chart";
+import AccountPageClientFeatures from "@/tours/account/AccountPageClientFeatures";
+import React from "react";
 
 type Props = {
     logout: () => void;
@@ -52,10 +53,12 @@ const Account = ({
 
     return (
         <div className="container mx-auto mt-12">
+            <AccountPageClientFeatures />
+
             <div className="flex gap-4 md:flex-row flex-col justify-center md:justify-between items-center border-b-2 pb-4">
                 <div className="font-bold text-primary text-6xl">ACCOUNT</div>
                 <div className="flex gap-4">
-                    <Link href={"/admin"}>
+                    <Link href={"/admin"} id="admin">
                         <Button>
                             <UserCog size={20} />
                             Admin Portal
@@ -82,7 +85,10 @@ const Account = ({
                         isAdmin={userData?.is_admin || false}
                         createdAt={new Date(user?.created_at)}
                     />
-                    <div className="rounded-lg border p-4 w-[300px] mt-8 text-primary shadow-md bg-background/40">
+                    <div
+                        id="rewards"
+                        className="rounded-lg border p-4 w-[300px] mt-8 text-primary shadow-md bg-background/40"
+                    >
                         <div>
                             <div className="font-semibold text-xl">Your Rewards</div>
                         </div>
@@ -106,7 +112,10 @@ const Account = ({
                             Sustainability points earned from your orders.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 w-[300px] mt-8 text-primary shadow-md bg-background/40">
+                    <div
+                        className="rounded-lg border p-4 w-[300px] mt-8 text-primary shadow-md bg-background/40"
+                        id="sustainability"
+                    >
                         <div className="flex gap-2 items-center">
                             <div className="font-semibold text-lg">
                                 Sustainability Impact
@@ -149,8 +158,10 @@ const Account = ({
                     <div className="text-primary rounded-lg flex flex-col">
                         <Tabs defaultValue="orders">
                             <TabsList className="w-full grid grid-cols-2">
-                                <TabsTrigger value="orders">Past Orders</TabsTrigger>
-                                <TabsTrigger value="reservations">
+                                <TabsTrigger id="past-orders" value="orders">
+                                    Past Orders
+                                </TabsTrigger>
+                                <TabsTrigger id="reservations" value="reservations">
                                     Reservations
                                 </TabsTrigger>
                             </TabsList>

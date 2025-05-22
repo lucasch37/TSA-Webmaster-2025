@@ -4,6 +4,7 @@ import {addToCart} from "@/features/cart/actions/cart";
 import {MenuItem} from "@/types";
 import {Metadata} from "next";
 import React from "react";
+import MenuItemPageClientFeatures from "@/tours/menuItem/MenuItemPageClientFeatures";
 
 // Props type for menu item page
 type Props = {
@@ -40,6 +41,7 @@ const MenuItemPage = async (props: Props): Promise<React.JSX.Element> => {
 
     return (
         <>
+            <MenuItemPageClientFeatures />
             <MenuPageCard menuItem={menuItem} addToCart={addToCart} />
         </>
     );

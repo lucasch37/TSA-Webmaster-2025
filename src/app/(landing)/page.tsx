@@ -9,7 +9,7 @@ import {ArrowBigDown, Calendar} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
-import LandingPageClientFeatures from "@/components/landing/LandingPageClientFeatures";
+import LandingPageClientFeatures from "@/tours/landing/LandingPageClientFeatures";
 
 // Landing page component
 export default async function Home(): Promise<React.JSX.Element> {

@@ -94,7 +94,7 @@ const ReserveForm = (): React.ReactNode => {
 
     async function onSubmit(data: ReserveFormValues): Promise<void> {
         if (tables.length === 0) {
-            toast.error("Please select a table");
+            toast.error("Please select a table by clicking on it");
             return;
         }
         if (tables.reduce((acc, table) => acc + table.seats, 0) < data.numberOfGuests) {
