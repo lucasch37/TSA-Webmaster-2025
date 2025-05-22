@@ -1,7 +1,13 @@
 import React from "react";
 import {AdminDashboard} from "@/features/admin/components/admin-dashboard";
 import {Metadata} from "next";
-import AdminPageClientFeatures from "@/tours/admin/AdminPageClientFeatures";
+import dynamic from "next/dynamic";
+const AdminPageClientFeatures = dynamic(
+    () => import("@/tours/admin/AdminPageClientFeatures"),
+    {
+        ssr: false,
+    },
+);
 
 export const metadata: Metadata = {
     title: "Admin Dashboard",

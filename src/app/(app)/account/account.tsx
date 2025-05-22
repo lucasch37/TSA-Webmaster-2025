@@ -13,7 +13,13 @@ import {Leaf, ListCheck, LogOut, UserCog} from "lucide-react";
 import Link from "next/link";
 import {motion} from "motion/react";
 import {AccountChart} from "./account-chart";
-import AccountPageClientFeatures from "@/tours/account/AccountPageClientFeatures";
+import dynamic from "next/dynamic";
+
+const AccountPageClientFeatures = dynamic(
+    () => import("@/tours/account/AccountPageClientFeatures"),
+    {ssr: false},
+);
+
 import React from "react";
 
 type Props = {

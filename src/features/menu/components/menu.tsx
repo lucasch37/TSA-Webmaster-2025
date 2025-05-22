@@ -250,6 +250,7 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                             className="flex gap-2 items-center nav-link font-semibold"
                         >
                             <motion.div
+                                className="hidden md:flex"
                                 animate={{rotate: isFilterOpen ? 90 : 0}}
                                 transition={{duration: 0.3}}
                             >
@@ -257,6 +258,17 @@ export default function Menu({menu}: {menu: MenuItem[]}): React.JSX.Element {
                                     <X size={28} />
                                 ) : (
                                     <SlidersHorizontal size={28} />
+                                )}
+                            </motion.div>
+                            <motion.div
+                                className="md:hidden"
+                                animate={{rotate: isFilterOpen ? 90 : 0}}
+                                transition={{duration: 0.3}}
+                            >
+                                {isFilterOpen ? (
+                                    <X size={18} />
+                                ) : (
+                                    <SlidersHorizontal size={18} />
                                 )}
                             </motion.div>
                         </button>

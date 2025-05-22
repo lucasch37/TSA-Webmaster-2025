@@ -358,7 +358,7 @@ body {
 
 /* Shepherd.js Tour Custom Styles */
 .shepherd-element {
-    @apply bg-background border border-border shadow-lg rounded-lg !important;
+    @apply bg-background max-w-[350px] md:max-w-lg border border-border shadow-lg rounded-lg !important;
     margin-top: 15px !important;
 }
 

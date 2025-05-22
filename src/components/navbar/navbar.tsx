@@ -1,7 +1,9 @@
 import {getCart} from "@/features/cart/actions/cart";
 import React from "react";
-import NavLinks from "./nav-links";
+import dynamic from "next/dynamic";
 import {getMenu} from "@/features/menu/actions/getMenu";
+
+const NavLinks = dynamic(() => import("./nav-links"), {ssr: false});
 
 // Main navigation bar component
 const Navbar = async (): Promise<React.JSX.Element> => {
