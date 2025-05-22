@@ -3,6 +3,8 @@ import {getAdminOrders} from "@/features/admin/actions/getAdminOrders";
 import {Metadata} from "next";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "Order Tickets | Admin Dashboard",
     description: "Restaurant-style order tickets ready to be fulfilled",

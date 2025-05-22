@@ -4,6 +4,8 @@ import {getMenu} from "@/features/menu/actions/getMenu";
 import {Metadata} from "next";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "Menu Editor | Admin Dashboard",
     description: "Edit the menu items",
