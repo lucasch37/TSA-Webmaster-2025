@@ -16,9 +16,7 @@ const LoginPage = async (): Promise<React.JSX.Element> => {
                     </Link>
                 </div>
 
-                <div className="w-full">
-                    <LoginForm />
-                </div>
+                <LoginForm />
 
                 <div className="border-2 rounded-xl p-4 flex flex-col w-full max-w-xs sm:max-w-sm lg:w-[20rem] text-primary bg-background/40 shadow-md lg:absolute lg:bottom-8 lg:left-8">
                     <div className="font-semibold text-base underline">TSA Judges:</div>
